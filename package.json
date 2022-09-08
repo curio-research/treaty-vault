@@ -1,12 +1,18 @@
 {
   "name": "curio-vault",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublishOnly": "yarn build",
+    "build": "tsc",
     "setup": "yarn unlink && yarn link"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "tsc": "^2.0.4",
+    "typescript": "^4.8.2"
+  }
 }
