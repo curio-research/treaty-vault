@@ -1,25 +1,18 @@
 {
+  "include": ["src/**/*.ts"],
   "compilerOptions": {
-    "target": "ESNext",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "types": ["vite/client", "vite-plugin-svgr/client"],
-    "module": "esnext",
-    "moduleResolution": "node",
-    "allowJs": true,
-    "noEmit": true,
-    "skipLibCheck": true,
+    "target": "ES2020",
+    "module": "CommonJS",
     "strict": true,
-    "isolatedModules": true,
     "esModuleInterop": true,
-    "jsx": "react-jsx",
-    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "resolveJsonModule": true,
-    "experimentalDecorators": true,
-    "useDefineForClassFields": true,
-    "baseUrl": "src"
-  },
-  "include": ["src"],
-  "exclude": ["node_modules"]
+    "declaration": true,
+    "rootDir": "src",
+    "outDir": "dist",
+    // Create .js.map files for each generated JS file
+    "sourceMap": true,
+    // Embed the original source into the sourceMap instead of pointing to source files
+    "inlineSources": true
+  }
 }

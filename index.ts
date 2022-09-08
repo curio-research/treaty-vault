@@ -1,2 +1,1 @@
-export * from "./src/types";
-export * from "./src/game";
+export * from "./src/index";
