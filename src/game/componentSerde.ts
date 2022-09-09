@@ -32,8 +32,18 @@ export const encodePositionComp = (position: position): string => {
 };
 
 export const decodePositionComp = (bytes: string): position => {
-  const decoded = abi.decode(["uint256", "uint256"], bytes);
-  return { x: decoded[0].toNumber(), y: decoded[1].toNumber() };
+  const decoded = abi.decode(["tuple(uint256,uint256)"], bytes);
+  return { x: decoded[0][0].toNumber(), y: decoded[0][1].toNumber() };
+};
+
+export const encodePositionArryComp = (positions: position[]): string => {
+  return "TODO: array of position";
+};
+
+// TODO: not verified
+export const decodePositionArrComp = (bytes: string): position => {
+  const decoded = abi.decode(["tuple(uint256,uint256)[]"], bytes);
+  return decoded[0].map((pos: any) => ({ x: pos[0].toNumber(), y: pos[1].toNumber() }));
 };
 
 export const encodeStringComp = (string: string): string => {
@@ -61,6 +71,15 @@ export const encodeUint256Comp = (number: number): string => {
 export const decodeUint256Comp = (bytes: string): number => {
   const decoded = abi.decode(["uint256"], bytes);
   return decoded[0].toNumber();
+};
+
+export const encodeUint256ArryComp = (numbers: number[]): string => {
+  return `TODO: uint256 array`;
+};
+
+export const decodeUint256ArrComp = (bytes: string): number[] => {
+  const decoded = abi.decode(["uint256[]"], bytes);
+  return decoded[0].map((val: any) => val.toNumber());
 };
 
 export const encodeInt256Comp = (number: number): string => {

@@ -12,4 +12,6 @@ export enum ComponentDataTypes {
   INT,
   ADDRESS,
   POSITION,
+  POSITION_ARRAY,
+  UINT256_ARRAY,
 }

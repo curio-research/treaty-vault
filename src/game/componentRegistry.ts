@@ -1,6 +1,7 @@
+import { encodePositionArryComp, encodeUint256ArryComp } from ".";
 import { componentRegistryType, ComponentDataTypes, compType } from "../types";
 import { position } from "../types";
-import { decodeBoolComp, decodeAddressComp, decodeUint256Comp, decodePositionComp, decodeStringComp, decodeInt256Comp, encodePositionComp, encodeBoolComp, encodeStringComp, encodeUint256Comp, encodeAddressComp, encodeInt256Comp } from "./componentSerde";
+import { decodeBoolComp, decodeAddressComp, decodeUint256Comp, decodePositionComp, decodeStringComp, decodeInt256Comp, encodePositionComp, encodeBoolComp, encodeStringComp, encodeUint256Comp, decodePositionArrComp, encodeAddressComp, encodeInt256Comp } from "./componentSerde";
 
 // ------------------------------------
 // * Main Component Registry *
@@ -169,6 +170,8 @@ export const componentTypeToDecoder: Record<ComponentDataTypes, any> = {
   [ComponentDataTypes.ADDRESS]: decodeAddressComp,
   [ComponentDataTypes.UINT]: decodeUint256Comp,
   [ComponentDataTypes.INT]: decodeInt256Comp,
+  [ComponentDataTypes.POSITION_ARRAY]: decodePositionArrComp,
+  [ComponentDataTypes.UINT256_ARRAY]: decodeUint256Comp,
 };
 
 export const componentTypeToEncoder: Record<ComponentDataTypes, any> = {
@@ -178,6 +181,8 @@ export const componentTypeToEncoder: Record<ComponentDataTypes, any> = {
   [ComponentDataTypes.ADDRESS]: encodeAddressComp,
   [ComponentDataTypes.UINT]: encodeUint256Comp,
   [ComponentDataTypes.INT]: encodeInt256Comp,
+  [ComponentDataTypes.POSITION_ARRAY]: encodePositionArryComp,
+  [ComponentDataTypes.UINT256_ARRAY]: encodeUint256ArryComp,
 };
 
 // auto generated. component index starts at 1
