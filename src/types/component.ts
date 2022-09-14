@@ -1,6 +1,6 @@
-export type componentRegistryType = Record<number, compType>;
+export type componentRegistryType = Record<number, CompType>;
 
-export interface compType {
+export interface CompType {
   name: string;
   valueType: ComponentDataTypes;
 }
@@ -12,6 +12,6 @@ export enum ComponentDataTypes {
   INT,
   ADDRESS,
   POSITION,
-  POSITION_ARRAY,
-  UINT256_ARRAY,
+  UINT_ARRAY,
+  STRING_ARRAY,
 }

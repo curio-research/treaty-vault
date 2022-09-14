@@ -55,6 +55,15 @@ export const decodeStringComp = (bytes: string): string => {
   return decoded[0];
 };
 
+export const encodeStringArrComp = (srings: string[]): string => {
+  return "TODO: string array";
+};
+
+export const decodeStringArrComp = (bytes: string): string[] => {
+  const decoded: Result = abi.decode(["string[]"], bytes);
+  return decoded[0];
+};
+
 export const encodeAddressComp = (address: string) => {
   return address;
 };
