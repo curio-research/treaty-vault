@@ -1,5 +1,5 @@
-import { position } from "../../types";
-import { EventEmitter } from "events";
+import { position } from '../../types';
+import { EventEmitter } from 'events';
 
 // -----------------------------------------------------------------
 // event emitter singleton
@@ -10,26 +10,26 @@ export const emitter = new EventEmitter();
 
 // ui related events
 export enum Events {
-  ChangeUISelection = "ChangeUISelection",
-  ZoomPosition = "ZoomPosition",
-  TroopSelected = "TroopSelected",
-  HoverEnterExitTroop = "HoverEnterExitTroop",
-  NextAutomove = "NextAutomove",
-  ClickedPosition = "ClickedPosition",
-  TxMoveStarted = "TxMoveStarted",
-  TxMoveEnded = "TxMoveEnded",
-  TxMoveFailed = "TxMoveFailed",
-  AutomovePathPlanned = "AutomovePathPlanned",
-  AutomovePathCancelled = "AutomovePathCancelled",
+  ChangeUISelection = 'ChangeUISelection',
+  ZoomPosition = 'ZoomPosition',
+  TroopSelected = 'TroopSelected',
+  HoverEnterExitTroop = 'HoverEnterExitTroop',
+  NextAutomove = 'NextAutomove',
+  ClickedPosition = 'ClickedPosition',
+  TxMoveStarted = 'TxMoveStarted',
+  TxMoveEnded = 'TxMoveEnded',
+  TxMoveFailed = 'TxMoveFailed',
+  AutomovePathPlanned = 'AutomovePathPlanned',
+  AutomovePathCancelled = 'AutomovePathCancelled',
 
   // animations
-  addAnimationHighlightTileFlash = "addAnimationHighlightTileFlash",
-  addAnimationExplosion = "addAnimationExplosion",
+  addAnimationHighlightTileFlash = 'addAnimationHighlightTileFlash',
+  addAnimationExplosion = 'addAnimationExplosion',
 
   // on chain events
-  ComponentValueSet = "ComponentValueSet",
-  ComponentValueRemoved = "ComponentValueRemoved",
-  NewPlayer = "NewPlayer",
+  ComponentValueSet = 'ComponentValueSet',
+  ComponentValueRemoved = 'ComponentValueRemoved',
+  NewPlayer = 'NewPlayer',
 }
 
 export type EventHandlers = Record<string, any>;

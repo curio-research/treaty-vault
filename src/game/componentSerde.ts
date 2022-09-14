@@ -1,11 +1,8 @@
-import { BigNumber as BN } from "ethers";
-import { Result } from "@ethersproject/abi";
-import { position } from "../types";
-import {
-  handleComponentValueSet,
-  handleComponentValueRemoved,
-} from "./types/component";
-import { defaultAbiCoder as abi } from "ethers/lib/utils";
+import { BigNumber as BN } from 'ethers';
+import { Result } from '@ethersproject/abi';
+import { position } from '../types';
+import { handleComponentValueSet, handleComponentValueRemoved } from './types/component';
+import { defaultAbiCoder as abi } from 'ethers/lib/utils';
 
 export const decodeEntitiesAndRawValues = (val: [BN[], string[]]): any => {
   return {
@@ -16,11 +13,7 @@ export const decodeEntitiesAndRawValues = (val: [BN[], string[]]): any => {
 
 // ECS base level decoders
 
-export const decodeComponentValueSet = (
-  componentName: string,
-  entity: BN,
-  value: string
-): handleComponentValueSet => {
+export const decodeComponentValueSet = (componentName: string, entity: BN, value: string): handleComponentValueSet => {
   return {
     componentName: componentName.toString(),
     entity: entity.toNumber(),
@@ -28,10 +21,7 @@ export const decodeComponentValueSet = (
   };
 };
 
-export const decodeComponentValueRemoved = (
-  componentName: string,
-  entity: BN
-): handleComponentValueRemoved => {
+export const decodeComponentValueRemoved = (componentName: string, entity: BN): handleComponentValueRemoved => {
   return {
     componentName: componentName.toString(),
     entity: entity.toNumber(),
@@ -45,21 +35,18 @@ export const encodePositionComp = (position: position): string => {
 };
 
 export const decodePositionComp = (bytes: string): position => {
-  const decoded = abi.decode(["tuple(uint256,uint256)"], bytes);
+  const decoded = abi.decode(['tuple(uint256,uint256)'], bytes);
   return { x: decoded[0][0].toNumber(), y: decoded[0][1].toNumber() };
 };
 
 export const encodePositionArrComp = (positions: position[]): string => {
-  return "TODO: array of position";
+  return 'TODO: array of position';
 };
 
 // TODO: not verified
 export const decodePositionArrComp = (bytes: string): position => {
-  const decoded = abi.decode(["tuple(uint256,uint256)[]"], bytes);
-  return decoded[0].map((pos: any) => ({
-    x: pos[0].toNumber(),
-    y: pos[1].toNumber(),
-  }));
+  const decoded = abi.decode(['tuple(uint256,uint256)[]'], bytes);
+  return decoded[0].map((pos: any) => ({ x: pos[0].toNumber(), y: pos[1].toNumber() }));
 };
 
 export const encodeStringComp = (string: string): string => {
@@ -67,16 +54,16 @@ export const encodeStringComp = (string: string): string => {
 };
 
 export const decodeStringComp = (bytes: string): string => {
-  const decoded: Result = abi.decode(["string"], bytes);
+  const decoded: Result = abi.decode(['string'], bytes);
   return decoded[0];
 };
 
 export const encodeStringArrComp = (srings: string[]): string => {
-  return "TODO: string array";
+  return 'TODO: string array';
 };
 
 export const decodeStringArrComp = (bytes: string): string[] => {
-  const decoded: Result = abi.decode(["string[]"], bytes);
+  const decoded: Result = abi.decode(['string[]'], bytes);
   return decoded[0];
 };
 
@@ -85,7 +72,7 @@ export const encodeAddressComp = (address: string) => {
 };
 
 export const decodeAddressComp = (bytes: string): string => {
-  const decoded = abi.decode(["address"], bytes);
+  const decoded = abi.decode(['address'], bytes);
   return decoded[0];
 };
 
@@ -94,7 +81,7 @@ export const encodeUint256Comp = (number: number): string => {
 };
 
 export const decodeUint256Comp = (bytes: string): number => {
-  const decoded = abi.decode(["uint256"], bytes);
+  const decoded = abi.decode(['uint256'], bytes);
   return decoded[0].toNumber();
 };
 
@@ -103,7 +90,7 @@ export const encodeUint256ArrComp = (numbers: number[]): string => {
 };
 
 export const decodeUint256ArrComp = (bytes: string): number[] => {
-  const decoded = abi.decode(["uint256[]"], bytes);
+  const decoded = abi.decode(['uint256[]'], bytes);
   return decoded[0].map((val: any) => val.toNumber());
 };
 
@@ -112,16 +99,16 @@ export const encodeInt256Comp = (number: number): string => {
 };
 
 export const decodeInt256Comp = (bytes: string): number => {
-  const decoded = abi.decode(["int256"], bytes);
+  const decoded = abi.decode(['int256'], bytes);
   return decoded[0].toNumber();
 };
 
 export const encodeBoolComp = (boolean: boolean): string => {
-  return boolean ? "true" : "false";
+  return boolean ? 'true' : 'false';
 };
 
 export const decodeBoolComp = (bytes: string): number => {
-  const decoded = abi.decode(["bool"], bytes);
+  const decoded = abi.decode(['bool'], bytes);
   return decoded[0];
 };
 
