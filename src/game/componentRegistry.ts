@@ -2,7 +2,7 @@ import {
   decodeStringArrComp,
   decodeUint256ArrComp,
   encodeStringArrComp,
-  encodeUint256ArryComp,
+  encodeUint256ArrComp,
 } from ".";
 import { componentRegistryType, ComponentDataTypes, CompType } from "../types";
 import { position } from "../types";
@@ -17,7 +17,6 @@ import {
   encodeBoolComp,
   encodeStringComp,
   encodeUint256Comp,
-  decodePositionArrComp,
   encodeAddressComp,
   encodeInt256Comp,
 } from "./componentSerde";
@@ -195,9 +194,8 @@ export const componentTypeToEncoder: Record<ComponentDataTypes, any> = {
   [ComponentDataTypes.INT]: encodeInt256Comp,
   [ComponentDataTypes.ADDRESS]: encodeAddressComp,
   [ComponentDataTypes.POSITION]: encodePositionComp,
-  [ComponentDataTypes.UINT_ARRAY]: encodeUint256ArryComp,
+  [ComponentDataTypes.UINT_ARRAY]: encodeUint256ArrComp,
   [ComponentDataTypes.STRING_ARRAY]: encodeStringArrComp,
-  // [ComponentDataTypes.POSITION_ARRAY]: encodePositionArryComp,
 };
 
 // auto generated. component index starts at 1
