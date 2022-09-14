@@ -1,7 +1,26 @@
-import { decodeStringArrComp, decodeUint256ArrComp, encodePositionArryComp, encodeStringArrComp, encodeUint256ArryComp } from ".";
+import {
+  decodeStringArrComp,
+  decodeUint256ArrComp,
+  encodeStringArrComp,
+  encodeUint256ArryComp,
+} from ".";
 import { componentRegistryType, ComponentDataTypes, CompType } from "../types";
 import { position } from "../types";
-import { decodeBoolComp, decodeAddressComp, decodeUint256Comp, decodePositionComp, decodeStringComp, decodeInt256Comp, encodePositionComp, encodeBoolComp, encodeStringComp, encodeUint256Comp, decodePositionArrComp, encodeAddressComp, encodeInt256Comp } from "./componentSerde";
+import {
+  decodeBoolComp,
+  decodeAddressComp,
+  decodeUint256Comp,
+  decodePositionComp,
+  decodeStringComp,
+  decodeInt256Comp,
+  encodePositionComp,
+  encodeBoolComp,
+  encodeStringComp,
+  encodeUint256Comp,
+  decodePositionArrComp,
+  encodeAddressComp,
+  encodeInt256Comp,
+} from "./componentSerde";
 
 // ------------------------------------
 // * Main Component Registry *
@@ -12,7 +31,7 @@ export const IsActive = "IsActive";
 export const InitTimestamp = "InitTimestamp";
 export const Position = "Position";
 export const Owner = "Owner";
-export const Level = "Leve";
+export const Level = "Level";
 export const Name = "Name";
 export const CanSettle = "CanSettle";
 export const ResourceType = "ResourceType";
