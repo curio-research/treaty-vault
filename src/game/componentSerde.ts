@@ -1,16 +1,26 @@
 import { BigNumber as BN } from "ethers";
 import { Result } from "@ethersproject/abi";
 import { position } from "../types";
-import { handleComponentValueSet, handleComponentValueRemoved } from "./types/component";
+import {
+  handleComponentValueSet,
+  handleComponentValueRemoved,
+} from "./types/component";
 import { defaultAbiCoder as abi } from "ethers/lib/utils";
 
 export const decodeEntitiesAndRawValues = (val: [BN[], string[]]): any => {
-  return { entityIds: val[0].map((entityId) => entityId.toNumber()), values: val[1] };
+  return {
+    entityIds: val[0].map((entityId) => entityId.toNumber()),
+    values: val[1],
+  };
 };
 
 // ECS base level decoders
 
-export const decodeComponentValueSet = (componentName: string, entity: BN, value: string): handleComponentValueSet => {
+export const decodeComponentValueSet = (
+  componentName: string,
+  entity: BN,
+  value: string
+): handleComponentValueSet => {
   return {
     componentName: componentName.toString(),
     entity: entity.toNumber(),
@@ -18,7 +28,10 @@ export const decodeComponentValueSet = (componentName: string, entity: BN, value
   };
 };
 
-export const decodeComponentValueRemoved = (componentName: string, entity: BN): handleComponentValueRemoved => {
+export const decodeComponentValueRemoved = (
+  componentName: string,
+  entity: BN
+): handleComponentValueRemoved => {
   return {
     componentName: componentName.toString(),
     entity: entity.toNumber(),
@@ -36,14 +49,17 @@ export const decodePositionComp = (bytes: string): position => {
   return { x: decoded[0][0].toNumber(), y: decoded[0][1].toNumber() };
 };
 
-export const encodePositionArryComp = (positions: position[]): string => {
+export const encodePositionArrComp = (positions: position[]): string => {
   return "TODO: array of position";
 };
 
 // TODO: not verified
 export const decodePositionArrComp = (bytes: string): position => {
   const decoded = abi.decode(["tuple(uint256,uint256)[]"], bytes);
-  return decoded[0].map((pos: any) => ({ x: pos[0].toNumber(), y: pos[1].toNumber() }));
+  return decoded[0].map((pos: any) => ({
+    x: pos[0].toNumber(),
+    y: pos[1].toNumber(),
+  }));
 };
 
 export const encodeStringComp = (string: string): string => {
@@ -82,7 +98,7 @@ export const decodeUint256Comp = (bytes: string): number => {
   return decoded[0].toNumber();
 };
 
-export const encodeUint256ArryComp = (numbers: number[]): string => {
+export const encodeUint256ArrComp = (numbers: number[]): string => {
   return `TODO: uint256 array`;
 };
 
