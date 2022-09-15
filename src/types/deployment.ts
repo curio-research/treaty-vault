@@ -7,8 +7,6 @@ export enum TILE_TYPE {
   OIL_WELL = 5,
 }
 
-export type ComponentSpecStruct = { name: string; valueType: any };
-
 export interface gameConfig {
   address: string;
   network: string;
