@@ -49,6 +49,7 @@ export const LastMoved = 'LastMoved';
 export const Source = 'Source';
 export const Target = 'Target';
 export const Building = 'Building';
+export const Address = 'Address';
 
 export const COMPONENT_SPECS: CompType[] = [
   { name: 'IsComponent', valueType: ComponentDataTypes.BOOL },
@@ -81,6 +82,7 @@ export const COMPONENT_SPECS: CompType[] = [
   { name: 'Source', valueType: ComponentDataTypes.UINT },
   { name: 'Target', valueType: ComponentDataTypes.UINT },
   { name: 'Inventory', valueType: ComponentDataTypes.UINT },
+  { name: 'Address', valueType: ComponentDataTypes.ADDRESS },
 ];
 
 export interface componentInputTypeMap {
@@ -115,6 +117,7 @@ export interface componentInputTypeMap {
   Building: number;
   Templates: number[];
   Inventory: number;
+  Address: string;
 }
 
 // ---------------------------------------------------------------------------
