@@ -81,6 +81,7 @@ export const COMPONENT_SPECS: CompType[] = [
   { name: 'Inventory', valueType: ComponentDataTypes.UINT },
   { name: 'Address', valueType: ComponentDataTypes.ADDRESS },
   { name: 'Cost', valueType: ComponentDataTypes.UINT },
+  { name: 'Treaty', valueType: ComponentDataTypes.ADDRESS },
 ];
 
 export interface componentInputTypeMap {
