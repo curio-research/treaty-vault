@@ -160,6 +160,9 @@ Object.keys(componentRegistry).forEach((key) => {
     case ComponentDataTypes.INT:
       componentNameToDecoder[componentInfo.name] = decodeInt256Comp;
       break;
+    case ComponentDataTypes.ADDRESS:
+      componentNameToDecoder[componentInfo.name] = decodeStringComp;
+      break;
   }
 });
 

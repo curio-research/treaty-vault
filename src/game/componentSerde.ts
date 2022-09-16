@@ -1,7 +1,7 @@
 import { BigNumber as BN } from 'ethers';
 import { Result } from '@ethersproject/abi';
 import { position } from '../types';
-import { handleComponentValueSet, handleComponentValueRemoved } from './types/component';
+import { handleComponentValueSet, handleComponentValueRemoved, handleEntityRemoved } from './types/component';
 import { defaultAbiCoder as abi } from 'ethers/lib/utils';
 
 export const decodeEntitiesAndRawValues = (val: [BN[], string[]]): any => {
@@ -24,6 +24,12 @@ export const decodeComponentValueSet = (componentName: string, entity: BN, value
 export const decodeComponentValueRemoved = (componentName: string, entity: BN): handleComponentValueRemoved => {
   return {
     componentName: componentName.toString(),
+    entity: entity.toNumber(),
+  };
+};
+
+export const decodeEntityRemoved = (entity: BN): handleEntityRemoved => {
+  return {
     entity: entity.toNumber(),
   };
 };
@@ -73,7 +79,7 @@ export const encodeAddressComp = (address: string) => {
 
 export const decodeAddressComp = (bytes: string): string => {
   const decoded = abi.decode(['address'], bytes);
-  return decoded[0];
+  return decoded[0].toLowerCase();
 };
 
 export const encodeUint256Comp = (number: number): string => {

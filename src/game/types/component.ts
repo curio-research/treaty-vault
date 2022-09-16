@@ -47,6 +47,10 @@ export interface handleComponentValueRemoved {
   entity: number;
 }
 
+export interface handleEntityRemoved {
+  entity: number;
+}
+
 export interface handleNewPlayerPayload {
   player: string;
   position: position;
