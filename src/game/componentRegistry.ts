@@ -50,6 +50,7 @@ export const Source = 'Source';
 export const Target = 'Target';
 export const Building = 'Building';
 export const Address = 'Address';
+export const Cost = 'Cost';
 
 export const COMPONENT_SPECS: CompType[] = [
   { name: 'IsComponent', valueType: ComponentDataTypes.BOOL },
@@ -83,6 +84,7 @@ export const COMPONENT_SPECS: CompType[] = [
   { name: 'Target', valueType: ComponentDataTypes.UINT },
   { name: 'Inventory', valueType: ComponentDataTypes.UINT },
   { name: 'Address', valueType: ComponentDataTypes.ADDRESS },
+  { name: 'Cost', valueType: ComponentDataTypes.UINT },
 ];
 
 export interface componentInputTypeMap {
