@@ -41,15 +41,14 @@ export const Defense = 'Defense';
 export const Speed = 'Speed';
 export const City = 'City';
 export const Amount = 'Amount';
-export const Amounts = 'Amounts';
 export const InventoryType = 'InventoryType';
 export const Inventory = 'Inventory';
-export const Templates = 'Templates';
 export const LastMoved = 'LastMoved';
 export const Source = 'Source';
 export const Target = 'Target';
-export const Building = 'Building';
+export const Keeper = 'Keeper';
 export const Address = 'Address';
+export const Cost = 'Cost';
 
 export const COMPONENT_SPECS: CompType[] = [
   { name: 'IsComponent', valueType: ComponentDataTypes.BOOL },
@@ -64,7 +63,6 @@ export const COMPONENT_SPECS: CompType[] = [
   { name: 'ResourceType', valueType: ComponentDataTypes.STRING },
   { name: 'BuildingType', valueType: ComponentDataTypes.STRING },
   { name: 'Template', valueType: ComponentDataTypes.UINT },
-  { name: 'Templates', valueType: ComponentDataTypes.UINT_ARRAY },
   { name: 'CanProduce', valueType: ComponentDataTypes.BOOL },
   { name: 'Duration', valueType: ComponentDataTypes.UINT },
   { name: 'BalanceLastUpdated', valueType: ComponentDataTypes.UINT },
@@ -74,15 +72,15 @@ export const COMPONENT_SPECS: CompType[] = [
   { name: 'Defense', valueType: ComponentDataTypes.UINT },
   { name: 'Speed', valueType: ComponentDataTypes.UINT },
   { name: 'City', valueType: ComponentDataTypes.UINT },
-  { name: 'Building', valueType: ComponentDataTypes.UINT },
+  { name: 'Keeper', valueType: ComponentDataTypes.UINT },
   { name: 'Amount', valueType: ComponentDataTypes.UINT },
-  { name: 'Amounts', valueType: ComponentDataTypes.UINT_ARRAY },
   { name: 'InventoryType', valueType: ComponentDataTypes.STRING },
   { name: 'LastMoved', valueType: ComponentDataTypes.UINT },
   { name: 'Source', valueType: ComponentDataTypes.UINT },
   { name: 'Target', valueType: ComponentDataTypes.UINT },
   { name: 'Inventory', valueType: ComponentDataTypes.UINT },
   { name: 'Address', valueType: ComponentDataTypes.ADDRESS },
+  { name: 'Cost', valueType: ComponentDataTypes.UINT },
 ];
 
 export interface componentInputTypeMap {
@@ -108,16 +106,15 @@ export interface componentInputTypeMap {
   Speed: number;
   City: number;
   Amount: number;
-  Amounts: number[];
   InventoryType: string;
   InventoryTypes: string[];
   LastMoved: number;
   Source: number;
   Target: number;
-  Building: number;
-  Templates: number[];
+  Keeper: number;
   Inventory: number;
   Address: string;
+  Cost: number;
 }
 
 // ---------------------------------------------------------------------------
