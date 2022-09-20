@@ -1,5 +1,8 @@
 export enum TILE_TYPE {
-  PLAIN = 0,
+  LAND = 0,
+  GOLDMINE_LV1 = 1,
+  GOLDMINE_LV2 = 2,
+  GOLDMINE_LV3 = 3,
 }
 
 export interface GameConfig {
