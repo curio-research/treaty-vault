@@ -50,6 +50,10 @@ export const Keeper = 'Keeper';
 export const Address = 'Address';
 export const Cost = 'Cost';
 
+export const GoldMineLevel = 'GoldMineLevel';
+export const LastMined = 'LastMined';
+export const GoldReserve = 'GoldReserve';
+
 export const COMPONENT_SPECS: CompType[] = [
   { name: 'IsComponent', valueType: ComponentDataTypes.BOOL },
   { name: 'Tag', valueType: ComponentDataTypes.STRING },
@@ -82,6 +86,9 @@ export const COMPONENT_SPECS: CompType[] = [
   { name: 'Address', valueType: ComponentDataTypes.ADDRESS },
   { name: 'Cost', valueType: ComponentDataTypes.UINT },
   { name: 'Treaty', valueType: ComponentDataTypes.ADDRESS },
+  { name: GoldMineLevel, valueType: ComponentDataTypes.UINT },
+  { name: LastMined, valueType: ComponentDataTypes.UINT },
+  { name: GoldReserve, valueType: ComponentDataTypes.UINT },
 ];
 
 export interface componentInputTypeMap {
@@ -116,6 +123,9 @@ export interface componentInputTypeMap {
   Inventory: number;
   Address: string;
   Cost: number;
+  [GoldMineLevel]: number;
+  [LastMined]: number;
+  [GoldReserve]: number;
 }
 
 export enum Tags {
@@ -135,6 +145,7 @@ export enum Tags {
   TroopInventory = 'TroopInventory',
   TroopProduction = 'TroopProduction',
   TroopTemplate = 'TroopTemplate',
+  GoldMine = 'GoldMine',
 }
 
 export enum BuildingTypeOptions {

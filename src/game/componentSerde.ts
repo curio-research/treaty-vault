@@ -129,3 +129,7 @@ export const encodeString = (string: string): string => {
 export const encodeUint256 = (num: number): string => {
   return abi.encode(['uint256'], [num]);
 };
+
+export const encodePosition = (pos: position): string => {
+  return abi.encode(['tuple(uint256 x,uint256 y)'], [pos]); // BUG
+};
