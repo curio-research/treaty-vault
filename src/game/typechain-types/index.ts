@@ -36,6 +36,8 @@ export type { GameLib } from "./contracts/libraries/GameLib";
 export { GameLib__factory } from "./factories/contracts/libraries/GameLib__factory";
 export type { LibDiamond } from "./contracts/libraries/LibDiamond";
 export { LibDiamond__factory } from "./factories/contracts/libraries/LibDiamond__factory";
+export type { NATO } from "./contracts/NATO";
+export { NATO__factory } from "./factories/contracts/NATO__factory";
 export type { Set } from "./contracts/Set";
 export { Set__factory } from "./factories/contracts/Set__factory";
 export type { AddressComponent } from "./contracts/TypedComponents.sol/AddressComponent";
@@ -46,8 +48,6 @@ export type { IntComponent } from "./contracts/TypedComponents.sol/IntComponent"
 export { IntComponent__factory } from "./factories/contracts/TypedComponents.sol/IntComponent__factory";
 export type { PositionComponent } from "./contracts/TypedComponents.sol/PositionComponent";
 export { PositionComponent__factory } from "./factories/contracts/TypedComponents.sol/PositionComponent__factory";
-export type { StringArrayComponent } from "./contracts/TypedComponents.sol/StringArrayComponent";
-export { StringArrayComponent__factory } from "./factories/contracts/TypedComponents.sol/StringArrayComponent__factory";
 export type { StringComponent } from "./contracts/TypedComponents.sol/StringComponent";
 export { StringComponent__factory } from "./factories/contracts/TypedComponents.sol/StringComponent__factory";
 export type { UintArrayComponent } from "./contracts/TypedComponents.sol/UintArrayComponent";

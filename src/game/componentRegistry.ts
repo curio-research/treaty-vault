@@ -118,6 +118,38 @@ export interface componentInputTypeMap {
   Cost: number;
 }
 
+export enum Tags {
+  Army = 'Army',
+  ArmyConstituent = 'ArmyConstituent',
+  Battle = 'Battle',
+  Building = 'Building',
+  City = 'City',
+  Guard = 'Guard',
+  Player = 'Player',
+  Resource = 'Resource',
+  ResourceInventory = 'ResourceInventory',
+  ResourceTemplate = 'ResourceTemplate',
+  Settler = 'Settler',
+  Signature = 'Signature',
+  Tile = 'Tile',
+  TroopInventory = 'TroopInventory',
+  TroopProduction = 'TroopProduction',
+  TroopTemplate = 'TroopTemplate',
+}
+
+export enum BuildingTypeOptions {
+  CityCenter = 'City Center',
+}
+
+export enum InventoryTypeOptions {
+  Cavalry = 'Cavalry',
+  Infantry = 'Infantry',
+  Archer = 'Archer',
+  Gold = 'Gold',
+}
+
+// export enum ResourceType {}
+
 // ---------------------------------------------------------------------------
 
 export const componentRegistry: componentRegistryType = {};
