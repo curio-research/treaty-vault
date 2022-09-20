@@ -117,6 +117,25 @@ export interface componentInputTypeMap {
   Cost: number;
 }
 
+export const TAGS = {
+  Army: 'Army',
+  ArmyConstituent: 'ArmyConstituent',
+  Battle: 'Battle',
+  Building: 'Building',
+  City: 'City',
+  Guard: 'Guard',
+  Player: 'Player',
+  Resource: 'Resource',
+  ResourceInventory: 'ResourceInventory',
+  ResourceTemplate: 'ResourceTemplate',
+  Settler: 'Settler',
+  Signature: 'Signature',
+  Tile: 'Tile',
+  TroopInventory: 'TroopInventory',
+  TroopProduction: 'TroopProduction',
+  TroopTemplate: 'TroopTemplate',
+};
+
 // ---------------------------------------------------------------------------
 
 export const componentRegistry: componentRegistryType = {};
