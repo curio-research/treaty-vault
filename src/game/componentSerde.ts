@@ -119,3 +119,13 @@ export const decodeBoolComp = (bytes: string): number => {
 };
 
 export type ComponentValueTypes = position | string | number;
+
+//
+
+export const encodeString = (string: string): string => {
+  return abi.encode(['string'], [string]);
+};
+
+export const encodeUint256 = (num: number): string => {
+  return abi.encode(['uint256'], [num]);
+};
