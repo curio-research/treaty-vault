@@ -126,6 +126,9 @@ export interface componentInputTypeMap {
   Inventory: number;
   Address: string;
   Cost: number;
+  [GoldMineLevel]: number;
+  [LastMined]: number;
+  [GoldReserve]: number;
 }
 
 export enum Tags {
@@ -146,6 +149,7 @@ export enum Tags {
   TroopProduction = 'TroopProduction',
   TroopTemplate = 'TroopTemplate',
   Gather = 'Gather',
+  GoldMine = 'GoldMine',
 }
 
 export enum BuildingTypeOptions {
