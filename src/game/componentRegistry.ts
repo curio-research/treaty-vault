@@ -39,11 +39,12 @@ export const Health = 'Health';
 export const Attack = 'Attack';
 export const Defense = 'Defense';
 export const Speed = 'Speed';
+export const Load = 'Load';
 export const City = 'City';
 export const Amount = 'Amount';
 export const InventoryType = 'InventoryType';
 export const Inventory = 'Inventory';
-export const LastMoved = 'LastMoved';
+export const LastTimestamp = 'LastTimestamp';
 export const Source = 'Source';
 export const Target = 'Target';
 export const Keeper = 'Keeper';
@@ -55,7 +56,7 @@ export const LastMined = 'LastMined';
 export const GoldReserve = 'GoldReserve';
 
 export const COMPONENT_SPECS: CompType[] = [
-  { name: 'IsComponent', valueType: ComponentDataTypes.BOOL },
+  { name: IsComponent, valueType: ComponentDataTypes.BOOL },
   { name: 'Tag', valueType: ComponentDataTypes.STRING },
   { name: 'IsActive', valueType: ComponentDataTypes.BOOL },
   { name: 'InitTimestamp', valueType: ComponentDataTypes.UINT },
@@ -75,11 +76,12 @@ export const COMPONENT_SPECS: CompType[] = [
   { name: 'Attack', valueType: ComponentDataTypes.UINT },
   { name: 'Defense', valueType: ComponentDataTypes.UINT },
   { name: 'Speed', valueType: ComponentDataTypes.UINT },
+  { name: 'Load', valueType: ComponentDataTypes.UINT },
   { name: 'City', valueType: ComponentDataTypes.UINT },
   { name: 'Keeper', valueType: ComponentDataTypes.UINT },
   { name: 'Amount', valueType: ComponentDataTypes.UINT },
   { name: 'InventoryType', valueType: ComponentDataTypes.STRING },
-  { name: 'LastMoved', valueType: ComponentDataTypes.UINT },
+  { name: 'LastTimestamp', valueType: ComponentDataTypes.UINT },
   { name: 'Source', valueType: ComponentDataTypes.UINT },
   { name: 'Target', valueType: ComponentDataTypes.UINT },
   { name: 'Inventory', valueType: ComponentDataTypes.UINT },
@@ -112,20 +114,18 @@ export interface componentInputTypeMap {
   Attack: number;
   Defense: number;
   Speed: number;
+  Load: number;
   City: number;
   Amount: number;
   InventoryType: string;
   InventoryTypes: string[];
-  LastMoved: number;
+  LastTimestamp: number;
   Source: number;
   Target: number;
   Keeper: number;
   Inventory: number;
   Address: string;
   Cost: number;
-  [GoldMineLevel]: number;
-  [LastMined]: number;
-  [GoldReserve]: number;
 }
 
 export enum Tags {
@@ -145,7 +145,7 @@ export enum Tags {
   TroopInventory = 'TroopInventory',
   TroopProduction = 'TroopProduction',
   TroopTemplate = 'TroopTemplate',
-  GoldMine = 'GoldMine',
+  Gather = 'Gather',
 }
 
 export enum BuildingTypeOptions {
@@ -153,9 +153,10 @@ export enum BuildingTypeOptions {
 }
 
 export enum InventoryTypeOptions {
-  Cavalry = 'Cavalry',
-  Infantry = 'Infantry',
-  Archer = 'Archer',
+  Horseman = 'Horseman',
+  Warrior = 'Warrior',
+  Slinger = 'Slinger',
+  Laborer = 'Laborer',
   Gold = 'Gold',
 }
 
