@@ -25,7 +25,7 @@ export const IsActive = 'IsActive';
 export const InitTimestamp = 'InitTimestamp';
 export const Position = 'Position';
 export const Owner = 'Owner';
-export const Level = 'Leve';
+export const Level = 'Level';
 export const Name = 'Name';
 export const CanSettle = 'CanSettle';
 export const ResourceType = 'ResourceType';
@@ -39,6 +39,7 @@ export const Health = 'Health';
 export const Attack = 'Attack';
 export const Defense = 'Defense';
 export const Speed = 'Speed';
+export const Load = 'Load';
 export const City = 'City';
 export const Amount = 'Amount';
 export const InventoryType = 'InventoryType';
@@ -49,39 +50,41 @@ export const Target = 'Target';
 export const Keeper = 'Keeper';
 export const Address = 'Address';
 export const Cost = 'Cost';
+export const Treaty = 'Treaty';
 
 export const COMPONENT_SPECS: CompType[] = [
   { name: IsComponent, valueType: ComponentDataTypes.BOOL },
-  { name: 'Tag', valueType: ComponentDataTypes.STRING },
-  { name: 'IsActive', valueType: ComponentDataTypes.BOOL },
-  { name: 'InitTimestamp', valueType: ComponentDataTypes.UINT },
-  { name: 'Position', valueType: ComponentDataTypes.POSITION },
-  { name: 'Owner', valueType: ComponentDataTypes.UINT },
-  { name: 'Level', valueType: ComponentDataTypes.UINT },
-  { name: 'Name', valueType: ComponentDataTypes.STRING },
-  { name: 'CanSettle', valueType: ComponentDataTypes.BOOL },
-  { name: 'ResourceType', valueType: ComponentDataTypes.STRING },
-  { name: 'BuildingType', valueType: ComponentDataTypes.STRING },
-  { name: 'Template', valueType: ComponentDataTypes.UINT },
-  { name: 'CanProduce', valueType: ComponentDataTypes.BOOL },
-  { name: 'Duration', valueType: ComponentDataTypes.UINT },
-  { name: 'BalanceLastUpdated', valueType: ComponentDataTypes.UINT },
-  { name: 'MaxHealth', valueType: ComponentDataTypes.UINT },
-  { name: 'Health', valueType: ComponentDataTypes.UINT },
-  { name: 'Attack', valueType: ComponentDataTypes.UINT },
-  { name: 'Defense', valueType: ComponentDataTypes.UINT },
-  { name: 'Speed', valueType: ComponentDataTypes.UINT },
-  { name: 'City', valueType: ComponentDataTypes.UINT },
-  { name: 'Keeper', valueType: ComponentDataTypes.UINT },
-  { name: 'Amount', valueType: ComponentDataTypes.UINT },
-  { name: 'InventoryType', valueType: ComponentDataTypes.STRING },
-  { name: 'LastTimestamp', valueType: ComponentDataTypes.UINT },
-  { name: 'Source', valueType: ComponentDataTypes.UINT },
-  { name: 'Target', valueType: ComponentDataTypes.UINT },
-  { name: 'Inventory', valueType: ComponentDataTypes.UINT },
-  { name: 'Address', valueType: ComponentDataTypes.ADDRESS },
-  { name: 'Cost', valueType: ComponentDataTypes.UINT },
-  { name: 'Treaty', valueType: ComponentDataTypes.ADDRESS },
+  { name: Tag, valueType: ComponentDataTypes.STRING },
+  { name: IsActive, valueType: ComponentDataTypes.BOOL },
+  { name: InitTimestamp, valueType: ComponentDataTypes.UINT },
+  { name: Position, valueType: ComponentDataTypes.POSITION },
+  { name: Owner, valueType: ComponentDataTypes.UINT },
+  { name: Level, valueType: ComponentDataTypes.UINT },
+  { name: Name, valueType: ComponentDataTypes.STRING },
+  { name: CanSettle, valueType: ComponentDataTypes.BOOL },
+  { name: ResourceType, valueType: ComponentDataTypes.STRING },
+  { name: BuildingType, valueType: ComponentDataTypes.STRING },
+  { name: Template, valueType: ComponentDataTypes.UINT },
+  { name: CanProduce, valueType: ComponentDataTypes.BOOL },
+  { name: Duration, valueType: ComponentDataTypes.UINT },
+  { name: BalanceLastUpdated, valueType: ComponentDataTypes.UINT },
+  { name: MaxHealth, valueType: ComponentDataTypes.UINT },
+  { name: Health, valueType: ComponentDataTypes.UINT },
+  { name: Attack, valueType: ComponentDataTypes.UINT },
+  { name: Defense, valueType: ComponentDataTypes.UINT },
+  { name: Speed, valueType: ComponentDataTypes.UINT },
+  { name: Load, valueType: ComponentDataTypes.UINT },
+  { name: City, valueType: ComponentDataTypes.UINT },
+  { name: Keeper, valueType: ComponentDataTypes.UINT },
+  { name: Amount, valueType: ComponentDataTypes.UINT },
+  { name: InventoryType, valueType: ComponentDataTypes.STRING },
+  { name: LastTimestamp, valueType: ComponentDataTypes.UINT },
+  { name: Source, valueType: ComponentDataTypes.UINT },
+  { name: Target, valueType: ComponentDataTypes.UINT },
+  { name: Inventory, valueType: ComponentDataTypes.UINT },
+  { name: Address, valueType: ComponentDataTypes.ADDRESS },
+  { name: Cost, valueType: ComponentDataTypes.UINT },
+  { name: Treaty, valueType: ComponentDataTypes.ADDRESS },
 ];
 
 export interface componentInputTypeMap {
@@ -105,6 +108,7 @@ export interface componentInputTypeMap {
   Attack: number;
   Defense: number;
   Speed: number;
+  Load: number;
   City: number;
   Amount: number;
   InventoryType: string;
@@ -116,6 +120,7 @@ export interface componentInputTypeMap {
   Inventory: number;
   Address: string;
   Cost: number;
+  Treaty: number;
 }
 
 export enum Tags {
@@ -143,9 +148,10 @@ export enum BuildingTypeOptions {
 }
 
 export enum InventoryTypeOptions {
-  Cavalry = 'Cavalry',
-  Infantry = 'Infantry',
-  Archer = 'Archer',
+  Horseman = 'Horseman',
+  Warrior = 'Warrior',
+  Slinger = 'Slinger',
+  Laborer = 'Laborer',
   Gold = 'Gold',
 }
 
