@@ -21,7 +21,7 @@ import type {
   TypedListener,
   OnEvent,
   PromiseOrValue,
-} from "../../common";
+} from "../common";
 
 export type PositionStruct = {
   x: PromiseOrValue<BigNumberish>;
@@ -483,7 +483,9 @@ export interface GameFacet extends BaseContract {
       _position: PositionStruct,
       _name: PromiseOrValue<string>,
       overrides?: CallOverrides
-    ): Promise<void>;
+    ): Promise<
+      [BigNumber, BigNumber] & { _playerID: BigNumber; _settlerID: BigNumber }
+    >;
 
     joinTreaty(
       _treatyAddress: PromiseOrValue<string>,
