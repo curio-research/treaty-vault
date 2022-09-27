@@ -3,11 +3,8 @@
 /* eslint-disable */
 import { Signer, utils, Contract, ContractFactory, Overrides } from "ethers";
 import type { Provider, TransactionRequest } from "@ethersproject/providers";
-import type { PromiseOrValue } from "../../../common";
-import type {
-  GameLib,
-  GameLibInterface,
-} from "../../../contracts/libraries/GameLib";
+import type { PromiseOrValue } from "../../common";
+import type { GameLib, GameLibInterface } from "../../libraries/GameLib";
 
 const _abi = [
   {

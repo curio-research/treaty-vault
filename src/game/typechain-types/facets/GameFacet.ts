@@ -21,7 +21,7 @@ import type {
   TypedListener,
   OnEvent,
   PromiseOrValue,
-} from "../../common";
+} from "../common";
 
 export type PositionStruct = {
   x: PromiseOrValue<BigNumberish>;

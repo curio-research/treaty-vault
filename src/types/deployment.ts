@@ -8,10 +8,12 @@ export enum TILE_TYPE {
   BARBARIAN_LV3 = 6,
 }
 
+export type TileMap = TILE_TYPE[][];
+
 export interface GameConfig {
   address: string;
   network: string;
   deploymentId: string;
-  map: TILE_TYPE[][];
+  map: TileMap;
   time: any;
 }
