@@ -51,6 +51,8 @@ export const Keeper = 'Keeper';
 export const Address = 'Address';
 export const Cost = 'Cost';
 export const Treaty = 'Treaty';
+export const Army = 'Army';
+export const Capacity = 'Capacity';
 
 export const COMPONENT_SPECS: CompType[] = [
   { name: IsComponent, valueType: ComponentDataTypes.BOOL },
@@ -85,6 +87,8 @@ export const COMPONENT_SPECS: CompType[] = [
   { name: Address, valueType: ComponentDataTypes.ADDRESS },
   { name: Cost, valueType: ComponentDataTypes.UINT },
   { name: Treaty, valueType: ComponentDataTypes.ADDRESS },
+  { name: Army, valueType: ComponentDataTypes.UINT },
+  { name: Capacity, valueType: ComponentDataTypes.UINT },
 ];
 
 export interface componentInputTypeMap {
@@ -134,6 +138,7 @@ export enum Tags {
   Resource = 'Resource',
   ResourceInventory = 'ResourceInventory',
   ResourceTemplate = 'ResourceTemplate',
+  ResourceGather = 'ResourceGather',
   Settler = 'Settler',
   Signature = 'Signature',
   Tile = 'Tile',
@@ -199,9 +204,6 @@ Object.keys(componentRegistry).forEach((key) => {
       break;
     case ComponentDataTypes.INT:
       componentNameToDecoder[componentInfo.name] = decodeInt256Comp;
-      break;
-    case ComponentDataTypes.ADDRESS:
-      componentNameToDecoder[componentInfo.name] = decodeStringComp;
       break;
   }
 });
