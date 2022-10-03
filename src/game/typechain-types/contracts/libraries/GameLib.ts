@@ -61,15 +61,13 @@ export interface GameLibInterface extends utils.Interface {
     "_getSettlerHealthAndSpeedByLevel(uint256)": FunctionFragment;
     "_goldLevelSelector(uint256)": FunctionFragment;
     "_inBound((uint256,uint256))": FunctionFragment;
+    "_positionInboundCheck((uint256,uint256))": FunctionFragment;
     "_random(uint256,uint256)": FunctionFragment;
     "_strEq(string,string)": FunctionFragment;
     "_sum(uint256[])": FunctionFragment;
     "_withinDistance((uint256,uint256),(uint256,uint256),uint256)": FunctionFragment;
-    "activePlayerCheck(address)": FunctionFragment;
-    "entityOwnershipCheckByAddress(uint256,address)": FunctionFragment;
-    "gamePauseCheck()": FunctionFragment;
-    "positionInboundCheck((uint256,uint256))": FunctionFragment;
-    "validEntityCheck(uint256)": FunctionFragment;
+    "getHarvestCap(uint256)": FunctionFragment;
+    "getTotalGoldCap(uint256)": FunctionFragment;
   };
 
   getFunction(
@@ -88,15 +86,13 @@ export interface GameLibInterface extends utils.Interface {
       | "_getSettlerHealthAndSpeedByLevel"
       | "_goldLevelSelector"
       | "_inBound"
+      | "_positionInboundCheck"
       | "_random"
       | "_strEq"
       | "_sum"
       | "_withinDistance"
-      | "activePlayerCheck"
-      | "entityOwnershipCheckByAddress"
-      | "gamePauseCheck"
-      | "positionInboundCheck"
-      | "validEntityCheck"
+      | "getHarvestCap"
+      | "getTotalGoldCap"
   ): FunctionFragment;
 
   encodeFunctionData(
@@ -160,6 +156,10 @@ export interface GameLibInterface extends utils.Interface {
     values: [PositionStruct]
   ): string;
   encodeFunctionData(
+    functionFragment: "_positionInboundCheck",
+    values: [PositionStruct]
+  ): string;
+  encodeFunctionData(
     functionFragment: "_random",
     values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
   ): string;
@@ -176,23 +176,11 @@ export interface GameLibInterface extends utils.Interface {
     values: [PositionStruct, PositionStruct, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
-    functionFragment: "activePlayerCheck",
-    values: [PromiseOrValue<string>]
+    functionFragment: "getHarvestCap",
+    values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
-    functionFragment: "entityOwnershipCheckByAddress",
-    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "gamePauseCheck",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "positionInboundCheck",
-    values: [PositionStruct]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "validEntityCheck",
+    functionFragment: "getTotalGoldCap",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
 
@@ -237,6 +225,10 @@ export interface GameLibInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "_inBound", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "_positionInboundCheck",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "_random", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "_strEq", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "_sum", data: BytesLike): Result;
@@ -245,23 +237,11 @@ export interface GameLibInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "activePlayerCheck",
+    functionFragment: "getHarvestCap",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "entityOwnershipCheckByAddress",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "gamePauseCheck",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "positionInboundCheck",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "validEntityCheck",
+    functionFragment: "getTotalGoldCap",
     data: BytesLike
   ): Result;
 
@@ -386,6 +366,11 @@ export interface GameLib extends BaseContract {
 
     _inBound(_p: PositionStruct, overrides?: CallOverrides): Promise<[boolean]>;
 
+    _positionInboundCheck(
+      _position: PositionStruct,
+      overrides?: CallOverrides
+    ): Promise<[void]>;
+
     _random(
       _max: PromiseOrValue<BigNumberish>,
       _salt: PromiseOrValue<BigNumberish>,
@@ -410,28 +395,15 @@ export interface GameLib extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
-    activePlayerCheck(
-      _player: PromiseOrValue<string>,
+    getHarvestCap(
+      _level: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<[void]>;
+    ): Promise<[BigNumber]>;
 
-    entityOwnershipCheckByAddress(
-      _entity: PromiseOrValue<BigNumberish>,
-      _player: PromiseOrValue<string>,
+    getTotalGoldCap(
+      _level: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<[void]>;
-
-    gamePauseCheck(overrides?: CallOverrides): Promise<[void]>;
-
-    positionInboundCheck(
-      _position: PositionStruct,
-      overrides?: CallOverrides
-    ): Promise<[void]>;
-
-    validEntityCheck(
-      _entity: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<[void]>;
+    ): Promise<[BigNumber]>;
   };
 
   _adjacent(
@@ -509,6 +481,11 @@ export interface GameLib extends BaseContract {
 
   _inBound(_p: PositionStruct, overrides?: CallOverrides): Promise<boolean>;
 
+  _positionInboundCheck(
+    _position: PositionStruct,
+    overrides?: CallOverrides
+  ): Promise<void>;
+
   _random(
     _max: PromiseOrValue<BigNumberish>,
     _salt: PromiseOrValue<BigNumberish>,
@@ -533,28 +510,15 @@ export interface GameLib extends BaseContract {
     overrides?: CallOverrides
   ): Promise<boolean>;
 
-  activePlayerCheck(
-    _player: PromiseOrValue<string>,
+  getHarvestCap(
+    _level: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
-  ): Promise<void>;
+  ): Promise<BigNumber>;
 
-  entityOwnershipCheckByAddress(
-    _entity: PromiseOrValue<BigNumberish>,
-    _player: PromiseOrValue<string>,
+  getTotalGoldCap(
+    _level: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
-  ): Promise<void>;
-
-  gamePauseCheck(overrides?: CallOverrides): Promise<void>;
-
-  positionInboundCheck(
-    _position: PositionStruct,
-    overrides?: CallOverrides
-  ): Promise<void>;
-
-  validEntityCheck(
-    _entity: PromiseOrValue<BigNumberish>,
-    overrides?: CallOverrides
-  ): Promise<void>;
+  ): Promise<BigNumber>;
 
   callStatic: {
     _adjacent(
@@ -632,6 +596,11 @@ export interface GameLib extends BaseContract {
 
     _inBound(_p: PositionStruct, overrides?: CallOverrides): Promise<boolean>;
 
+    _positionInboundCheck(
+      _position: PositionStruct,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     _random(
       _max: PromiseOrValue<BigNumberish>,
       _salt: PromiseOrValue<BigNumberish>,
@@ -656,28 +625,15 @@ export interface GameLib extends BaseContract {
       overrides?: CallOverrides
     ): Promise<boolean>;
 
-    activePlayerCheck(
-      _player: PromiseOrValue<string>,
+    getHarvestCap(
+      _level: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<void>;
+    ): Promise<BigNumber>;
 
-    entityOwnershipCheckByAddress(
-      _entity: PromiseOrValue<BigNumberish>,
-      _player: PromiseOrValue<string>,
+    getTotalGoldCap(
+      _level: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<void>;
-
-    gamePauseCheck(overrides?: CallOverrides): Promise<void>;
-
-    positionInboundCheck(
-      _position: PositionStruct,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    validEntityCheck(
-      _entity: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    ): Promise<BigNumber>;
   };
 
   filters: {
@@ -762,6 +718,11 @@ export interface GameLib extends BaseContract {
 
     _inBound(_p: PositionStruct, overrides?: CallOverrides): Promise<BigNumber>;
 
+    _positionInboundCheck(
+      _position: PositionStruct,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     _random(
       _max: PromiseOrValue<BigNumberish>,
       _salt: PromiseOrValue<BigNumberish>,
@@ -786,26 +747,13 @@ export interface GameLib extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    activePlayerCheck(
-      _player: PromiseOrValue<string>,
+    getHarvestCap(
+      _level: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    entityOwnershipCheckByAddress(
-      _entity: PromiseOrValue<BigNumberish>,
-      _player: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    gamePauseCheck(overrides?: CallOverrides): Promise<BigNumber>;
-
-    positionInboundCheck(
-      _position: PositionStruct,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    validEntityCheck(
-      _entity: PromiseOrValue<BigNumberish>,
+    getTotalGoldCap(
+      _level: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
   };
@@ -887,6 +835,11 @@ export interface GameLib extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    _positionInboundCheck(
+      _position: PositionStruct,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     _random(
       _max: PromiseOrValue<BigNumberish>,
       _salt: PromiseOrValue<BigNumberish>,
@@ -911,26 +864,13 @@ export interface GameLib extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    activePlayerCheck(
-      _player: PromiseOrValue<string>,
+    getHarvestCap(
+      _level: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    entityOwnershipCheckByAddress(
-      _entity: PromiseOrValue<BigNumberish>,
-      _player: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    gamePauseCheck(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    positionInboundCheck(
-      _position: PositionStruct,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    validEntityCheck(
-      _entity: PromiseOrValue<BigNumberish>,
+    getTotalGoldCap(
+      _level: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
   };

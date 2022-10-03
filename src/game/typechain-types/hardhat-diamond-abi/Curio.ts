@@ -66,8 +66,9 @@ export type WorldConstantsStruct = {
   maxCityCountPerPlayer: PromiseOrValue<BigNumberish>;
   maxArmyCountPerPlayer: PromiseOrValue<BigNumberish>;
   maxPlayerCount: PromiseOrValue<BigNumberish>;
-  maxInventoryCapacity: PromiseOrValue<BigNumberish>;
   cityUpgradeGoldCost: PromiseOrValue<BigNumberish>;
+  maxInventoryCapacity: PromiseOrValue<BigNumberish>;
+  cityPackCost: PromiseOrValue<BigNumberish>;
   initCityGold: PromiseOrValue<BigNumberish>;
   cityHealth: PromiseOrValue<BigNumberish>;
   cityAttack: PromiseOrValue<BigNumberish>;
@@ -76,6 +77,7 @@ export type WorldConstantsStruct = {
 
 export type WorldConstantsStructOutput = [
   string,
+  BigNumber,
   BigNumber,
   BigNumber,
   BigNumber,
@@ -98,12 +100,25 @@ export type WorldConstantsStructOutput = [
   maxCityCountPerPlayer: BigNumber;
   maxArmyCountPerPlayer: BigNumber;
   maxPlayerCount: BigNumber;
-  maxInventoryCapacity: BigNumber;
   cityUpgradeGoldCost: BigNumber;
+  maxInventoryCapacity: BigNumber;
+  cityPackCost: BigNumber;
   initCityGold: BigNumber;
   cityHealth: BigNumber;
   cityAttack: BigNumber;
   cityDefense: BigNumber;
+};
+
+export type QueryConditionStruct = {
+  queryType: PromiseOrValue<BigNumberish>;
+  value: PromiseOrValue<BytesLike>;
+  componentName: PromiseOrValue<string>;
+};
+
+export type QueryConditionStructOutput = [number, string, string] & {
+  queryType: number;
+  value: string;
+  componentName: string;
 };
 
 export declare namespace IDiamondCut {
@@ -139,6 +154,7 @@ export interface CurioInterface extends utils.Interface {
     "reactivatePlayer(address)": FunctionFragment;
     "registerComponents(address,(string,uint8)[])": FunctionFragment;
     "registerDefaultComponents(address)": FunctionFragment;
+    "removeEntity(uint256)": FunctionFragment;
     "setComponentValue(string,uint256,bytes)": FunctionFragment;
     "storeEncodedColumnBatches(uint256[][])": FunctionFragment;
     "diamondCut((address,uint8,bytes4[])[],address,bytes)": FunctionFragment;
@@ -149,12 +165,12 @@ export interface CurioInterface extends utils.Interface {
     "supportsInterface(bytes4)": FunctionFragment;
     "denounceTreaty(address)": FunctionFragment;
     "disbandArmy(uint256)": FunctionFragment;
-    "endBattle(uint256,bool)": FunctionFragment;
     "endGather(uint256)": FunctionFragment;
     "endTroopProduction(uint256,uint256)": FunctionFragment;
     "foundCity(uint256,(uint256,uint256)[],string)": FunctionFragment;
     "harvestResource(uint256,uint256)": FunctionFragment;
     "initializePlayer((uint256,uint256),string)": FunctionFragment;
+    "initializeTile((uint256,uint256))": FunctionFragment;
     "joinTreaty(address)": FunctionFragment;
     "moveArmy(uint256,(uint256,uint256))": FunctionFragment;
     "moveSettler(uint256,(uint256,uint256))": FunctionFragment;
@@ -168,10 +184,14 @@ export interface CurioInterface extends utils.Interface {
     "getCityCenter(uint256)": FunctionFragment;
     "getComponent(string)": FunctionFragment;
     "getComponentById(uint256)": FunctionFragment;
+    "getEntities()": FunctionFragment;
+    "getEntitiesAddr()": FunctionFragment;
     "getEntity()": FunctionFragment;
+    "getInventoryByCityAndType(uint256,string)": FunctionFragment;
     "getPlayerCount()": FunctionFragment;
     "getPlayerId(address)": FunctionFragment;
     "getSettlerAt((uint256,uint256))": FunctionFragment;
+    "getTemplateByInventoryType(string)": FunctionFragment;
     "getTemplateId(string)": FunctionFragment;
     "getTileAt((uint256,uint256))": FunctionFragment;
     "getWorldConstants()": FunctionFragment;
@@ -197,6 +217,7 @@ export interface CurioInterface extends utils.Interface {
     "_getUintArray(string,uint256)": FunctionFragment;
     "_getUintArrayComponent(string)": FunctionFragment;
     "_getUintComponent(string)": FunctionFragment;
+    "queryChunk(uint8,string,bytes)": FunctionFragment;
   };
 
   getFunction(
@@ -206,6 +227,7 @@ export interface CurioInterface extends utils.Interface {
       | "reactivatePlayer"
       | "registerComponents"
       | "registerDefaultComponents"
+      | "removeEntity"
       | "setComponentValue"
       | "storeEncodedColumnBatches"
       | "diamondCut"
@@ -216,12 +238,12 @@ export interface CurioInterface extends utils.Interface {
       | "supportsInterface"
       | "denounceTreaty"
       | "disbandArmy"
-      | "endBattle"
       | "endGather"
       | "endTroopProduction"
       | "foundCity"
       | "harvestResource"
       | "initializePlayer"
+      | "initializeTile"
       | "joinTreaty"
       | "moveArmy"
       | "moveSettler"
@@ -235,10 +257,14 @@ export interface CurioInterface extends utils.Interface {
       | "getCityCenter"
       | "getComponent"
       | "getComponentById"
+      | "getEntities"
+      | "getEntitiesAddr"
       | "getEntity"
+      | "getInventoryByCityAndType"
       | "getPlayerCount"
       | "getPlayerId"
       | "getSettlerAt"
+      | "getTemplateByInventoryType"
       | "getTemplateId"
       | "getTileAt"
       | "getWorldConstants"
@@ -264,6 +290,7 @@ export interface CurioInterface extends utils.Interface {
       | "_getUintArray"
       | "_getUintArrayComponent"
       | "_getUintComponent"
+      | "queryChunk"
   ): FunctionFragment;
 
   encodeFunctionData(functionFragment: "addEntity", values?: undefined): string;
@@ -282,6 +309,10 @@ export interface CurioInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "registerDefaultComponents",
     values: [PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "removeEntity",
+    values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "setComponentValue",
@@ -329,10 +360,6 @@ export interface CurioInterface extends utils.Interface {
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
-    functionFragment: "endBattle",
-    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<boolean>]
-  ): string;
-  encodeFunctionData(
     functionFragment: "endGather",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
@@ -355,6 +382,10 @@ export interface CurioInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "initializePlayer",
     values: [PositionStruct, PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "initializeTile",
+    values: [PositionStruct]
   ): string;
   encodeFunctionData(
     functionFragment: "joinTreaty",
@@ -416,7 +447,19 @@ export interface CurioInterface extends utils.Interface {
     functionFragment: "getComponentById",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
+  encodeFunctionData(
+    functionFragment: "getEntities",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getEntitiesAddr",
+    values?: undefined
+  ): string;
   encodeFunctionData(functionFragment: "getEntity", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "getInventoryByCityAndType",
+    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
+  ): string;
   encodeFunctionData(
     functionFragment: "getPlayerCount",
     values?: undefined
@@ -428,6 +471,10 @@ export interface CurioInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "getSettlerAt",
     values: [PositionStruct]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getTemplateByInventoryType",
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "getTemplateId",
@@ -526,6 +573,14 @@ export interface CurioInterface extends utils.Interface {
     functionFragment: "_getUintComponent",
     values: [PromiseOrValue<string>]
   ): string;
+  encodeFunctionData(
+    functionFragment: "queryChunk",
+    values: [
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>,
+      PromiseOrValue<BytesLike>
+    ]
+  ): string;
 
   decodeFunctionResult(functionFragment: "addEntity", data: BytesLike): Result;
   decodeFunctionResult(
@@ -542,6 +597,10 @@ export interface CurioInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "registerDefaultComponents",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "removeEntity",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -578,7 +637,6 @@ export interface CurioInterface extends utils.Interface {
     functionFragment: "disbandArmy",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "endBattle", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "endGather", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "endTroopProduction",
@@ -591,6 +649,10 @@ export interface CurioInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "initializePlayer",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "initializeTile",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "joinTreaty", data: BytesLike): Result;
@@ -633,7 +695,19 @@ export interface CurioInterface extends utils.Interface {
     functionFragment: "getComponentById",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "getEntities",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getEntitiesAddr",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "getEntity", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "getInventoryByCityAndType",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "getPlayerCount",
     data: BytesLike
@@ -644,6 +718,10 @@ export interface CurioInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "getSettlerAt",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getTemplateByInventoryType",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -728,6 +806,7 @@ export interface CurioInterface extends utils.Interface {
     functionFragment: "_getUintComponent",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "queryChunk", data: BytesLike): Result;
 
   events: {
     "DiamondCut(tuple[],address,bytes)": EventFragment;
@@ -877,6 +956,11 @@ export interface Curio extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
+    removeEntity(
+      _entity: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
     setComponentValue(
       _componentName: PromiseOrValue<string>,
       _entity: PromiseOrValue<BigNumberish>,
@@ -933,12 +1017,6 @@ export interface Curio extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    endBattle(
-      _armyID: PromiseOrValue<BigNumberish>,
-      _isBattlingArmy: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
     endGather(
       _armyID: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -966,6 +1044,11 @@ export interface Curio extends BaseContract {
     initializePlayer(
       _position: PositionStruct,
       _name: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    initializeTile(
+      _position: PositionStruct,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -1043,7 +1126,17 @@ export interface Curio extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[string]>;
 
+    getEntities(overrides?: CallOverrides): Promise<[BigNumber[]]>;
+
+    getEntitiesAddr(overrides?: CallOverrides): Promise<[string]>;
+
     getEntity(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    getInventoryByCityAndType(
+      _cityID: PromiseOrValue<BigNumberish>,
+      _inventoryType: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
 
     getPlayerCount(overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -1054,6 +1147,11 @@ export interface Curio extends BaseContract {
 
     getSettlerAt(
       _position: PositionStruct,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    getTemplateByInventoryType(
+      _inventoryType: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -1187,6 +1285,13 @@ export interface Curio extends BaseContract {
       _name: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[string]>;
+
+    queryChunk(
+      _queryType: PromiseOrValue<BigNumberish>,
+      _componentName: PromiseOrValue<string>,
+      _value: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<[QueryConditionStructOutput]>;
   };
 
   addEntity(
@@ -1211,6 +1316,11 @@ export interface Curio extends BaseContract {
 
   registerDefaultComponents(
     _gameAddr: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  removeEntity(
+    _entity: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -1262,12 +1372,6 @@ export interface Curio extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  endBattle(
-    _armyID: PromiseOrValue<BigNumberish>,
-    _isBattlingArmy: PromiseOrValue<boolean>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
   endGather(
     _armyID: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -1295,6 +1399,11 @@ export interface Curio extends BaseContract {
   initializePlayer(
     _position: PositionStruct,
     _name: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  initializeTile(
+    _position: PositionStruct,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -1372,7 +1481,17 @@ export interface Curio extends BaseContract {
     overrides?: CallOverrides
   ): Promise<string>;
 
+  getEntities(overrides?: CallOverrides): Promise<BigNumber[]>;
+
+  getEntitiesAddr(overrides?: CallOverrides): Promise<string>;
+
   getEntity(overrides?: CallOverrides): Promise<BigNumber>;
+
+  getInventoryByCityAndType(
+    _cityID: PromiseOrValue<BigNumberish>,
+    _inventoryType: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
 
   getPlayerCount(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1383,6 +1502,11 @@ export interface Curio extends BaseContract {
 
   getSettlerAt(
     _position: PositionStruct,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  getTemplateByInventoryType(
+    _inventoryType: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -1517,6 +1641,13 @@ export interface Curio extends BaseContract {
     overrides?: CallOverrides
   ): Promise<string>;
 
+  queryChunk(
+    _queryType: PromiseOrValue<BigNumberish>,
+    _componentName: PromiseOrValue<string>,
+    _value: PromiseOrValue<BytesLike>,
+    overrides?: CallOverrides
+  ): Promise<QueryConditionStructOutput>;
+
   callStatic: {
     addEntity(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1538,6 +1669,11 @@ export interface Curio extends BaseContract {
 
     registerDefaultComponents(
       _gameAddr: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    removeEntity(
+      _entity: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1591,12 +1727,6 @@ export interface Curio extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    endBattle(
-      _armyID: PromiseOrValue<BigNumberish>,
-      _isBattlingArmy: PromiseOrValue<boolean>,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
     endGather(
       _armyID: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -1624,6 +1754,11 @@ export interface Curio extends BaseContract {
     initializePlayer(
       _position: PositionStruct,
       _name: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    initializeTile(
+      _position: PositionStruct,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1701,7 +1836,17 @@ export interface Curio extends BaseContract {
       overrides?: CallOverrides
     ): Promise<string>;
 
+    getEntities(overrides?: CallOverrides): Promise<BigNumber[]>;
+
+    getEntitiesAddr(overrides?: CallOverrides): Promise<string>;
+
     getEntity(overrides?: CallOverrides): Promise<BigNumber>;
+
+    getInventoryByCityAndType(
+      _cityID: PromiseOrValue<BigNumberish>,
+      _inventoryType: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     getPlayerCount(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1712,6 +1857,11 @@ export interface Curio extends BaseContract {
 
     getSettlerAt(
       _position: PositionStruct,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getTemplateByInventoryType(
+      _inventoryType: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -1845,6 +1995,13 @@ export interface Curio extends BaseContract {
       _name: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<string>;
+
+    queryChunk(
+      _queryType: PromiseOrValue<BigNumberish>,
+      _componentName: PromiseOrValue<string>,
+      _value: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<QueryConditionStructOutput>;
   };
 
   filters: {
@@ -1927,6 +2084,11 @@ export interface Curio extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
+    removeEntity(
+      _entity: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
     setComponentValue(
       _componentName: PromiseOrValue<string>,
       _entity: PromiseOrValue<BigNumberish>,
@@ -1975,12 +2137,6 @@ export interface Curio extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    endBattle(
-      _armyID: PromiseOrValue<BigNumberish>,
-      _isBattlingArmy: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
     endGather(
       _armyID: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -2008,6 +2164,11 @@ export interface Curio extends BaseContract {
     initializePlayer(
       _position: PositionStruct,
       _name: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    initializeTile(
+      _position: PositionStruct,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -2085,7 +2246,17 @@ export interface Curio extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    getEntities(overrides?: CallOverrides): Promise<BigNumber>;
+
+    getEntitiesAddr(overrides?: CallOverrides): Promise<BigNumber>;
+
     getEntity(overrides?: CallOverrides): Promise<BigNumber>;
+
+    getInventoryByCityAndType(
+      _cityID: PromiseOrValue<BigNumberish>,
+      _inventoryType: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
 
     getPlayerCount(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -2096,6 +2267,11 @@ export interface Curio extends BaseContract {
 
     getSettlerAt(
       _position: PositionStruct,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    getTemplateByInventoryType(
+      _inventoryType: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -2227,6 +2403,13 @@ export interface Curio extends BaseContract {
       _name: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
+
+    queryChunk(
+      _queryType: PromiseOrValue<BigNumberish>,
+      _componentName: PromiseOrValue<string>,
+      _value: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
@@ -2252,6 +2435,11 @@ export interface Curio extends BaseContract {
 
     registerDefaultComponents(
       _gameAddr: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    removeEntity(
+      _entity: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -2303,12 +2491,6 @@ export interface Curio extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    endBattle(
-      _armyID: PromiseOrValue<BigNumberish>,
-      _isBattlingArmy: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
     endGather(
       _armyID: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -2336,6 +2518,11 @@ export interface Curio extends BaseContract {
     initializePlayer(
       _position: PositionStruct,
       _name: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    initializeTile(
+      _position: PositionStruct,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -2413,7 +2600,17 @@ export interface Curio extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    getEntities(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    getEntitiesAddr(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     getEntity(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    getInventoryByCityAndType(
+      _cityID: PromiseOrValue<BigNumberish>,
+      _inventoryType: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
 
     getPlayerCount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -2424,6 +2621,11 @@ export interface Curio extends BaseContract {
 
     getSettlerAt(
       _position: PositionStruct,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    getTemplateByInventoryType(
+      _inventoryType: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -2553,6 +2755,13 @@ export interface Curio extends BaseContract {
 
     _getUintComponent(
       _name: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    queryChunk(
+      _queryType: PromiseOrValue<BigNumberish>,
+      _componentName: PromiseOrValue<string>,
+      _value: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
   };
