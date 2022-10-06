@@ -40,6 +40,7 @@ export const Attack = 'Attack';
 export const Defense = 'Defense';
 export const Speed = 'Speed';
 export const MoveCooldown = 'MoveCooldown';
+export const BattleCooldown = 'BattleCooldown';
 export const Load = 'Load';
 export const City = 'City';
 export const Amount = 'Amount';
@@ -78,6 +79,7 @@ export const COMPONENT_SPECS: CompType[] = [
   { name: Defense, valueType: ComponentDataTypes.UINT },
   { name: Speed, valueType: ComponentDataTypes.UINT },
   { name: MoveCooldown, valueType: ComponentDataTypes.UINT },
+  { name: BattleCooldown, valueType: ComponentDataTypes.UINT },
   { name: Load, valueType: ComponentDataTypes.UINT },
   { name: City, valueType: ComponentDataTypes.UINT },
   { name: Keeper, valueType: ComponentDataTypes.UINT },
@@ -117,6 +119,7 @@ export interface componentInputTypeMap {
   Defense: number;
   Speed: number;
   MoveCooldown: number;
+  BattleCooldown: number;
   Load: number;
   City: number;
   Amount: number;
