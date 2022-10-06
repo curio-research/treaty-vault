@@ -54,6 +54,7 @@ export const Cost = 'Cost';
 export const Treaty = 'Treaty';
 export const Army = 'Army';
 export const Capacity = 'Capacity';
+export const StartPosition = 'StartPosition';
 
 export const COMPONENT_SPECS: CompType[] = [
   { name: IsComponent, valueType: ComponentDataTypes.BOOL },
@@ -91,6 +92,7 @@ export const COMPONENT_SPECS: CompType[] = [
   { name: Treaty, valueType: ComponentDataTypes.ADDRESS },
   { name: Army, valueType: ComponentDataTypes.UINT },
   { name: Capacity, valueType: ComponentDataTypes.UINT },
+  { name: StartPosition, valueType: ComponentDataTypes.POSITION },
 ];
 
 export interface componentInputTypeMap {

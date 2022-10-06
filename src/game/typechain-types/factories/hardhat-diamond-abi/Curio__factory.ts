@@ -109,7 +109,7 @@ const _abi = [
             type: "string",
           },
           {
-            internalType: "enum VALUE_TYPE",
+            internalType: "enum ValueType",
             name: "valueType",
             type: "uint8",
           },
@@ -133,6 +133,24 @@ const _abi = [
       },
     ],
     name: "registerDefaultComponents",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string[]",
+        name: "_names",
+        type: "string[]",
+      },
+      {
+        internalType: "uint256[]",
+        name: "_IDs",
+        type: "uint256[]",
+      },
+    ],
+    name: "registerTemplateShortcuts",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -366,6 +384,19 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: "address",
+        name: "_burnerAddress",
+        type: "address",
+      },
+    ],
+    name: "authorizeGame",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         internalType: "uint256",
         name: "_armyID",
         type: "uint256",
@@ -563,7 +594,7 @@ const _abi = [
     inputs: [
       {
         internalType: "uint256",
-        name: "_armyID",
+        name: "_movableEntity",
         type: "uint256",
       },
       {
@@ -584,37 +615,7 @@ const _abi = [
         type: "tuple",
       },
     ],
-    name: "moveArmy",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_settlerID",
-        type: "uint256",
-      },
-      {
-        components: [
-          {
-            internalType: "uint256",
-            name: "x",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "y",
-            type: "uint256",
-          },
-        ],
-        internalType: "struct Position",
-        name: "_targetPosition",
-        type: "tuple",
-      },
-    ],
-    name: "moveSettler",
+    name: "move",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -959,6 +960,25 @@ const _abi = [
     type: "function",
   },
   {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_primaryAddress",
+        type: "address",
+      },
+    ],
+    name: "getMainBurnerAccount",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [],
     name: "getPlayerCount",
     outputs: [
@@ -1119,6 +1139,21 @@ const _abi = [
           {
             internalType: "uint256",
             name: "cityDefense",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "tileWidth",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "armyBattleRange",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "cityBattleRange",
             type: "uint256",
           },
           {
@@ -1291,165 +1326,12 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "uint256[]",
-        name: "_arr1",
-        type: "uint256[]",
-      },
-      {
-        internalType: "uint256[]",
-        name: "_arr2",
-        type: "uint256[]",
-      },
-    ],
-    name: "_concatenate",
-    outputs: [
-      {
-        internalType: "uint256[]",
-        name: "",
-        type: "uint256[]",
-      },
-    ],
-    stateMutability: "pure",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "contract Set",
-        name: "set1",
-        type: "Set",
-      },
-      {
-        internalType: "contract Set",
-        name: "set2",
-        type: "Set",
-      },
-    ],
-    name: "_difference",
-    outputs: [
-      {
-        internalType: "uint256[]",
-        name: "",
-        type: "uint256[]",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "string",
-        name: "_componentName",
-        type: "string",
-      },
-      {
-        internalType: "uint256",
-        name: "_entity",
-        type: "uint256",
-      },
-    ],
-    name: "_getAddress",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "string",
-        name: "_name",
-        type: "string",
-      },
-    ],
-    name: "_getAddressComponent",
-    outputs: [
-      {
-        internalType: "contract AddressComponent",
-        name: "",
-        type: "AddressComponent",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "string",
-        name: "_componentName",
-        type: "string",
-      },
-      {
-        internalType: "uint256",
-        name: "_entity",
-        type: "uint256",
-      },
-    ],
-    name: "_getBool",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "string",
-        name: "_name",
-        type: "string",
-      },
-    ],
-    name: "_getBoolComponent",
-    outputs: [
-      {
-        internalType: "contract BoolComponent",
-        name: "",
-        type: "BoolComponent",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
         internalType: "string",
         name: "_name",
         type: "string",
       },
     ],
     name: "_getComponent",
-    outputs: [
-      {
-        internalType: "contract Component",
-        name: "",
-        type: "Component",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_entity",
-        type: "uint256",
-      },
-    ],
-    name: "_getComponentByEntity",
     outputs: [
       {
         internalType: "contract Component",
@@ -1487,6 +1369,54 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: "uint256[]",
+        name: "_arr1",
+        type: "uint256[]",
+      },
+      {
+        internalType: "uint256[]",
+        name: "_arr2",
+        type: "uint256[]",
+      },
+    ],
+    name: "concatenate",
+    outputs: [
+      {
+        internalType: "uint256[]",
+        name: "",
+        type: "uint256[]",
+      },
+    ],
+    stateMutability: "pure",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "contract Set",
+        name: "set1",
+        type: "Set",
+      },
+      {
+        internalType: "contract Set",
+        name: "set2",
+        type: "Set",
+      },
+    ],
+    name: "difference",
+    outputs: [
+      {
+        internalType: "uint256[]",
+        name: "",
+        type: "uint256[]",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         internalType: "string",
         name: "_componentName",
         type: "string",
@@ -1497,7 +1427,112 @@ const _abi = [
         type: "uint256",
       },
     ],
-    name: "_getInt",
+    name: "getAddress",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "_name",
+        type: "string",
+      },
+    ],
+    name: "getAddressComponent",
+    outputs: [
+      {
+        internalType: "contract AddressComponent",
+        name: "",
+        type: "AddressComponent",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "_componentName",
+        type: "string",
+      },
+      {
+        internalType: "uint256",
+        name: "_entity",
+        type: "uint256",
+      },
+    ],
+    name: "getBool",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "_name",
+        type: "string",
+      },
+    ],
+    name: "getBoolComponent",
+    outputs: [
+      {
+        internalType: "contract BoolComponent",
+        name: "",
+        type: "BoolComponent",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_entity",
+        type: "uint256",
+      },
+    ],
+    name: "getComponentByEntity",
+    outputs: [
+      {
+        internalType: "contract Component",
+        name: "",
+        type: "Component",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "_componentName",
+        type: "string",
+      },
+      {
+        internalType: "uint256",
+        name: "_entity",
+        type: "uint256",
+      },
+    ],
+    name: "getInt",
     outputs: [
       {
         internalType: "int256",
@@ -1516,7 +1551,7 @@ const _abi = [
         type: "string",
       },
     ],
-    name: "_getIntComponent",
+    name: "getIntComponent",
     outputs: [
       {
         internalType: "contract IntComponent",
@@ -1540,7 +1575,7 @@ const _abi = [
         type: "uint256",
       },
     ],
-    name: "_getPosition",
+    name: "getPosition",
     outputs: [
       {
         components: [
@@ -1571,7 +1606,7 @@ const _abi = [
         type: "string",
       },
     ],
-    name: "_getPositionComponent",
+    name: "getPositionComponent",
     outputs: [
       {
         internalType: "contract PositionComponent",
@@ -1595,7 +1630,7 @@ const _abi = [
         type: "uint256",
       },
     ],
-    name: "_getString",
+    name: "getString",
     outputs: [
       {
         internalType: "string",
@@ -1614,7 +1649,7 @@ const _abi = [
         type: "string",
       },
     ],
-    name: "_getStringComponent",
+    name: "getStringComponent",
     outputs: [
       {
         internalType: "contract StringComponent",
@@ -1638,7 +1673,7 @@ const _abi = [
         type: "uint256",
       },
     ],
-    name: "_getUint",
+    name: "getUint",
     outputs: [
       {
         internalType: "uint256",
@@ -1662,7 +1697,7 @@ const _abi = [
         type: "uint256",
       },
     ],
-    name: "_getUintArray",
+    name: "getUintArray",
     outputs: [
       {
         internalType: "uint256[]",
@@ -1681,7 +1716,7 @@ const _abi = [
         type: "string",
       },
     ],
-    name: "_getUintArrayComponent",
+    name: "getUintArrayComponent",
     outputs: [
       {
         internalType: "contract UintArrayComponent",
@@ -1700,7 +1735,7 @@ const _abi = [
         type: "string",
       },
     ],
-    name: "_getUintComponent",
+    name: "getUintComponent",
     outputs: [
       {
         internalType: "contract UintComponent",
@@ -1729,7 +1764,7 @@ const _abi = [
         type: "bytes",
       },
     ],
-    name: "_queryChunk",
+    name: "queryChunk",
     outputs: [
       {
         components: [

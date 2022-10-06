@@ -63,11 +63,17 @@ export type WorldConstantsStruct = {
   cityHealth: PromiseOrValue<BigNumberish>;
   cityAttack: PromiseOrValue<BigNumberish>;
   cityDefense: PromiseOrValue<BigNumberish>;
+  tileWidth: PromiseOrValue<BigNumberish>;
+  armyBattleRange: PromiseOrValue<BigNumberish>;
+  cityBattleRange: PromiseOrValue<BigNumberish>;
   cityAmount: PromiseOrValue<BigNumberish>;
 };
 
 export type WorldConstantsStructOutput = [
   string,
+  BigNumber,
+  BigNumber,
+  BigNumber,
   BigNumber,
   BigNumber,
   BigNumber,
@@ -99,6 +105,9 @@ export type WorldConstantsStructOutput = [
   cityHealth: BigNumber;
   cityAttack: BigNumber;
   cityDefense: BigNumber;
+  tileWidth: BigNumber;
+  armyBattleRange: BigNumber;
+  cityBattleRange: BigNumber;
   cityAmount: BigNumber;
 };
 
@@ -148,6 +157,7 @@ export interface CurioInterface extends utils.Interface {
     "reactivatePlayer(address)": FunctionFragment;
     "registerComponents(address,(string,uint8)[])": FunctionFragment;
     "registerDefaultComponents(address)": FunctionFragment;
+    "registerTemplateShortcuts(string[],uint256[])": FunctionFragment;
     "removeEntity(uint256)": FunctionFragment;
     "setComponentValue(string,uint256,bytes)": FunctionFragment;
     "storeEncodedColumnBatches(uint256[][])": FunctionFragment;
@@ -157,6 +167,7 @@ export interface CurioInterface extends utils.Interface {
     "facetFunctionSelectors(address)": FunctionFragment;
     "facets()": FunctionFragment;
     "supportsInterface(bytes4)": FunctionFragment;
+    "authorizeGame(address)": FunctionFragment;
     "battle(uint256,uint256)": FunctionFragment;
     "denounceTreaty(address)": FunctionFragment;
     "disbandArmy(uint256)": FunctionFragment;
@@ -167,8 +178,7 @@ export interface CurioInterface extends utils.Interface {
     "initializePlayer((uint256,uint256),string)": FunctionFragment;
     "initializeTile((uint256,uint256))": FunctionFragment;
     "joinTreaty(address)": FunctionFragment;
-    "moveArmy(uint256,(uint256,uint256))": FunctionFragment;
-    "moveSettler(uint256,(uint256,uint256))": FunctionFragment;
+    "move(uint256,(uint256,uint256))": FunctionFragment;
     "organizeArmy(uint256,uint256[],uint256[])": FunctionFragment;
     "packCity(uint256)": FunctionFragment;
     "startGather(uint256,uint256)": FunctionFragment;
@@ -185,6 +195,7 @@ export interface CurioInterface extends utils.Interface {
     "getEntitiesAddr()": FunctionFragment;
     "getEntity()": FunctionFragment;
     "getInventoryByCityAndType(uint256,string)": FunctionFragment;
+    "getMainBurnerAccount(address)": FunctionFragment;
     "getPlayerCount()": FunctionFragment;
     "getPlayerId(address)": FunctionFragment;
     "getSettlerAt((uint256,uint256))": FunctionFragment;
@@ -193,26 +204,26 @@ export interface CurioInterface extends utils.Interface {
     "isPlayerInitialized(address)": FunctionFragment;
     "owner()": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
-    "_concatenate(uint256[],uint256[])": FunctionFragment;
-    "_difference(Set,Set)": FunctionFragment;
-    "_getAddress(string,uint256)": FunctionFragment;
-    "_getAddressComponent(string)": FunctionFragment;
-    "_getBool(string,uint256)": FunctionFragment;
-    "_getBoolComponent(string)": FunctionFragment;
     "_getComponent(string)": FunctionFragment;
-    "_getComponentByEntity(uint256)": FunctionFragment;
     "_getComponentValue(string,uint256)": FunctionFragment;
-    "_getInt(string,uint256)": FunctionFragment;
-    "_getIntComponent(string)": FunctionFragment;
-    "_getPosition(string,uint256)": FunctionFragment;
-    "_getPositionComponent(string)": FunctionFragment;
-    "_getString(string,uint256)": FunctionFragment;
-    "_getStringComponent(string)": FunctionFragment;
-    "_getUint(string,uint256)": FunctionFragment;
-    "_getUintArray(string,uint256)": FunctionFragment;
-    "_getUintArrayComponent(string)": FunctionFragment;
-    "_getUintComponent(string)": FunctionFragment;
-    "_queryChunk(uint8,string,bytes)": FunctionFragment;
+    "concatenate(uint256[],uint256[])": FunctionFragment;
+    "difference(Set,Set)": FunctionFragment;
+    "getAddress(string,uint256)": FunctionFragment;
+    "getAddressComponent(string)": FunctionFragment;
+    "getBool(string,uint256)": FunctionFragment;
+    "getBoolComponent(string)": FunctionFragment;
+    "getComponentByEntity(uint256)": FunctionFragment;
+    "getInt(string,uint256)": FunctionFragment;
+    "getIntComponent(string)": FunctionFragment;
+    "getPosition(string,uint256)": FunctionFragment;
+    "getPositionComponent(string)": FunctionFragment;
+    "getString(string,uint256)": FunctionFragment;
+    "getStringComponent(string)": FunctionFragment;
+    "getUint(string,uint256)": FunctionFragment;
+    "getUintArray(string,uint256)": FunctionFragment;
+    "getUintArrayComponent(string)": FunctionFragment;
+    "getUintComponent(string)": FunctionFragment;
+    "queryChunk(uint8,string,bytes)": FunctionFragment;
   };
 
   getFunction(
@@ -223,6 +234,7 @@ export interface CurioInterface extends utils.Interface {
       | "reactivatePlayer"
       | "registerComponents"
       | "registerDefaultComponents"
+      | "registerTemplateShortcuts"
       | "removeEntity"
       | "setComponentValue"
       | "storeEncodedColumnBatches"
@@ -232,6 +244,7 @@ export interface CurioInterface extends utils.Interface {
       | "facetFunctionSelectors"
       | "facets"
       | "supportsInterface"
+      | "authorizeGame"
       | "battle"
       | "denounceTreaty"
       | "disbandArmy"
@@ -242,8 +255,7 @@ export interface CurioInterface extends utils.Interface {
       | "initializePlayer"
       | "initializeTile"
       | "joinTreaty"
-      | "moveArmy"
-      | "moveSettler"
+      | "move"
       | "organizeArmy"
       | "packCity"
       | "startGather"
@@ -260,6 +272,7 @@ export interface CurioInterface extends utils.Interface {
       | "getEntitiesAddr"
       | "getEntity"
       | "getInventoryByCityAndType"
+      | "getMainBurnerAccount"
       | "getPlayerCount"
       | "getPlayerId"
       | "getSettlerAt"
@@ -268,26 +281,26 @@ export interface CurioInterface extends utils.Interface {
       | "isPlayerInitialized"
       | "owner"
       | "transferOwnership"
-      | "_concatenate"
-      | "_difference"
-      | "_getAddress"
-      | "_getAddressComponent"
-      | "_getBool"
-      | "_getBoolComponent"
       | "_getComponent"
-      | "_getComponentByEntity"
       | "_getComponentValue"
-      | "_getInt"
-      | "_getIntComponent"
-      | "_getPosition"
-      | "_getPositionComponent"
-      | "_getString"
-      | "_getStringComponent"
-      | "_getUint"
-      | "_getUintArray"
-      | "_getUintArrayComponent"
-      | "_getUintComponent"
-      | "_queryChunk"
+      | "concatenate"
+      | "difference"
+      | "getAddress"
+      | "getAddressComponent"
+      | "getBool"
+      | "getBoolComponent"
+      | "getComponentByEntity"
+      | "getInt"
+      | "getIntComponent"
+      | "getPosition"
+      | "getPositionComponent"
+      | "getString"
+      | "getStringComponent"
+      | "getUint"
+      | "getUintArray"
+      | "getUintArrayComponent"
+      | "getUintComponent"
+      | "queryChunk"
   ): FunctionFragment;
 
   encodeFunctionData(functionFragment: "addEntity", values?: undefined): string;
@@ -310,6 +323,10 @@ export interface CurioInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "registerDefaultComponents",
     values: [PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "registerTemplateShortcuts",
+    values: [PromiseOrValue<string>[], PromiseOrValue<BigNumberish>[]]
   ): string;
   encodeFunctionData(
     functionFragment: "removeEntity",
@@ -351,6 +368,10 @@ export interface CurioInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "supportsInterface",
     values: [PromiseOrValue<BytesLike>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "authorizeGame",
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "battle",
@@ -397,11 +418,7 @@ export interface CurioInterface extends utils.Interface {
     values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
-    functionFragment: "moveArmy",
-    values: [PromiseOrValue<BigNumberish>, PositionStruct]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "moveSettler",
+    functionFragment: "move",
     values: [PromiseOrValue<BigNumberish>, PositionStruct]
   ): string;
   encodeFunctionData(
@@ -474,6 +491,10 @@ export interface CurioInterface extends utils.Interface {
     values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
+    functionFragment: "getMainBurnerAccount",
+    values: [PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
     functionFragment: "getPlayerCount",
     values?: undefined
   ): string;
@@ -503,83 +524,83 @@ export interface CurioInterface extends utils.Interface {
     values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
-    functionFragment: "_concatenate",
-    values: [PromiseOrValue<BigNumberish>[], PromiseOrValue<BigNumberish>[]]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "_difference",
-    values: [PromiseOrValue<string>, PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "_getAddress",
-    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "_getAddressComponent",
-    values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "_getBool",
-    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "_getBoolComponent",
-    values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
     functionFragment: "_getComponent",
     values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "_getComponentByEntity",
-    values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "_getComponentValue",
     values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
-    functionFragment: "_getInt",
+    functionFragment: "concatenate",
+    values: [PromiseOrValue<BigNumberish>[], PromiseOrValue<BigNumberish>[]]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "difference",
+    values: [PromiseOrValue<string>, PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getAddress",
     values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
-    functionFragment: "_getIntComponent",
+    functionFragment: "getAddressComponent",
     values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
-    functionFragment: "_getPosition",
+    functionFragment: "getBool",
     values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
-    functionFragment: "_getPositionComponent",
+    functionFragment: "getBoolComponent",
     values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
-    functionFragment: "_getString",
+    functionFragment: "getComponentByEntity",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getInt",
     values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
-    functionFragment: "_getStringComponent",
+    functionFragment: "getIntComponent",
     values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
-    functionFragment: "_getUint",
+    functionFragment: "getPosition",
     values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
-    functionFragment: "_getUintArray",
+    functionFragment: "getPositionComponent",
+    values: [PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getString",
     values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
-    functionFragment: "_getUintArrayComponent",
+    functionFragment: "getStringComponent",
     values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
-    functionFragment: "_getUintComponent",
+    functionFragment: "getUint",
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getUintArray",
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getUintArrayComponent",
     values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
-    functionFragment: "_queryChunk",
+    functionFragment: "getUintComponent",
+    values: [PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "queryChunk",
     values: [
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<string>,
@@ -603,6 +624,10 @@ export interface CurioInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "registerDefaultComponents",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "registerTemplateShortcuts",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -635,6 +660,10 @@ export interface CurioInterface extends utils.Interface {
     functionFragment: "supportsInterface",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "authorizeGame",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "battle", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "denounceTreaty",
@@ -663,11 +692,7 @@ export interface CurioInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "joinTreaty", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "moveArmy", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "moveSettler",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "move", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "organizeArmy",
     data: BytesLike
@@ -721,6 +746,10 @@ export interface CurioInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "getMainBurnerAccount",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "getPlayerCount",
     data: BytesLike
   ): Result;
@@ -750,73 +779,64 @@ export interface CurioInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "_concatenate",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "_difference",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "_getAddress",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "_getAddressComponent",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "_getBool", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "_getBoolComponent",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "_getComponent",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "_getComponentByEntity",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "_getComponentValue",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "_getInt", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "_getIntComponent",
+    functionFragment: "concatenate",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "difference", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "getAddress", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "getAddressComponent",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "getBool", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "getBoolComponent",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "_getPosition",
+    functionFragment: "getComponentByEntity",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "getInt", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "getIntComponent",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "_getPositionComponent",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "_getString", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "_getStringComponent",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "_getUint", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "_getUintArray",
+    functionFragment: "getPosition",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "_getUintArrayComponent",
+    functionFragment: "getPositionComponent",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "getString", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "getStringComponent",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "getUint", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "getUintArray",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "_getUintComponent",
+    functionFragment: "getUintArrayComponent",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "_queryChunk",
+    functionFragment: "getUintComponent",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "queryChunk", data: BytesLike): Result;
 
   events: {
     "DiamondCut(tuple[],address,bytes)": EventFragment;
@@ -972,6 +992,12 @@ export interface Curio extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
+    registerTemplateShortcuts(
+      _names: PromiseOrValue<string>[],
+      _IDs: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
     removeEntity(
       _entity: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -1022,6 +1048,11 @@ export interface Curio extends BaseContract {
       _interfaceId: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<[boolean]>;
+
+    authorizeGame(
+      _burnerAddress: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
 
     battle(
       _armyID: PromiseOrValue<BigNumberish>,
@@ -1079,14 +1110,8 @@ export interface Curio extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    moveArmy(
-      _armyID: PromiseOrValue<BigNumberish>,
-      _targetPosition: PositionStruct,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
-    moveSettler(
-      _settlerID: PromiseOrValue<BigNumberish>,
+    move(
+      _movableEntity: PromiseOrValue<BigNumberish>,
       _targetPosition: PositionStruct,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
@@ -1169,6 +1194,11 @@ export interface Curio extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
+    getMainBurnerAccount(
+      _primaryAddress: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
+
     getPlayerCount(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     getPlayerId(
@@ -1202,47 +1232,8 @@ export interface Curio extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    _concatenate(
-      _arr1: PromiseOrValue<BigNumberish>[],
-      _arr2: PromiseOrValue<BigNumberish>[],
-      overrides?: CallOverrides
-    ): Promise<[BigNumber[]]>;
-
-    _difference(
-      set1: PromiseOrValue<string>,
-      set2: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber[]]>;
-
-    _getAddress(
-      _componentName: PromiseOrValue<string>,
-      _entity: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<[string]>;
-
-    _getAddressComponent(
-      _name: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[string]>;
-
-    _getBool(
-      _componentName: PromiseOrValue<string>,
-      _entity: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<[boolean]>;
-
-    _getBoolComponent(
-      _name: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[string]>;
-
     _getComponent(
       _name: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[string]>;
-
-    _getComponentByEntity(
-      _entity: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[string]>;
 
@@ -1252,62 +1243,101 @@ export interface Curio extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[string]>;
 
-    _getInt(
+    concatenate(
+      _arr1: PromiseOrValue<BigNumberish>[],
+      _arr2: PromiseOrValue<BigNumberish>[],
+      overrides?: CallOverrides
+    ): Promise<[BigNumber[]]>;
+
+    difference(
+      set1: PromiseOrValue<string>,
+      set2: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber[]]>;
+
+    getAddress(
+      _componentName: PromiseOrValue<string>,
+      _entity: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
+
+    getAddressComponent(
+      _name: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
+
+    getBool(
+      _componentName: PromiseOrValue<string>,
+      _entity: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
+
+    getBoolComponent(
+      _name: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
+
+    getComponentByEntity(
+      _entity: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
+
+    getInt(
       _componentName: PromiseOrValue<string>,
       _entity: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
-    _getIntComponent(
+    getIntComponent(
       _name: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[string]>;
 
-    _getPosition(
+    getPosition(
       _componentName: PromiseOrValue<string>,
       _entity: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[PositionStructOutput]>;
 
-    _getPositionComponent(
+    getPositionComponent(
       _name: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[string]>;
 
-    _getString(
+    getString(
       _componentName: PromiseOrValue<string>,
       _entity: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[string]>;
 
-    _getStringComponent(
+    getStringComponent(
       _name: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[string]>;
 
-    _getUint(
+    getUint(
       _componentName: PromiseOrValue<string>,
       _entity: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
-    _getUintArray(
+    getUintArray(
       _componentName: PromiseOrValue<string>,
       _entity: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[BigNumber[]]>;
 
-    _getUintArrayComponent(
+    getUintArrayComponent(
       _name: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[string]>;
 
-    _getUintComponent(
+    getUintComponent(
       _name: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[string]>;
 
-    _queryChunk(
+    queryChunk(
       _queryType: PromiseOrValue<BigNumberish>,
       _componentName: PromiseOrValue<string>,
       _value: PromiseOrValue<BytesLike>,
@@ -1343,6 +1373,12 @@ export interface Curio extends BaseContract {
 
   registerDefaultComponents(
     _gameAddr: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  registerTemplateShortcuts(
+    _names: PromiseOrValue<string>[],
+    _IDs: PromiseOrValue<BigNumberish>[],
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -1388,6 +1424,11 @@ export interface Curio extends BaseContract {
     _interfaceId: PromiseOrValue<BytesLike>,
     overrides?: CallOverrides
   ): Promise<boolean>;
+
+  authorizeGame(
+    _burnerAddress: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
 
   battle(
     _armyID: PromiseOrValue<BigNumberish>,
@@ -1445,14 +1486,8 @@ export interface Curio extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  moveArmy(
-    _armyID: PromiseOrValue<BigNumberish>,
-    _targetPosition: PositionStruct,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
-  moveSettler(
-    _settlerID: PromiseOrValue<BigNumberish>,
+  move(
+    _movableEntity: PromiseOrValue<BigNumberish>,
     _targetPosition: PositionStruct,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
@@ -1535,6 +1570,11 @@ export interface Curio extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
+  getMainBurnerAccount(
+    _primaryAddress: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<string>;
+
   getPlayerCount(overrides?: CallOverrides): Promise<BigNumber>;
 
   getPlayerId(
@@ -1568,47 +1608,8 @@ export interface Curio extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  _concatenate(
-    _arr1: PromiseOrValue<BigNumberish>[],
-    _arr2: PromiseOrValue<BigNumberish>[],
-    overrides?: CallOverrides
-  ): Promise<BigNumber[]>;
-
-  _difference(
-    set1: PromiseOrValue<string>,
-    set2: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<BigNumber[]>;
-
-  _getAddress(
-    _componentName: PromiseOrValue<string>,
-    _entity: PromiseOrValue<BigNumberish>,
-    overrides?: CallOverrides
-  ): Promise<string>;
-
-  _getAddressComponent(
-    _name: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<string>;
-
-  _getBool(
-    _componentName: PromiseOrValue<string>,
-    _entity: PromiseOrValue<BigNumberish>,
-    overrides?: CallOverrides
-  ): Promise<boolean>;
-
-  _getBoolComponent(
-    _name: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<string>;
-
   _getComponent(
     _name: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<string>;
-
-  _getComponentByEntity(
-    _entity: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<string>;
 
@@ -1618,62 +1619,101 @@ export interface Curio extends BaseContract {
     overrides?: CallOverrides
   ): Promise<string>;
 
-  _getInt(
+  concatenate(
+    _arr1: PromiseOrValue<BigNumberish>[],
+    _arr2: PromiseOrValue<BigNumberish>[],
+    overrides?: CallOverrides
+  ): Promise<BigNumber[]>;
+
+  difference(
+    set1: PromiseOrValue<string>,
+    set2: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber[]>;
+
+  getAddress(
+    _componentName: PromiseOrValue<string>,
+    _entity: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<string>;
+
+  getAddressComponent(
+    _name: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<string>;
+
+  getBool(
+    _componentName: PromiseOrValue<string>,
+    _entity: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
+
+  getBoolComponent(
+    _name: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<string>;
+
+  getComponentByEntity(
+    _entity: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<string>;
+
+  getInt(
     _componentName: PromiseOrValue<string>,
     _entity: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
-  _getIntComponent(
+  getIntComponent(
     _name: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<string>;
 
-  _getPosition(
+  getPosition(
     _componentName: PromiseOrValue<string>,
     _entity: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<PositionStructOutput>;
 
-  _getPositionComponent(
+  getPositionComponent(
     _name: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<string>;
 
-  _getString(
+  getString(
     _componentName: PromiseOrValue<string>,
     _entity: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<string>;
 
-  _getStringComponent(
+  getStringComponent(
     _name: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<string>;
 
-  _getUint(
+  getUint(
     _componentName: PromiseOrValue<string>,
     _entity: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
-  _getUintArray(
+  getUintArray(
     _componentName: PromiseOrValue<string>,
     _entity: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<BigNumber[]>;
 
-  _getUintArrayComponent(
+  getUintArrayComponent(
     _name: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<string>;
 
-  _getUintComponent(
+  getUintComponent(
     _name: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<string>;
 
-  _queryChunk(
+  queryChunk(
     _queryType: PromiseOrValue<BigNumberish>,
     _componentName: PromiseOrValue<string>,
     _value: PromiseOrValue<BytesLike>,
@@ -1707,6 +1747,12 @@ export interface Curio extends BaseContract {
 
     registerDefaultComponents(
       _gameAddr: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    registerTemplateShortcuts(
+      _names: PromiseOrValue<string>[],
+      _IDs: PromiseOrValue<BigNumberish>[],
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1754,6 +1800,11 @@ export interface Curio extends BaseContract {
       _interfaceId: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<boolean>;
+
+    authorizeGame(
+      _burnerAddress: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     battle(
       _armyID: PromiseOrValue<BigNumberish>,
@@ -1811,14 +1862,8 @@ export interface Curio extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    moveArmy(
-      _armyID: PromiseOrValue<BigNumberish>,
-      _targetPosition: PositionStruct,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    moveSettler(
-      _settlerID: PromiseOrValue<BigNumberish>,
+    move(
+      _movableEntity: PromiseOrValue<BigNumberish>,
       _targetPosition: PositionStruct,
       overrides?: CallOverrides
     ): Promise<void>;
@@ -1901,6 +1946,11 @@ export interface Curio extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    getMainBurnerAccount(
+      _primaryAddress: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<string>;
+
     getPlayerCount(overrides?: CallOverrides): Promise<BigNumber>;
 
     getPlayerId(
@@ -1934,47 +1984,8 @@ export interface Curio extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    _concatenate(
-      _arr1: PromiseOrValue<BigNumberish>[],
-      _arr2: PromiseOrValue<BigNumberish>[],
-      overrides?: CallOverrides
-    ): Promise<BigNumber[]>;
-
-    _difference(
-      set1: PromiseOrValue<string>,
-      set2: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber[]>;
-
-    _getAddress(
-      _componentName: PromiseOrValue<string>,
-      _entity: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<string>;
-
-    _getAddressComponent(
-      _name: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<string>;
-
-    _getBool(
-      _componentName: PromiseOrValue<string>,
-      _entity: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
-
-    _getBoolComponent(
-      _name: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<string>;
-
     _getComponent(
       _name: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<string>;
-
-    _getComponentByEntity(
-      _entity: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<string>;
 
@@ -1984,62 +1995,101 @@ export interface Curio extends BaseContract {
       overrides?: CallOverrides
     ): Promise<string>;
 
-    _getInt(
+    concatenate(
+      _arr1: PromiseOrValue<BigNumberish>[],
+      _arr2: PromiseOrValue<BigNumberish>[],
+      overrides?: CallOverrides
+    ): Promise<BigNumber[]>;
+
+    difference(
+      set1: PromiseOrValue<string>,
+      set2: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber[]>;
+
+    getAddress(
+      _componentName: PromiseOrValue<string>,
+      _entity: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<string>;
+
+    getAddressComponent(
+      _name: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<string>;
+
+    getBool(
+      _componentName: PromiseOrValue<string>,
+      _entity: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
+
+    getBoolComponent(
+      _name: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<string>;
+
+    getComponentByEntity(
+      _entity: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<string>;
+
+    getInt(
       _componentName: PromiseOrValue<string>,
       _entity: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    _getIntComponent(
+    getIntComponent(
       _name: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<string>;
 
-    _getPosition(
+    getPosition(
       _componentName: PromiseOrValue<string>,
       _entity: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PositionStructOutput>;
 
-    _getPositionComponent(
+    getPositionComponent(
       _name: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<string>;
 
-    _getString(
+    getString(
       _componentName: PromiseOrValue<string>,
       _entity: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<string>;
 
-    _getStringComponent(
+    getStringComponent(
       _name: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<string>;
 
-    _getUint(
+    getUint(
       _componentName: PromiseOrValue<string>,
       _entity: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    _getUintArray(
+    getUintArray(
       _componentName: PromiseOrValue<string>,
       _entity: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber[]>;
 
-    _getUintArrayComponent(
+    getUintArrayComponent(
       _name: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<string>;
 
-    _getUintComponent(
+    getUintComponent(
       _name: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<string>;
 
-    _queryChunk(
+    queryChunk(
       _queryType: PromiseOrValue<BigNumberish>,
       _componentName: PromiseOrValue<string>,
       _value: PromiseOrValue<BytesLike>,
@@ -2133,6 +2183,12 @@ export interface Curio extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
+    registerTemplateShortcuts(
+      _names: PromiseOrValue<string>[],
+      _IDs: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
     removeEntity(
       _entity: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -2174,6 +2230,11 @@ export interface Curio extends BaseContract {
     supportsInterface(
       _interfaceId: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    authorizeGame(
+      _burnerAddress: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     battle(
@@ -2232,14 +2293,8 @@ export interface Curio extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    moveArmy(
-      _armyID: PromiseOrValue<BigNumberish>,
-      _targetPosition: PositionStruct,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
-    moveSettler(
-      _settlerID: PromiseOrValue<BigNumberish>,
+    move(
+      _movableEntity: PromiseOrValue<BigNumberish>,
       _targetPosition: PositionStruct,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
@@ -2322,6 +2377,11 @@ export interface Curio extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
+    getMainBurnerAccount(
+      _primaryAddress: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     getPlayerCount(overrides?: CallOverrides): Promise<BigNumber>;
 
     getPlayerId(
@@ -2353,47 +2413,8 @@ export interface Curio extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    _concatenate(
-      _arr1: PromiseOrValue<BigNumberish>[],
-      _arr2: PromiseOrValue<BigNumberish>[],
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    _difference(
-      set1: PromiseOrValue<string>,
-      set2: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    _getAddress(
-      _componentName: PromiseOrValue<string>,
-      _entity: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    _getAddressComponent(
-      _name: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    _getBool(
-      _componentName: PromiseOrValue<string>,
-      _entity: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    _getBoolComponent(
-      _name: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
     _getComponent(
       _name: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    _getComponentByEntity(
-      _entity: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -2403,62 +2424,101 @@ export interface Curio extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    _getInt(
+    concatenate(
+      _arr1: PromiseOrValue<BigNumberish>[],
+      _arr2: PromiseOrValue<BigNumberish>[],
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    difference(
+      set1: PromiseOrValue<string>,
+      set2: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getAddress(
       _componentName: PromiseOrValue<string>,
       _entity: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    _getIntComponent(
+    getAddressComponent(
       _name: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    _getPosition(
+    getBool(
       _componentName: PromiseOrValue<string>,
       _entity: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    _getPositionComponent(
+    getBoolComponent(
       _name: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    _getString(
+    getComponentByEntity(
+      _entity: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getInt(
       _componentName: PromiseOrValue<string>,
       _entity: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    _getStringComponent(
+    getIntComponent(
       _name: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    _getUint(
+    getPosition(
       _componentName: PromiseOrValue<string>,
       _entity: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    _getUintArray(
+    getPositionComponent(
+      _name: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getString(
       _componentName: PromiseOrValue<string>,
       _entity: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    _getUintArrayComponent(
+    getStringComponent(
       _name: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    _getUintComponent(
+    getUint(
+      _componentName: PromiseOrValue<string>,
+      _entity: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getUintArray(
+      _componentName: PromiseOrValue<string>,
+      _entity: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getUintArrayComponent(
       _name: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    _queryChunk(
+    getUintComponent(
+      _name: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    queryChunk(
       _queryType: PromiseOrValue<BigNumberish>,
       _componentName: PromiseOrValue<string>,
       _value: PromiseOrValue<BytesLike>,
@@ -2495,6 +2555,12 @@ export interface Curio extends BaseContract {
 
     registerDefaultComponents(
       _gameAddr: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    registerTemplateShortcuts(
+      _names: PromiseOrValue<string>[],
+      _IDs: PromiseOrValue<BigNumberish>[],
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -2539,6 +2605,11 @@ export interface Curio extends BaseContract {
     supportsInterface(
       _interfaceId: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    authorizeGame(
+      _burnerAddress: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     battle(
@@ -2597,14 +2668,8 @@ export interface Curio extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    moveArmy(
-      _armyID: PromiseOrValue<BigNumberish>,
-      _targetPosition: PositionStruct,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    moveSettler(
-      _settlerID: PromiseOrValue<BigNumberish>,
+    move(
+      _movableEntity: PromiseOrValue<BigNumberish>,
       _targetPosition: PositionStruct,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
@@ -2687,6 +2752,11 @@ export interface Curio extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
+    getMainBurnerAccount(
+      _primaryAddress: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     getPlayerCount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getPlayerId(
@@ -2718,47 +2788,8 @@ export interface Curio extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    _concatenate(
-      _arr1: PromiseOrValue<BigNumberish>[],
-      _arr2: PromiseOrValue<BigNumberish>[],
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    _difference(
-      set1: PromiseOrValue<string>,
-      set2: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    _getAddress(
-      _componentName: PromiseOrValue<string>,
-      _entity: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    _getAddressComponent(
-      _name: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    _getBool(
-      _componentName: PromiseOrValue<string>,
-      _entity: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    _getBoolComponent(
-      _name: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
     _getComponent(
       _name: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    _getComponentByEntity(
-      _entity: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -2768,62 +2799,101 @@ export interface Curio extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    _getInt(
+    concatenate(
+      _arr1: PromiseOrValue<BigNumberish>[],
+      _arr2: PromiseOrValue<BigNumberish>[],
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    difference(
+      set1: PromiseOrValue<string>,
+      set2: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getAddress(
       _componentName: PromiseOrValue<string>,
       _entity: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    _getIntComponent(
+    getAddressComponent(
       _name: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    _getPosition(
+    getBool(
       _componentName: PromiseOrValue<string>,
       _entity: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    _getPositionComponent(
+    getBoolComponent(
       _name: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    _getString(
+    getComponentByEntity(
+      _entity: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getInt(
       _componentName: PromiseOrValue<string>,
       _entity: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    _getStringComponent(
+    getIntComponent(
       _name: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    _getUint(
+    getPosition(
       _componentName: PromiseOrValue<string>,
       _entity: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    _getUintArray(
+    getPositionComponent(
+      _name: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getString(
       _componentName: PromiseOrValue<string>,
       _entity: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    _getUintArrayComponent(
+    getStringComponent(
       _name: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    _getUintComponent(
+    getUint(
+      _componentName: PromiseOrValue<string>,
+      _entity: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getUintArray(
+      _componentName: PromiseOrValue<string>,
+      _entity: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getUintArrayComponent(
       _name: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    _queryChunk(
+    getUintComponent(
+      _name: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    queryChunk(
       _queryType: PromiseOrValue<BigNumberish>,
       _componentName: PromiseOrValue<string>,
       _value: PromiseOrValue<BytesLike>,
