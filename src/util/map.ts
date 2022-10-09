@@ -76,12 +76,14 @@ export const isOdd = (number: number): boolean => {
 export const scaleMap = (map: TILE_TYPE[][], tileWidth: number): TILE_TYPE[][] => {
   const scaledMap = [...Array(map.length * tileWidth)].map((e) => Array(map[0].length * tileWidth).fill(0));
 
-  for (let i = 0; i < map.length; i++) {
-    for (let j = 0; j < map[0].length; j++) {
+  for (let i = 0; i < scaledMap.length; i++) {
+    for (let j = 0; j < scaledMap[0].length; j++) {
       const properTilePos = getLargeTilePos({ x: i, y: j }, tileWidth);
       scaledMap[i][j] = map[properTilePos.x][properTilePos.y];
     }
   }
+
+  console.log(scaledMap);
 
   return scaledMap;
 };
