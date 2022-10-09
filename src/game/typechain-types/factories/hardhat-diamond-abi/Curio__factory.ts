@@ -49,7 +49,7 @@ const _abi = [
     inputs: [
       {
         internalType: "uint256",
-        name: "_playerId",
+        name: "_playerID",
         type: "uint256",
       },
       {
@@ -71,13 +71,32 @@ const _abi = [
       },
     ],
     name: "createArmy",
-    outputs: [
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
+        components: [
+          {
+            internalType: "uint256",
+            name: "x",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "y",
+            type: "uint256",
+          },
+        ],
+        internalType: "struct Position",
+        name: "_startPosition",
+        type: "tuple",
       },
     ],
+    name: "initializeTile",
+    outputs: [],
     stateMutability: "nonpayable",
     type: "function",
   },
@@ -415,6 +434,24 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: "uint256",
+        name: "_armyId",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_tileID",
+        type: "uint256",
+      },
+    ],
+    name: "claimTile",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         internalType: "address",
         name: "_treatyToDenounce",
         type: "address",
@@ -434,19 +471,6 @@ const _abi = [
       },
     ],
     name: "disbandArmy",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_armyID",
-        type: "uint256",
-      },
-    ],
-    name: "endGather",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -508,6 +532,24 @@ const _abi = [
     inputs: [
       {
         internalType: "uint256",
+        name: "_goldMineResourceID",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "armyID",
+        type: "uint256",
+      },
+    ],
+    name: "harvestGold",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
         name: "_buildingID",
         type: "uint256",
       },
@@ -548,31 +590,6 @@ const _abi = [
       },
     ],
     name: "initializePlayer",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        components: [
-          {
-            internalType: "uint256",
-            name: "x",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "y",
-            type: "uint256",
-          },
-        ],
-        internalType: "struct Position",
-        name: "_position",
-        type: "tuple",
-      },
-    ],
-    name: "initializeTile",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -658,24 +675,6 @@ const _abi = [
       },
     ],
     name: "packCity",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_armyID",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "_resourceID",
-        type: "uint256",
-      },
-    ],
-    name: "startGather",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -773,25 +772,6 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "uint256",
-        name: "_armyID",
-        type: "uint256",
-      },
-    ],
-    name: "getArmyConstituents",
-    outputs: [
-      {
-        internalType: "uint256[]",
-        name: "",
-        type: "uint256[]",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
         components: [
           {
             internalType: "uint256",
@@ -805,11 +785,11 @@ const _abi = [
           },
         ],
         internalType: "struct Position",
-        name: "_position",
+        name: "_startPosition",
         type: "tuple",
       },
     ],
-    name: "getCityAt",
+    name: "getCityAtTile",
     outputs: [
       {
         internalType: "uint256",
@@ -894,6 +874,25 @@ const _abi = [
       },
     ],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_armyID",
+        type: "uint256",
+      },
+    ],
+    name: "getConstituents",
+    outputs: [
+      {
+        internalType: "uint256[]",
+        name: "",
+        type: "uint256[]",
+      },
+    ],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -1128,17 +1127,12 @@ const _abi = [
           },
           {
             internalType: "uint256",
-            name: "cityHealth",
+            name: "cityGuardAmount",
             type: "uint256",
           },
           {
             internalType: "uint256",
-            name: "cityAttack",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "cityDefense",
+            name: "tileGuardAmount",
             type: "uint256",
           },
           {
@@ -1148,17 +1142,7 @@ const _abi = [
           },
           {
             internalType: "uint256",
-            name: "armyBattleRange",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "cityBattleRange",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "cityAmount",
+            name: "battleRange",
             type: "uint256",
           },
         ],
@@ -1388,30 +1372,6 @@ const _abi = [
       },
     ],
     stateMutability: "pure",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "contract Set",
-        name: "set1",
-        type: "Set",
-      },
-      {
-        internalType: "contract Set",
-        name: "set2",
-        type: "Set",
-      },
-    ],
-    name: "difference",
-    outputs: [
-      {
-        internalType: "uint256[]",
-        name: "",
-        type: "uint256[]",
-      },
-    ],
-    stateMutability: "view",
     type: "function",
   },
   {
