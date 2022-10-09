@@ -54,7 +54,6 @@ export const Address = 'Address';
 export const Cost = 'Cost';
 export const Treaty = 'Treaty';
 export const Army = 'Army';
-export const Capacity = 'Capacity';
 export const StartPosition = 'StartPosition';
 export const Terrain = 'Terrain';
 export const CanBattle = 'CanBattle';
@@ -95,7 +94,6 @@ export const COMPONENT_SPECS: CompType[] = [
   { name: Cost, valueType: ComponentDataTypes.UINT },
   { name: Treaty, valueType: ComponentDataTypes.ADDRESS },
   { name: Army, valueType: ComponentDataTypes.UINT },
-  { name: Capacity, valueType: ComponentDataTypes.UINT },
   { name: StartPosition, valueType: ComponentDataTypes.POSITION },
   { name: Terrain, valueType: ComponentDataTypes.UINT },
   { name: CanBattle, valueType: ComponentDataTypes.BOOL },
@@ -140,7 +138,6 @@ export interface componentInputTypeMap {
   Terrain: number;
   CanBattle: boolean;
   StartPosition: position;
-  capcity: number;
 }
 
 export enum Tags {
