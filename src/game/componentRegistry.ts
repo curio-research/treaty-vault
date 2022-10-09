@@ -139,6 +139,8 @@ export interface componentInputTypeMap {
   Treaty: number;
   Terrain: number;
   CanBattle: boolean;
+  StartPosition: position;
+  capcity: number;
 }
 
 export enum Tags {
