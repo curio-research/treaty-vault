@@ -59,6 +59,10 @@ export const getProperTilePosition = (position: position, tileSize: number): pos
   return { x: position.x - (position.x % tileSize), y: position.y - (position.y % tileSize) };
 };
 
+export const getTileMidPosition = (tilePosition: position, tileSize: number): position => {
+  return { x: tilePosition.x + Math.floor(tileSize / 2), y: tilePosition.y + Math.floor(tileSize / 2) };
+};
+
 export const getLargeTilePos = (position: position, tileSize: number): position => {
   return { x: Math.floor(position.x / tileSize), y: Math.floor(position.y / tileSize) };
 };
@@ -76,8 +80,8 @@ export const isOdd = (number: number): boolean => {
 export const scaleMap = (map: TILE_TYPE[][], tileWidth: number): TILE_TYPE[][] => {
   const scaledMap = [...Array(map.length * tileWidth)].map((e) => Array(map[0].length * tileWidth).fill(0));
 
-  for (let i = 0; i < map.length; i++) {
-    for (let j = 0; j < map[0].length; j++) {
+  for (let i = 0; i < scaledMap.length; i++) {
+    for (let j = 0; j < scaledMap[0].length; j++) {
       const properTilePos = getLargeTilePos({ x: i, y: j }, tileWidth);
       scaledMap[i][j] = map[properTilePos.x][properTilePos.y];
     }
