@@ -140,6 +140,7 @@ export interface componentInputTypeMap {
   Terrain: number;
   CanBattle: boolean;
   StartPosition: position;
+  AttackRange: number;
 }
 
 export enum Tags {
