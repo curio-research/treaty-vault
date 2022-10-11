@@ -57,6 +57,7 @@ export const Army = 'Army';
 export const StartPosition = 'StartPosition';
 export const Terrain = 'Terrain';
 export const CanBattle = 'CanBattle';
+export const AttackRange = 'AttackRange';
 
 export const COMPONENT_SPECS: CompType[] = [
   { name: IsComponent, valueType: ComponentDataTypes.BOOL },
@@ -97,6 +98,7 @@ export const COMPONENT_SPECS: CompType[] = [
   { name: StartPosition, valueType: ComponentDataTypes.POSITION },
   { name: Terrain, valueType: ComponentDataTypes.UINT },
   { name: CanBattle, valueType: ComponentDataTypes.BOOL },
+  { name: AttackRange, valueType: ComponentDataTypes.UINT },
 ];
 
 export interface componentInputTypeMap {
@@ -169,7 +171,6 @@ export enum InventoryTypeOptions {
   Horseman = 'Horseman',
   Warrior = 'Warrior',
   Slinger = 'Slinger',
-  // Laborer = 'Laborer',
   Guard = 'Guard',
   Gold = 'Gold',
 }

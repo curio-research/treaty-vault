@@ -59,6 +59,10 @@ export const getProperTilePosition = (position: position, tileSize: number): pos
   return { x: position.x - (position.x % tileSize), y: position.y - (position.y % tileSize) };
 };
 
+export const getTileMidPosition = (tilePosition: position, tileSize: number): position => {
+  return { x: tilePosition.x + Math.floor(tileSize / 2), y: tilePosition.y + Math.floor(tileSize / 2) };
+};
+
 export const getLargeTilePos = (position: position, tileSize: number): position => {
   return { x: Math.floor(position.x / tileSize), y: Math.floor(position.y / tileSize) };
 };
@@ -82,8 +86,6 @@ export const scaleMap = (map: TILE_TYPE[][], tileWidth: number): TILE_TYPE[][] =
       scaledMap[i][j] = map[properTilePos.x][properTilePos.y];
     }
   }
-
-  console.log(scaledMap);
 
   return scaledMap;
 };
