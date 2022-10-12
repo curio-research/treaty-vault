@@ -174,6 +174,7 @@ export enum InventoryTypeOptions {
   Slinger = 'Slinger',
   Guard = 'Guard',
   Gold = 'Gold',
+  Farm = 'Farm',
 }
 
 // export enum ResourceType {}

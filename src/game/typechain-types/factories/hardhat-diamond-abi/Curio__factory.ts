@@ -99,6 +99,31 @@ const _abi = [
             type: "uint256",
           },
         ],
+        internalType: "struct Position",
+        name: "_startPosition",
+        type: "tuple",
+      },
+    ],
+    name: "adminInitializeTile",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        components: [
+          {
+            internalType: "uint256",
+            name: "x",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "y",
+            type: "uint256",
+          },
+        ],
         internalType: "struct Position[]",
         name: "_positions",
         type: "tuple[]",
@@ -135,31 +160,6 @@ const _abi = [
       },
     ],
     name: "createArmy",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        components: [
-          {
-            internalType: "uint256",
-            name: "x",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "y",
-            type: "uint256",
-          },
-        ],
-        internalType: "struct Position",
-        name: "_startPosition",
-        type: "tuple",
-      },
-    ],
-    name: "initializeTile",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -818,42 +818,6 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "string",
-        name: "_componentName",
-        type: "string",
-      },
-      {
-        internalType: "uint256",
-        name: "_entity",
-        type: "uint256",
-      },
-    ],
-    name: "_getPosition",
-    outputs: [
-      {
-        components: [
-          {
-            internalType: "uint256",
-            name: "x",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "y",
-            type: "uint256",
-          },
-        ],
-        internalType: "struct Position",
-        name: "",
-        type: "tuple",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
         components: [
           {
             internalType: "uint256",
@@ -1117,6 +1081,42 @@ const _abi = [
         internalType: "uint256",
         name: "",
         type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "_componentName",
+        type: "string",
+      },
+      {
+        internalType: "uint256",
+        name: "_entity",
+        type: "uint256",
+      },
+    ],
+    name: "getPositionExternal",
+    outputs: [
+      {
+        components: [
+          {
+            internalType: "uint256",
+            name: "x",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "y",
+            type: "uint256",
+          },
+        ],
+        internalType: "struct Position",
+        name: "",
+        type: "tuple",
       },
     ],
     stateMutability: "view",
