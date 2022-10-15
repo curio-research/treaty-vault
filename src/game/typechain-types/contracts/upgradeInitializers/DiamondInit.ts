@@ -32,22 +32,20 @@ export type WorldConstantsStruct = {
   maxCityCountPerPlayer: PromiseOrValue<BigNumberish>;
   maxArmyCountPerPlayer: PromiseOrValue<BigNumberish>;
   maxPlayerCount: PromiseOrValue<BigNumberish>;
+  tileUpgradeGoldCost: PromiseOrValue<BigNumberish>;
+  buildingUpgradeGoldCost: PromiseOrValue<BigNumberish>;
   cityUpgradeGoldCost: PromiseOrValue<BigNumberish>;
-  maxInventoryCapacity: PromiseOrValue<BigNumberish>;
+  initCityCenterGoldLoad: PromiseOrValue<BigNumberish>;
+  initCityCenterTroopLoad: PromiseOrValue<BigNumberish>;
   cityPackCost: PromiseOrValue<BigNumberish>;
   initCityGold: PromiseOrValue<BigNumberish>;
-  cityHealth: PromiseOrValue<BigNumberish>;
-  cityAttack: PromiseOrValue<BigNumberish>;
-  cityDefense: PromiseOrValue<BigNumberish>;
+  cityGuardAmount: PromiseOrValue<BigNumberish>;
+  tileGuardAmount: PromiseOrValue<BigNumberish>;
   tileWidth: PromiseOrValue<BigNumberish>;
-  armyBattleRange: PromiseOrValue<BigNumberish>;
-  cityBattleRange: PromiseOrValue<BigNumberish>;
-  cityAmount: PromiseOrValue<BigNumberish>;
 };
 
 export type WorldConstantsStructOutput = [
   string,
-  BigNumber,
   BigNumber,
   BigNumber,
   BigNumber,
@@ -74,22 +72,21 @@ export type WorldConstantsStructOutput = [
   maxCityCountPerPlayer: BigNumber;
   maxArmyCountPerPlayer: BigNumber;
   maxPlayerCount: BigNumber;
+  tileUpgradeGoldCost: BigNumber;
+  buildingUpgradeGoldCost: BigNumber;
   cityUpgradeGoldCost: BigNumber;
-  maxInventoryCapacity: BigNumber;
+  initCityCenterGoldLoad: BigNumber;
+  initCityCenterTroopLoad: BigNumber;
   cityPackCost: BigNumber;
   initCityGold: BigNumber;
-  cityHealth: BigNumber;
-  cityAttack: BigNumber;
-  cityDefense: BigNumber;
+  cityGuardAmount: BigNumber;
+  tileGuardAmount: BigNumber;
   tileWidth: BigNumber;
-  armyBattleRange: BigNumber;
-  cityBattleRange: BigNumber;
-  cityAmount: BigNumber;
 };
 
 export interface DiamondInitInterface extends utils.Interface {
   functions: {
-    "init((address,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256))": FunctionFragment;
+    "init((address,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256))": FunctionFragment;
   };
 
   getFunction(nameOrSignatureOrTopic: "init"): FunctionFragment;

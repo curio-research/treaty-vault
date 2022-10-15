@@ -54,8 +54,10 @@ export const Address = 'Address';
 export const Cost = 'Cost';
 export const Treaty = 'Treaty';
 export const Army = 'Army';
-export const Capacity = 'Capacity';
 export const StartPosition = 'StartPosition';
+export const Terrain = 'Terrain';
+export const CanBattle = 'CanBattle';
+export const AttackRange = 'AttackRange';
 
 export const COMPONENT_SPECS: CompType[] = [
   { name: IsComponent, valueType: ComponentDataTypes.BOOL },
@@ -93,8 +95,10 @@ export const COMPONENT_SPECS: CompType[] = [
   { name: Cost, valueType: ComponentDataTypes.UINT },
   { name: Treaty, valueType: ComponentDataTypes.ADDRESS },
   { name: Army, valueType: ComponentDataTypes.UINT },
-  { name: Capacity, valueType: ComponentDataTypes.UINT },
   { name: StartPosition, valueType: ComponentDataTypes.POSITION },
+  { name: Terrain, valueType: ComponentDataTypes.UINT },
+  { name: CanBattle, valueType: ComponentDataTypes.BOOL },
+  { name: AttackRange, valueType: ComponentDataTypes.UINT },
 ];
 
 export interface componentInputTypeMap {
@@ -133,14 +137,18 @@ export interface componentInputTypeMap {
   Address: string;
   Cost: number;
   Treaty: number;
+  Terrain: number;
+  CanBattle: boolean;
+  StartPosition: position;
+  AttackRange: number;
 }
 
 export enum Tags {
   Army = 'Army',
-  ArmyConstituent = 'ArmyConstituent',
   Battle = 'Battle',
   Building = 'Building',
   City = 'City',
+  Constituent = 'Constituent',
   Guard = 'Guard',
   Player = 'Player',
   Resource = 'Resource',
@@ -164,8 +172,9 @@ export enum InventoryTypeOptions {
   Horseman = 'Horseman',
   Warrior = 'Warrior',
   Slinger = 'Slinger',
-  Laborer = 'Laborer',
+  Guard = 'Guard',
   Gold = 'Gold',
+  Food = 'Food',
 }
 
 // export enum ResourceType {}
