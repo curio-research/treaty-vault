@@ -96,6 +96,10 @@ export class GameStateCore {
     component.valueToEntity.get(encodedValueKey)?.add(entity);
   };
 
+  public queryEntitiesAsSet = (query: Query): Set<number> => {
+    return new Set(this.queryEntities(query));
+  };
+
   // caches the current value as "previous value". updates the current value
   public setComponentValue = <T>(componentName: string, entity: number, value: T): void => {
     // if component doesn't exist, create one
@@ -160,10 +164,6 @@ export class GameStateCore {
     });
 
     return [...entities];
-  };
-
-  public queryEntitiesAsSet = (query: Query): Set<number> => {
-    return new Set(this.queryEntities(query));
   };
 
   // fetch from smart contracts

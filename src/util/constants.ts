@@ -1,9 +1,8 @@
+// --------------------
+// ⛓️ chain registry ⛓️
+// --------------------
+
 export const chainInfo: Record<string, chainInfoType> = {
-  none: {
-    rpcUrl: '',
-    wsRpcUrl: '',
-    id: 0,
-  },
   tailscale: {
     rpcUrl: 'http://100.117.164.103:8545',
     wsRpcUrl: 'ws://100.117.164.103:8545',
@@ -38,6 +37,17 @@ export const chainInfo: Record<string, chainInfoType> = {
     rpcUrl: 'https://arches1-alt-producer-archive-rpc.alt.technology',
     wsRpcUrl: 'wss://arches1-alt-producer-archive-api.alt.technology',
     id: 9991,
+  },
+  // default cases
+  '': {
+    rpcUrl: '',
+    wsRpcUrl: '',
+    id: 0,
+  },
+  none: {
+    rpcUrl: '',
+    wsRpcUrl: '',
+    id: 0,
   },
 };
 
