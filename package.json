@@ -12,6 +12,8 @@
   "license": "ISC",
   "dependencies": {
     "ethers": "^5.7.1",
+    "just-debounce": "^1.1.0",
+    "mobx": "^6.6.2",
     "tsc": "^2.0.4",
     "typescript": "^4.8.2"
   }

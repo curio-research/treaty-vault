@@ -112,6 +112,29 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: "uint256",
+        name: "_cityID",
+        type: "uint256",
+      },
+      {
+        internalType: "string",
+        name: "_inventoryType",
+        type: "string",
+      },
+      {
+        internalType: "uint256",
+        name: "_amount",
+        type: "uint256",
+      },
+    ],
+    name: "assignResource",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         components: [
           {
             internalType: "uint256",
@@ -270,6 +293,66 @@ const _abi = [
       },
     ],
     name: "setComponentValue",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        components: [
+          {
+            internalType: "uint256",
+            name: "x",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "y",
+            type: "uint256",
+          },
+        ],
+        internalType: "struct Position",
+        name: "_startPosition",
+        type: "tuple",
+      },
+      {
+        internalType: "uint256",
+        name: "_level",
+        type: "uint256",
+      },
+    ],
+    name: "spawnBarbarian",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        components: [
+          {
+            internalType: "uint256",
+            name: "x",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "y",
+            type: "uint256",
+          },
+        ],
+        internalType: "struct Position",
+        name: "_startPosition",
+        type: "tuple",
+      },
+      {
+        internalType: "string",
+        name: "_inventoryType",
+        type: "string",
+      },
+    ],
+    name: "spawnResource",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -530,6 +613,19 @@ const _abi = [
     inputs: [
       {
         internalType: "uint256",
+        name: "_armyID",
+        type: "uint256",
+      },
+    ],
+    name: "endGather",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
         name: "_buildingID",
         type: "uint256",
       },
@@ -583,16 +679,11 @@ const _abi = [
     inputs: [
       {
         internalType: "uint256",
-        name: "_goldMineResourceID",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "armyID",
+        name: "_resourceID",
         type: "uint256",
       },
     ],
-    name: "harvestGold",
+    name: "harvestResource",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -604,13 +695,8 @@ const _abi = [
         name: "_buildingID",
         type: "uint256",
       },
-      {
-        internalType: "uint256",
-        name: "_templateID",
-        type: "uint256",
-      },
     ],
-    name: "harvestResource",
+    name: "harvestResourcesFromCity",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -721,6 +807,24 @@ const _abi = [
     inputs: [
       {
         internalType: "uint256",
+        name: "_armyID",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_resourceID",
+        type: "uint256",
+      },
+    ],
+    name: "startGather",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
         name: "_buildingID",
         type: "uint256",
       },
@@ -743,6 +847,19 @@ const _abi = [
         type: "uint256",
       },
     ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_armyID",
+        type: "uint256",
+      },
+    ],
+    name: "unloadResources",
+    outputs: [],
     stateMutability: "nonpayable",
     type: "function",
   },
@@ -797,7 +914,7 @@ const _abi = [
         type: "uint256",
       },
     ],
-    name: "upgradeGoldmine",
+    name: "upgradeResource",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -849,6 +966,25 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: "uint256",
+        name: "_armyID",
+        type: "uint256",
+      },
+    ],
+    name: "getArmyFood",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         components: [
           {
             internalType: "uint256",
@@ -886,6 +1022,44 @@ const _abi = [
       },
     ],
     name: "getCityCenter",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_cityID",
+        type: "uint256",
+      },
+    ],
+    name: "getCityFood",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_cityID",
+        type: "uint256",
+      },
+    ],
+    name: "getCityGold",
     outputs: [
       {
         internalType: "uint256",
@@ -1138,6 +1312,56 @@ const _abi = [
           },
         ],
         internalType: "struct Position",
+        name: "_startPosition",
+        type: "tuple",
+      },
+    ],
+    name: "getResourceAtTile",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_resourceID",
+        type: "uint256",
+      },
+    ],
+    name: "getResourceLevel",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        components: [
+          {
+            internalType: "uint256",
+            name: "x",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "y",
+            type: "uint256",
+          },
+        ],
+        internalType: "struct Position",
         name: "_position",
         type: "tuple",
       },
@@ -1271,6 +1495,11 @@ const _abi = [
           },
           {
             internalType: "uint256",
+            name: "initCityCenterFoodLoad",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
             name: "initCityCenterTroopLoad",
             type: "uint256",
           },
@@ -1297,6 +1526,11 @@ const _abi = [
           {
             internalType: "uint256",
             name: "tileWidth",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "barbarianCooldown",
             type: "uint256",
           },
         ],
