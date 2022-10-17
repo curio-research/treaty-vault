@@ -36,16 +36,20 @@ export type WorldConstantsStruct = {
   buildingUpgradeGoldCost: PromiseOrValue<BigNumberish>;
   cityUpgradeGoldCost: PromiseOrValue<BigNumberish>;
   initCityCenterGoldLoad: PromiseOrValue<BigNumberish>;
+  initCityCenterFoodLoad: PromiseOrValue<BigNumberish>;
   initCityCenterTroopLoad: PromiseOrValue<BigNumberish>;
   cityPackCost: PromiseOrValue<BigNumberish>;
   initCityGold: PromiseOrValue<BigNumberish>;
   cityGuardAmount: PromiseOrValue<BigNumberish>;
   tileGuardAmount: PromiseOrValue<BigNumberish>;
   tileWidth: PromiseOrValue<BigNumberish>;
+  barbarianCooldown: PromiseOrValue<BigNumberish>;
 };
 
 export type WorldConstantsStructOutput = [
   string,
+  BigNumber,
+  BigNumber,
   BigNumber,
   BigNumber,
   BigNumber,
@@ -76,17 +80,19 @@ export type WorldConstantsStructOutput = [
   buildingUpgradeGoldCost: BigNumber;
   cityUpgradeGoldCost: BigNumber;
   initCityCenterGoldLoad: BigNumber;
+  initCityCenterFoodLoad: BigNumber;
   initCityCenterTroopLoad: BigNumber;
   cityPackCost: BigNumber;
   initCityGold: BigNumber;
   cityGuardAmount: BigNumber;
   tileGuardAmount: BigNumber;
   tileWidth: BigNumber;
+  barbarianCooldown: BigNumber;
 };
 
 export interface DiamondInitInterface extends utils.Interface {
   functions: {
-    "init((address,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256))": FunctionFragment;
+    "init((address,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256))": FunctionFragment;
   };
 
   getFunction(nameOrSignatureOrTopic: "init"): FunctionFragment;

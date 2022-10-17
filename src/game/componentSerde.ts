@@ -1,7 +1,7 @@
 import { BigNumber as BN } from 'ethers';
 import { Result } from '@ethersproject/abi';
 import { position } from '../types';
-import { handleComponentValueSet, handleComponentValueRemoved, handleEntityRemoved } from './types/component';
+import { handleComponentValueSet, handleComponentValueRemoved, handleEntityRemoved } from '../util/events';
 import { defaultAbiCoder as abi } from 'ethers/lib/utils';
 
 export const decodeEntitiesAndRawValues = (val: [BN[], string[]]): any => {
