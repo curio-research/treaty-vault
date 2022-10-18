@@ -162,6 +162,7 @@ export enum Tags {
   TroopProduction = 'TroopProduction',
   TroopTemplate = 'TroopTemplate',
   Gather = 'Gather',
+  Constant = 'Constant',
 }
 
 export enum BuildingTypeOptions {
