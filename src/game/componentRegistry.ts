@@ -58,6 +58,8 @@ export const StartPosition = 'StartPosition';
 export const Terrain = 'Terrain';
 export const CanBattle = 'CanBattle';
 export const AttackRange = 'AttackRange';
+export const FunctionName = 'FunctionName';
+export const ComponentName = 'ComponentName';
 
 export const COMPONENT_SPECS: CompType[] = [
   { name: IsComponent, valueType: ComponentDataTypes.BOOL },
@@ -99,6 +101,8 @@ export const COMPONENT_SPECS: CompType[] = [
   { name: Terrain, valueType: ComponentDataTypes.UINT },
   { name: CanBattle, valueType: ComponentDataTypes.BOOL },
   { name: AttackRange, valueType: ComponentDataTypes.UINT },
+  { name: FunctionName, valueType: ComponentDataTypes.STRING },
+  { name: ComponentName, valueType: ComponentDataTypes.STRING },
 ];
 
 export interface componentInputTypeMap {
@@ -141,6 +145,8 @@ export interface componentInputTypeMap {
   CanBattle: boolean;
   StartPosition: position;
   AttackRange: number;
+  FunctionName: number;
+  ComponentName: number;
 }
 
 export enum Tags {
@@ -175,6 +181,7 @@ export enum InventoryTypeOptions {
   Guard = 'Guard',
   Gold = 'Gold',
   Food = 'Food',
+  Placeholder = 'Placeholder',
 }
 
 // export enum ResourceType {}
