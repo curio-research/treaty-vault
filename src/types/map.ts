@@ -11,11 +11,6 @@ export interface WorldConstants {
   maxArmyCountPerPlayer: number;
   maxPlayerCount: number;
   tileWidth: number;
-  cityUpgradeGoldCost: number;
-  tileGuardAmount: number;
-  tileUpgradeGoldCost: number;
-  barbarianCooldown: number;
-  initCityCenterGoldLoad: number;
 }
 
 export const emptyWorldConstants: WorldConstants = {
@@ -28,11 +23,6 @@ export const emptyWorldConstants: WorldConstants = {
   maxArmyCountPerPlayer: 0,
   maxPlayerCount: 0,
   tileWidth: 0,
-  cityUpgradeGoldCost: 0,
-  tileGuardAmount: 0,
-  tileUpgradeGoldCost: 0,
-  barbarianCooldown: 0,
-  initCityCenterGoldLoad: 0,
 };
 
 export interface Tile {
