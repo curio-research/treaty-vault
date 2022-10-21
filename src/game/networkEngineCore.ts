@@ -8,7 +8,7 @@ import { EventHandlers, NetworkEvents } from '../util/events';
 import debounce from 'just-debounce';
 import { makeObservable, observable } from 'mobx';
 import { TransactionReceipt } from '@ethersproject/providers';
-import { delay, EMPTY_ADDR } from '../util/network';
+import { delay } from '../util/network';
 import { resolveProperties } from '@ethersproject/properties';
 
 // ------------------------------------------------------------
@@ -43,7 +43,7 @@ export class NetworkEngineCore {
     this.hasReceivedValidEvent = new Map();
     this.provider = new providers.JsonRpcProvider(chainInfo[chain].rpcUrl);
     this.wsProvider = new providers.WebSocketProvider(chainInfo[chain].wsRpcUrl);
-    this.contract = Curio__factory.connect(EMPTY_ADDR, this.signer!);
+    this.contract = Curio__factory.connect(ethers.constants.AddressZero, this.signer!);
 
     // on chain events
     const eventHandlers: EventHandlers = {
@@ -223,10 +223,9 @@ export class NetworkEngineCore {
 
   // set deployment
   public setDeployment = (deployment: GameConfig): void => {
-    this.contract = Curio__factory.connect(String(deployment.address), this.signer!);
-
     this.provider = new providers.JsonRpcProvider(chainInfo[deployment.network].rpcUrl);
     this.wsProvider = new providers.WebSocketProvider(chainInfo[deployment.network].wsRpcUrl);
+    this.contract = Curio__factory.connect(String(deployment.address), this.signer || this.provider);
   };
 
   public getBalance = async (address: string): Promise<number> => {
