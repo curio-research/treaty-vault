@@ -2,7 +2,13 @@
 // ⛓️ chain registry ⛓️
 // --------------------
 
-export const chainInfo: Record<string, chainInfoType> = {
+export interface ChainInfoType {
+  rpcUrl: string;
+  wsRpcUrl: string;
+  id: number;
+}
+
+export const chainInfo: Record<string, ChainInfoType> = {
   tailscale: {
     rpcUrl: 'http://100.117.164.103:8545',
     wsRpcUrl: 'ws://100.117.164.103:8545',
@@ -50,9 +56,3 @@ export const chainInfo: Record<string, chainInfoType> = {
     id: 0,
   },
 };
-
-export interface chainInfoType {
-  rpcUrl: string;
-  wsRpcUrl: string;
-  id: number;
-}
