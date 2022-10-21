@@ -16,10 +16,5 @@ export const decodeWorldConstants = (constants: WorldConstantsStructOutput): Wor
     maxArmyCountPerPlayer: constants.maxArmyCountPerPlayer.toNumber(),
     maxPlayerCount: constants.maxPlayerCount.toNumber(),
     tileWidth: constants.tileWidth.toNumber(),
-    cityUpgradeGoldCost: constants.cityUpgradeGoldCost.toNumber(),
-    tileGuardAmount: constants.tileGuardAmount.toNumber(),
-    tileUpgradeGoldCost: constants.tileUpgradeGoldCost.toNumber(),
-    barbarianCooldown: constants.barbarianCooldown.toNumber(),
-    initCityCenterGoldLoad: constants.initCityCenterGoldLoad.toNumber(),
   };
 };
