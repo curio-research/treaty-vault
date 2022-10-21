@@ -10,6 +10,7 @@ export interface GameConfig {
   address: string;
   network: string;
   deploymentId: string;
+  indexerUrl: string;
   map: TileMap;
   time: any;
 }
@@ -20,6 +21,7 @@ export const emptyGameConfig = {
   address: '',
   network: 'none',
   deploymentId: '',
+  indexerUrl: '',
   map: [],
   time: 0,
 };
