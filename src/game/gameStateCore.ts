@@ -170,12 +170,19 @@ export class GameStateCore {
   public fetchSetECSValues = async (): Promise<void> => {
     const componentNonce = Object.keys(componentNameToId).length;
 
+    console.log(componentNonce);
+
     const allEntities = await this.gameManager.apiManager.getEntities();
+
+    console.log(allEntities);
+
     this.entities = new Set(allEntities);
 
     for (let i = 0; i < componentNonce; i++) {
       const componentId = i + 1;
       const componentName = componentIdToName[componentId];
+
+      console.log(componentName);
 
       this.initializeComponent(componentName);
 

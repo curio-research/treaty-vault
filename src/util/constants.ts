@@ -35,8 +35,8 @@ export const chainInfo: Record<string, ChainInfoType> = {
     gasLimit: 10_000_000,
   },
   constellationNew: {
-    rpcUrl: 'http://52.24.63.91:8545/',
-    wsRpcUrl: 'ws://52.24.63.91:8546/',
+    rpcUrl: 'http://54.187.30.57:8545',
+    wsRpcUrl: 'ws://54.187.30.57:8546',
     id: 0,
     gasLimit: 500_000_000,
   },
