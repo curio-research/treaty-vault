@@ -1,0 +1,18 @@
+import { TILE_TYPE } from './../types/deployment';
+import { position } from './../types/common';
+export declare const getLeftPos: (pos: position, scale?: number) => position;
+export declare const getLeftTopPos: (pos: position, scale?: number) => position;
+export declare const getLeftBottomPos: (pos: position, scale?: number) => position;
+export declare const getRightBottomPos: (pos: position, scale?: number) => position;
+export declare const getRightPos: (pos: position, scale?: number) => position;
+export declare const getRightTopPos: (pos: position, scale?: number) => position;
+export declare const getTopPos: (pos: position, scale?: number) => position;
+export declare const getBottomPos: (pos: position, scale?: number) => position;
+export declare const getImmediateSurroundingPositions: (center: position) => position[];
+export declare const getProperTilePosition: (position: position, tileSize: number) => position;
+export declare const getTileMidPosition: (tilePosition: position, tileSize: number) => position;
+export declare const getLargeTilePos: (position: position, tileSize: number) => position;
+export declare const isEven: (number: number) => boolean;
+export declare const isOdd: (number: number) => boolean;
+export declare const scaleMap: (map: TILE_TYPE[][], tileWidth: number) => TILE_TYPE[][];
+export declare const euclidian: (pos1: position, pos2: position) => number;

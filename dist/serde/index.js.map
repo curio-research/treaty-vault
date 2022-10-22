@@ -1,0 +1,1 @@
+{"version":3,"file":"index.js","sourceRoot":"","sources":["../../src/serde/index.ts"],"names":[],"mappings":";;;;;;;;;;;;;;;;AAAA,2CAAyB;AACzB,yCAAuB","sourcesContent":["export * from './common';\nexport * from './game';\n"]}
