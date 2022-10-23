@@ -16,5 +16,7 @@ export const decodeWorldConstants = (constants: WorldConstantsStructOutput): Wor
     maxArmyCountPerPlayer: constants.maxArmyCountPerPlayer.toNumber(),
     maxPlayerCount: constants.maxPlayerCount.toNumber(),
     tileWidth: constants.tileWidth.toNumber(),
+    cityCenterLevelToEntityLevelRatio: constants.cityCenterLevelToEntityLevelRatio.toNumber(),
+    cityCenterLevelToTileCountRatio: constants.cityCenterLevelToTileCountRatio.toNumber(),
   };
 };

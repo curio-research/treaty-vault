@@ -6,7 +6,7 @@ export enum ContractMethods {
 
   authorizeGame = 'authorizeGame',
   move = 'move',
-  upgradeCity = 'upgradeCity',
+  upgradeCityCenter = 'upgradeCityCenter',
   startTroopProduction = 'startTroopProduction',
   endTroopProduction = 'endTroopProduction',
   harvestResourcesFromCity = 'harvestResourcesFromCity',

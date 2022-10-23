@@ -11,6 +11,8 @@ export interface WorldConstants {
   maxArmyCountPerPlayer: number;
   maxPlayerCount: number;
   tileWidth: number;
+  cityCenterLevelToEntityLevelRatio: number;
+  cityCenterLevelToTileCountRatio: number;
 }
 
 export const emptyWorldConstants: WorldConstants = {
@@ -23,6 +25,8 @@ export const emptyWorldConstants: WorldConstants = {
   maxArmyCountPerPlayer: 0,
   maxPlayerCount: 0,
   tileWidth: 0,
+  cityCenterLevelToEntityLevelRatio: 0,
+  cityCenterLevelToTileCountRatio: 0,
 };
 
 export interface Tile {

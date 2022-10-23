@@ -20,7 +20,7 @@ export const chainInfo: Record<string, ChainInfoType> = {
     rpcUrl: 'http://127.0.0.1:8545/',
     wsRpcUrl: 'ws://localhost:8545',
     id: 31337,
-    gasLimit: 500_000_000,
+    gasLimit: 1_000_000_000,
   },
   gnosisOptimism: {
     rpcUrl: 'https://optimism.gnosischain.com/',

@@ -1,7 +1,6 @@
 import { WorldConstants } from '../types/map';
 import { decodeBigNumberishArr } from '../serde/common';
 import { decodeEntitiesAndRawValues, Component__factory } from './index';
-import { makeObservable, observable } from 'mobx';
 import { decodeWorldConstants } from '../serde/game';
 import { TxIntent, ContractMethods } from '../util/transactions';
 import NetworkEngineCore from './networkEngineCore';

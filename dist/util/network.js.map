@@ -1,1 +1,0 @@
-{"version":3,"file":"network.js","sourceRoot":"","sources":["../../src/util/network.ts"],"names":[],"mappings":";;;AAAO,MAAM,KAAK,GAAG,CAAC,EAAU,EAAiB,EAAE,CAAC,IAAI,OAAO,CAAC,CAAC,GAAG,EAAE,EAAE,CAAC,UAAU,CAAC,GAAG,EAAE,EAAE,CAAC,CAAC,CAAC;AAAjF,QAAA,KAAK,SAA4E","sourcesContent":["export const delay = (ms: number): Promise<void> => new Promise((res) => setTimeout(res, ms));\n"]}
