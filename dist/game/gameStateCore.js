@@ -103,14 +103,11 @@ class GameStateCore {
         // fetch from smart contracts
         this.fetchSetECSValues = async () => {
             const componentNonce = Object.keys(_1.componentNameToId).length;
-            console.log(componentNonce);
             const allEntities = await this.gameManager.apiManager.getEntities();
-            console.log(allEntities);
             this.entities = new Set(allEntities);
             for (let i = 0; i < componentNonce; i++) {
                 const componentId = i + 1;
                 const componentName = _1.componentIdToName[componentId];
-                console.log(componentName);
                 this.initializeComponent(componentName);
                 const componentAddress = await this.gameManager.apiManager.getComponentById(componentId);
                 const { entityIds, values } = await this.gameManager.apiManager.getAllEntitiesAndRawValues(componentAddress);
