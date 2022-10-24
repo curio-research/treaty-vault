@@ -3,7 +3,6 @@ import { Contract } from 'ethers';
 export enum ContractMethods {
   initializePlayer = 'initializePlayer',
   foundCity = 'foundCity',
-
   authorizeGame = 'authorizeGame',
   move = 'move',
   upgradeCityCenter = 'upgradeCityCenter',
@@ -23,6 +22,8 @@ export enum ContractMethods {
   upgradeResource = 'upgradeResource',
   upgradeTile = 'upgradeTile',
   unloadResources = 'unloadResources',
+
+  setComponentValue = 'setComponentValue',
 }
 
 export type TxIntent = {

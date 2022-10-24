@@ -2,6 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export * as mappingSol from "./Mapping.sol";
+export * as natoSol from "./NATO.sol";
 export * as typedComponentsSol from "./TypedComponents.sol";
 export * as facets from "./facets";
 export * as interfaces from "./interfaces";
@@ -9,5 +10,4 @@ export * as libraries from "./libraries";
 export * as upgradeInitializers from "./upgradeInitializers";
 export { Component__factory } from "./Component__factory";
 export { Diamond__factory } from "./Diamond__factory";
-export { NATO__factory } from "./NATO__factory";
 export { Set__factory } from "./Set__factory";

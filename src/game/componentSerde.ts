@@ -49,7 +49,6 @@ export const encodePositionArrComp = (positions: position[]): string => {
   return 'TODO: array of position';
 };
 
-// TODO: not verified
 export const decodePositionArrComp = (bytes: string): position => {
   const decoded = abi.decode(['tuple(uint256,uint256)[]'], bytes);
   return decoded[0].map((pos: any) => ({ x: pos[0].toNumber(), y: pos[1].toNumber() }));
@@ -64,6 +63,7 @@ export const decodeStringComp = (bytes: string): string => {
   return decoded[0];
 };
 
+// string array
 export const encodeStringArrComp = (srings: string[]): string => {
   return 'TODO: string array';
 };
@@ -73,6 +73,7 @@ export const decodeStringArrComp = (bytes: string): string[] => {
   return decoded[0];
 };
 
+// address
 export const encodeAddressComp = (address: string) => {
   return address;
 };
@@ -82,6 +83,7 @@ export const decodeAddressComp = (bytes: string): string => {
   return decoded[0].toLowerCase();
 };
 
+// uint256
 export const encodeUint256Comp = (number: number): string => {
   return number.toString();
 };
@@ -91,6 +93,7 @@ export const decodeUint256Comp = (bytes: string): number => {
   return decoded[0].toNumber();
 };
 
+// uint256[]
 export const encodeUint256ArrComp = (numbers: number[]): string => {
   return `TODO: uint256 array`;
 };
@@ -100,6 +103,7 @@ export const decodeUint256ArrComp = (bytes: string): number[] => {
   return decoded[0].map((val: any) => val.toNumber());
 };
 
+// int256
 export const encodeInt256Comp = (number: number): string => {
   return number.toString();
 };
@@ -109,6 +113,7 @@ export const decodeInt256Comp = (bytes: string): number => {
   return decoded[0].toNumber();
 };
 
+// bool
 export const encodeBoolComp = (boolean: boolean): string => {
   return boolean ? 'true' : 'false';
 };
@@ -118,7 +123,7 @@ export const decodeBoolComp = (bytes: string): number => {
   return decoded[0];
 };
 
-export type ComponentValueTypes = position | string | number;
+export type ComponentValueTypes = position | string | number | boolean;
 
 //
 

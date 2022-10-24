@@ -3,6 +3,8 @@
 /* eslint-disable */
 import type * as mappingSol from "./Mapping.sol";
 export type { mappingSol };
+import type * as natoSol from "./NATO.sol";
+export type { natoSol };
 import type * as typedComponentsSol from "./TypedComponents.sol";
 export type { typedComponentsSol };
 import type * as facets from "./facets";
@@ -15,5 +17,4 @@ import type * as upgradeInitializers from "./upgradeInitializers";
 export type { upgradeInitializers };
 export type { Component } from "./Component";
 export type { Diamond } from "./Diamond";
-export type { NATO } from "./NATO";
 export type { Set } from "./Set";
