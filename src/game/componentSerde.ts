@@ -1,3 +1,4 @@
+import { ComponentDataTypes } from './../types/component';
 import { BigNumber as BN } from 'ethers';
 import { Result } from '@ethersproject/abi';
 import { position } from '../types';
@@ -137,4 +138,29 @@ export const encodeUint256 = (num: number): string => {
 
 export const encodePosition = (pos: position): string => {
   return abi.encode(['tuple(uint256 x,uint256 y)'], [pos]); // BUG
+};
+
+export const encodeBool = (bool: boolean): string => {
+  return abi.encode(['bool'], [bool]);
+};
+
+// abi encode component values based on data type
+
+export const componentValueEncoder = (componentDataType: ComponentDataTypes, value: any): string => {
+  switch (componentDataType) {
+    case ComponentDataTypes.UINT:
+      return encodeUint256(value);
+
+    case ComponentDataTypes.POSITION:
+      return encodePosition(value);
+
+    case ComponentDataTypes.STRING:
+      return encodeString(value);
+
+    case ComponentDataTypes.BOOL:
+      return encodeBool(value);
+
+    default:
+      return '';
+  }
 };

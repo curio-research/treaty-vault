@@ -77,10 +77,6 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.UintBoolMapping__factory>;
     getContractFactory(
-      name: "ITreaty",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.ITreaty__factory>;
-    getContractFactory(
       name: "NATO",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.NATO__factory>;
@@ -205,11 +201,6 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.UintBoolMapping>;
-    getContractAt(
-      name: "ITreaty",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.ITreaty>;
     getContractAt(
       name: "NATO",
       address: string,
