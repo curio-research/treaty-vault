@@ -35,10 +35,10 @@ export const chainInfo: Record<string, ChainInfoType> = {
     gasLimit: 10_000_000,
   },
   constellationNew: {
-    rpcUrl: 'http://54.187.30.57:8545',
-    wsRpcUrl: 'ws://54.187.30.57:8546',
+    rpcUrl: 'https://curiov2.constellationchain.xyz/http',
+    wsRpcUrl: 'wss://curiov2.constellationchain.xyz/ws',
     id: 0,
-    gasLimit: 500_000_000,
+    gasLimit: 1_000_000_000,
   },
   exfac: {
     rpcUrl: 'https://rpc-curio-hello-wa0nsj4gsn.t.exfac.xyz',

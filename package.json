@@ -1,6 +1,6 @@
 {
   "name": "curio-vault",
-  "version": "1.1.11",
+  "version": "1.1.15",
   "description": "Shared code for the Curio stack",
   "main": "src/index.ts",
   "types": "dist/index.d.ts",
@@ -8,7 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepublishOnly": "yarn build",
     "prebuild": "rimraf dist",
-    "build": "tsc && rimraf dist",
+    "clean": "rimraf dist",
+    "build": "tsc",
     "setup": "yarn unlink && yarn link",
     "prepack": "mv package.json package.json.temp && jq \".main = \\\"dist/index.js\\\"\" package.json.temp > package.json ",
     "postpack": "mv package.json.temp package.json || echo 'no package.json.temp'"
