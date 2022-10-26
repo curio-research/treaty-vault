@@ -9,7 +9,7 @@ import {
 } from './';
 import { makeObservable, observable, configure } from 'mobx';
 import { WorldConstants, Tiles, emptyWorldConstants, Components, Component } from '../types/map';
-import { NetworkEvents, handleComponentValueSet, handleEntityRemoved } from '../util';
+import { NetworkEvents, handleComponentValueSet, handleComponentValueRemoved, handleEntityRemoved } from '../util';
 import { Query, QueryActionType } from '../types/query';
 import { setDiff, setIntersection } from '../util/query';
 import GameManagerCore from './gameManagerCore';
@@ -49,6 +49,7 @@ export class GameStateCore {
   public setupEventListeners(): void {
     const eventToHandlerBinding: Record<string, any> = {
       [NetworkEvents.ComponentValueSet]: this.handleComponentValueSet.bind(this),
+      [NetworkEvents.ComponentValueRemoved]: this.handleComponentValueRemoved.bind(this),
       [NetworkEvents.EntityRemoved]: this.handleEntityRemoved.bind(this),
     };
 
@@ -63,7 +64,15 @@ export class GameStateCore {
   };
 
   public handleComponentValueSet = ({ componentName, entity, value }: handleComponentValueSet) => {
+    if (componentName === 'Owner') {
+      console.log(componentName, entity, componentNameToDecoder[componentName](value));
+    }
     this.setComponentValue(componentName, entity, componentNameToDecoder[componentName](value));
+  };
+
+  public handleComponentValueRemoved = ({ componentName, entity }: handleComponentValueRemoved) => {
+    console.log('Removal: ');
+    this.setComponentValue(componentName, entity, componentNameToDecoder[componentName]('0x'));
   };
 
   public handleEntityRemoved = ({ entity }: handleEntityRemoved) => {
