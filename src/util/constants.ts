@@ -28,18 +28,18 @@ export const chainInfo: Record<string, ChainInfoType> = {
     id: 0,
     gasLimit: 10_000_000,
   },
-  // constellationNew: {
-  //   rpcUrl: 'https://curiov2.constellationchain.xyz/http',
-  //   wsRpcUrl: 'wss://curiov2.constellationchain.xyz/ws',
-  //   id: 0,
-  //   gasLimit: 1_000_000_000,
-  // },
   constellationNew: {
-    rpcUrl: 'http://54.187.30.57:8545',
-    wsRpcUrl: 'ws://54.187.30.57:8546',
-    id: 2938,
+    rpcUrl: 'https://curiov2.constellationchain.xyz/http',
+    wsRpcUrl: 'wss://curiov2.constellationchain.xyz/ws',
+    id: 0,
     gasLimit: 1_000_000_000,
   },
+  // constellationNew: {
+  //   rpcUrl: 'http://54.187.30.57:8545',
+  //   wsRpcUrl: 'ws://54.187.30.57:8546',
+  //   id: 2938,
+  //   gasLimit: 1_000_000_000,
+  // },
   exfac: {
     rpcUrl: 'https://rpc-curio-hello-wa0nsj4gsn.t.exfac.xyz',
     wsRpcUrl: 'wss://rpc-curio-hello-wa0nsj4gsn.t.exfac.xyz',
