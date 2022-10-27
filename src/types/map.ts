@@ -12,7 +12,6 @@ export interface WorldConstants {
   maxPlayerCount: number;
   tileWidth: number;
   cityCenterLevelToEntityLevelRatio: number;
-  cityCenterLevelToTileCountRatio: number;
   secondsToTrainAThousandTroops: number;
 }
 
@@ -27,7 +26,6 @@ export const emptyWorldConstants: WorldConstants = {
   maxPlayerCount: 0,
   tileWidth: 0,
   cityCenterLevelToEntityLevelRatio: 0,
-  cityCenterLevelToTileCountRatio: 0,
   secondsToTrainAThousandTroops: 0,
 };
 
