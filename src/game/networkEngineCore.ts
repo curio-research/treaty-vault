@@ -188,11 +188,18 @@ export class NetworkEngineCore {
           }
         });
 
+        logs.sort((a: ethers.providers.Log, b: ethers.providers.Log) => {
+          if (parseInt(String(a.transactionIndex), 16) < parseInt(String(b.transactionIndex), 16)) {
+            return -1;
+          }
+          return 1;
+        });
+
         logs.forEach((log) => {
           //  keeping a running log of which tx has been processed so far
           const txKey = `${log.transactionHash}-${log.data}`;
 
-          if (this.handledEventTx.get(txKey) === undefined) {
+          if (this.handledEventTx.get(txKey) === undefined || this.handledEventTx.get(txKey) === false) {
             this.handledEventTx.set(txKey, true);
 
             const parsedData = contract.interface.parseLog(log);

@@ -20,13 +20,7 @@ export const chainInfo: Record<string, ChainInfoType> = {
     rpcUrl: 'http://127.0.0.1:8545/',
     wsRpcUrl: 'ws://localhost:8545',
     id: 31337,
-    gasLimit: 1_000_000_000,
-  },
-  gnosisOptimism: {
-    rpcUrl: 'https://optimism.gnosischain.com/',
-    wsRpcUrl: 'wss://optimism.gnosischain.com/wss',
-    id: 0,
-    gasLimit: 0,
+    gasLimit: 3_000_000_000,
   },
   constellation: {
     rpcUrl: 'http://curio.constellationchain.xyz:8545',
@@ -34,10 +28,16 @@ export const chainInfo: Record<string, ChainInfoType> = {
     id: 0,
     gasLimit: 10_000_000,
   },
+  // constellationNew: {
+  //   rpcUrl: 'https://curiov2.constellationchain.xyz/http',
+  //   wsRpcUrl: 'wss://curiov2.constellationchain.xyz/ws',
+  //   id: 0,
+  //   gasLimit: 1_000_000_000,
+  // },
   constellationNew: {
-    rpcUrl: 'https://curiov2.constellationchain.xyz/http',
-    wsRpcUrl: 'wss://curiov2.constellationchain.xyz/ws',
-    id: 0,
+    rpcUrl: 'http://54.187.30.57:8545',
+    wsRpcUrl: 'ws://54.187.30.57:8546',
+    id: 2938,
     gasLimit: 1_000_000_000,
   },
   exfac: {

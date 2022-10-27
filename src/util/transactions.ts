@@ -23,6 +23,8 @@ export enum ContractMethods {
   upgradeResource = 'upgradeResource',
   upgradeTile = 'upgradeTile',
   unloadResources = 'unloadResources',
+  moveCityCenter = 'moveCityCenter',
+  disownTile = 'disownTile',
 
   setComponentValue = 'setComponentValue',
 }

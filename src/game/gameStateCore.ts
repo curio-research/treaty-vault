@@ -64,15 +64,14 @@ export class GameStateCore {
   };
 
   public handleComponentValueSet = ({ componentName, entity, value }: handleComponentValueSet) => {
-    if (componentName === 'Owner') {
-      console.log(componentName, entity, componentNameToDecoder[componentName](value));
-    }
+    // if (componentName === 'Owner') {
+    //   console.log(componentName, entity, componentNameToDecoder[componentName](value));
+    // }
     this.setComponentValue(componentName, entity, componentNameToDecoder[componentName](value));
   };
 
   public handleComponentValueRemoved = ({ componentName, entity }: handleComponentValueRemoved) => {
-    console.log('Removal: ');
-    this.setComponentValue(componentName, entity, componentNameToDecoder[componentName]('0x'));
+    this.removeComponentValue(componentName, entity);
   };
 
   public handleEntityRemoved = ({ entity }: handleEntityRemoved) => {
@@ -107,6 +106,18 @@ export class GameStateCore {
 
   public queryEntitiesAsSet = (query: Query): Set<number> => {
     return new Set(this.queryEntities(query));
+  };
+
+  public removeComponentValue = (componentName: string, entity: number): void => {
+    // if component doesn't exist, create one
+    if (!this.components.get(componentName)) {
+      this.initializeComponent(componentName);
+    }
+
+    const component = this.components.get(componentName);
+    if (!component) return;
+
+    component.entities.delete(entity);
   };
 
   // caches the current value as "previous value". updates the current value
