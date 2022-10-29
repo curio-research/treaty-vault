@@ -4,6 +4,7 @@ export enum TILE_TYPE {
   FARM_LV1 = 2,
   BARBARIAN_LV1 = 3,
   BARBARIAN_LV2 = 4,
+  MOUNTAIN = 5,
 }
 
 export interface GameConfig {
