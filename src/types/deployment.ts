@@ -8,6 +8,7 @@ export enum TILE_TYPE {
 }
 
 export interface GameConfig {
+  name: string;
   address: string;
   network: string;
   deploymentId: string;
