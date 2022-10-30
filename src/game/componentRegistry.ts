@@ -60,6 +60,7 @@ export const CanBattle = 'CanBattle';
 export const AttackRange = 'AttackRange';
 export const LastUpgraded = 'LastUpgraded';
 export const LastMoved = 'LastMoved';
+export const LastRecovered = 'LastRecovered';
 
 export const COMPONENT_SPECS: CompType[] = [
   { name: IsComponent, valueType: ComponentDataTypes.BOOL },
@@ -103,6 +104,7 @@ export const COMPONENT_SPECS: CompType[] = [
   { name: AttackRange, valueType: ComponentDataTypes.UINT },
   { name: LastUpgraded, valueType: ComponentDataTypes.UINT },
   { name: LastMoved, valueType: ComponentDataTypes.UINT },
+  { name: LastRecovered, valueType: ComponentDataTypes.UINT },
 ];
 
 export interface componentInputTypeMap {
