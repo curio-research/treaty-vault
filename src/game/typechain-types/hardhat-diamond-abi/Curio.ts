@@ -57,6 +57,7 @@ export type WorldConstantsStruct = {
   maxCityCountPerPlayer: PromiseOrValue<BigNumberish>;
   maxArmyCountPerPlayer: PromiseOrValue<BigNumberish>;
   maxPlayerCount: PromiseOrValue<BigNumberish>;
+  gameMode: PromiseOrValue<BigNumberish>;
   maxCityCenterLevel: PromiseOrValue<BigNumberish>;
   cityCenterLevelToEntityLevelRatio: PromiseOrValue<BigNumberish>;
   secondsToTrainAThousandTroops: PromiseOrValue<BigNumberish>;
@@ -72,6 +73,7 @@ export type WorldConstantsStructOutput = [
   BigNumber,
   BigNumber,
   BigNumber,
+  number,
   BigNumber,
   BigNumber,
   BigNumber
@@ -85,6 +87,7 @@ export type WorldConstantsStructOutput = [
   maxCityCountPerPlayer: BigNumber;
   maxArmyCountPerPlayer: BigNumber;
   maxPlayerCount: BigNumber;
+  gameMode: number;
   maxCityCenterLevel: BigNumber;
   cityCenterLevelToEntityLevelRatio: BigNumber;
   secondsToTrainAThousandTroops: BigNumber;
@@ -130,12 +133,13 @@ export declare namespace IDiamondLoupe {
 
 export interface CurioInterface extends utils.Interface {
   functions: {
-    "addConstant(string,uint256)": FunctionFragment;
     "addEntity()": FunctionFragment;
-    "addTroopTemplate(string,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256)": FunctionFragment;
+    "addGameParameter(string,uint256)": FunctionFragment;
+    "addResourceTemplate(string)": FunctionFragment;
+    "addTroopTemplate(string,uint256,uint256,uint256,uint256,uint256,uint256,uint256)": FunctionFragment;
     "adminInitializeTile((uint256,uint256))": FunctionFragment;
     "assignResource(uint256,string,uint256)": FunctionFragment;
-    "bulkAddConstants(string[],uint256[])": FunctionFragment;
+    "bulkAddGameParameters(string[],uint256[])": FunctionFragment;
     "bulkInitializeTiles((uint256,uint256)[])": FunctionFragment;
     "createArmy(uint256,(uint256,uint256))": FunctionFragment;
     "reactivatePlayer(address)": FunctionFragment;
@@ -226,12 +230,13 @@ export interface CurioInterface extends utils.Interface {
 
   getFunction(
     nameOrSignatureOrTopic:
-      | "addConstant"
       | "addEntity"
+      | "addGameParameter"
+      | "addResourceTemplate"
       | "addTroopTemplate"
       | "adminInitializeTile"
       | "assignResource"
-      | "bulkAddConstants"
+      | "bulkAddGameParameters"
       | "bulkInitializeTiles"
       | "createArmy"
       | "reactivatePlayer"
@@ -320,16 +325,19 @@ export interface CurioInterface extends utils.Interface {
       | "queryChunk"
   ): FunctionFragment;
 
+  encodeFunctionData(functionFragment: "addEntity", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "addConstant",
+    functionFragment: "addGameParameter",
     values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
   ): string;
-  encodeFunctionData(functionFragment: "addEntity", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "addResourceTemplate",
+    values: [PromiseOrValue<string>]
+  ): string;
   encodeFunctionData(
     functionFragment: "addTroopTemplate",
     values: [
       PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>,
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BigNumberish>,
@@ -352,7 +360,7 @@ export interface CurioInterface extends utils.Interface {
     ]
   ): string;
   encodeFunctionData(
-    functionFragment: "bulkAddConstants",
+    functionFragment: "bulkAddGameParameters",
     values: [PromiseOrValue<string>[], PromiseOrValue<BigNumberish>[]]
   ): string;
   encodeFunctionData(
@@ -715,11 +723,15 @@ export interface CurioInterface extends utils.Interface {
     ]
   ): string;
 
+  decodeFunctionResult(functionFragment: "addEntity", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "addConstant",
+    functionFragment: "addGameParameter",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "addEntity", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "addResourceTemplate",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "addTroopTemplate",
     data: BytesLike
@@ -733,7 +745,7 @@ export interface CurioInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "bulkAddConstants",
+    functionFragment: "bulkAddGameParameters",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -1144,13 +1156,18 @@ export interface Curio extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
-    addConstant(
+    addEntity(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    addGameParameter(
       _identifier: PromiseOrValue<string>,
       _value: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    addEntity(
+    addResourceTemplate(
+      _inventoryType: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -1162,7 +1179,6 @@ export interface Curio extends BaseContract {
       _battleCooldown: PromiseOrValue<BigNumberish>,
       _attack: PromiseOrValue<BigNumberish>,
       _defense: PromiseOrValue<BigNumberish>,
-      _duration: PromiseOrValue<BigNumberish>,
       _load: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
@@ -1179,7 +1195,7 @@ export interface Curio extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    bulkAddConstants(
+    bulkAddGameParameters(
       _identifiers: PromiseOrValue<string>[],
       _values: PromiseOrValue<BigNumberish>[],
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -1637,13 +1653,18 @@ export interface Curio extends BaseContract {
     ): Promise<[QueryConditionStructOutput]>;
   };
 
-  addConstant(
+  addEntity(
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  addGameParameter(
     _identifier: PromiseOrValue<string>,
     _value: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  addEntity(
+  addResourceTemplate(
+    _inventoryType: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -1655,7 +1676,6 @@ export interface Curio extends BaseContract {
     _battleCooldown: PromiseOrValue<BigNumberish>,
     _attack: PromiseOrValue<BigNumberish>,
     _defense: PromiseOrValue<BigNumberish>,
-    _duration: PromiseOrValue<BigNumberish>,
     _load: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
@@ -1672,7 +1692,7 @@ export interface Curio extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  bulkAddConstants(
+  bulkAddGameParameters(
     _identifiers: PromiseOrValue<string>[],
     _values: PromiseOrValue<BigNumberish>[],
     overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -2122,13 +2142,18 @@ export interface Curio extends BaseContract {
   ): Promise<QueryConditionStructOutput>;
 
   callStatic: {
-    addConstant(
+    addEntity(overrides?: CallOverrides): Promise<BigNumber>;
+
+    addGameParameter(
       _identifier: PromiseOrValue<string>,
       _value: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    addEntity(overrides?: CallOverrides): Promise<BigNumber>;
+    addResourceTemplate(
+      _inventoryType: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     addTroopTemplate(
       _inventoryType: PromiseOrValue<string>,
@@ -2138,7 +2163,6 @@ export interface Curio extends BaseContract {
       _battleCooldown: PromiseOrValue<BigNumberish>,
       _attack: PromiseOrValue<BigNumberish>,
       _defense: PromiseOrValue<BigNumberish>,
-      _duration: PromiseOrValue<BigNumberish>,
       _load: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
@@ -2155,7 +2179,7 @@ export interface Curio extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    bulkAddConstants(
+    bulkAddGameParameters(
       _identifiers: PromiseOrValue<string>[],
       _values: PromiseOrValue<BigNumberish>[],
       overrides?: CallOverrides
@@ -2662,13 +2686,18 @@ export interface Curio extends BaseContract {
   };
 
   estimateGas: {
-    addConstant(
+    addEntity(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    addGameParameter(
       _identifier: PromiseOrValue<string>,
       _value: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    addEntity(
+    addResourceTemplate(
+      _inventoryType: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -2680,7 +2709,6 @@ export interface Curio extends BaseContract {
       _battleCooldown: PromiseOrValue<BigNumberish>,
       _attack: PromiseOrValue<BigNumberish>,
       _defense: PromiseOrValue<BigNumberish>,
-      _duration: PromiseOrValue<BigNumberish>,
       _load: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
@@ -2697,7 +2725,7 @@ export interface Curio extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    bulkAddConstants(
+    bulkAddGameParameters(
       _identifiers: PromiseOrValue<string>[],
       _values: PromiseOrValue<BigNumberish>[],
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -3146,13 +3174,18 @@ export interface Curio extends BaseContract {
   };
 
   populateTransaction: {
-    addConstant(
+    addEntity(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    addGameParameter(
       _identifier: PromiseOrValue<string>,
       _value: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    addEntity(
+    addResourceTemplate(
+      _inventoryType: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -3164,7 +3197,6 @@ export interface Curio extends BaseContract {
       _battleCooldown: PromiseOrValue<BigNumberish>,
       _attack: PromiseOrValue<BigNumberish>,
       _defense: PromiseOrValue<BigNumberish>,
-      _duration: PromiseOrValue<BigNumberish>,
       _load: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
@@ -3181,7 +3213,7 @@ export interface Curio extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    bulkAddConstants(
+    bulkAddGameParameters(
       _identifiers: PromiseOrValue<string>[],
       _values: PromiseOrValue<BigNumberish>[],
       overrides?: Overrides & { from?: PromiseOrValue<string> }
