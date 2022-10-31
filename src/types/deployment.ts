@@ -7,6 +7,11 @@ export enum TILE_TYPE {
   MOUNTAIN = 5,
 }
 
+export enum GameMode {
+  NORMAL = 0,
+  BATTLE_ROYALE = 1,
+}
+
 export interface GameConfig {
   name: string;
   address: string;

@@ -25,22 +25,24 @@ import type {
 
 export type WorldConstantsStruct = {
   admin: PromiseOrValue<string>;
-  tileWidth: PromiseOrValue<BigNumberish>;
-  worldWidth: PromiseOrValue<BigNumberish>;
-  worldHeight: PromiseOrValue<BigNumberish>;
-  numInitTerrainTypes: PromiseOrValue<BigNumberish>;
-  initBatchSize: PromiseOrValue<BigNumberish>;
-  maxCityCountPerPlayer: PromiseOrValue<BigNumberish>;
-  maxArmyCountPerPlayer: PromiseOrValue<BigNumberish>;
-  maxPlayerCount: PromiseOrValue<BigNumberish>;
-  maxCityCenterLevel: PromiseOrValue<BigNumberish>;
   cityCenterLevelToEntityLevelRatio: PromiseOrValue<BigNumberish>;
+  gameMode: PromiseOrValue<BigNumberish>;
+  initBatchSize: PromiseOrValue<BigNumberish>;
+  maxArmyCountPerPlayer: PromiseOrValue<BigNumberish>;
+  maxCityCenterLevel: PromiseOrValue<BigNumberish>;
+  maxCityCountPerPlayer: PromiseOrValue<BigNumberish>;
+  maxPlayerCount: PromiseOrValue<BigNumberish>;
+  numInitTerrainTypes: PromiseOrValue<BigNumberish>;
   secondsToTrainAThousandTroops: PromiseOrValue<BigNumberish>;
+  tileWidth: PromiseOrValue<BigNumberish>;
+  worldHeight: PromiseOrValue<BigNumberish>;
+  worldWidth: PromiseOrValue<BigNumberish>;
 };
 
 export type WorldConstantsStructOutput = [
   string,
   BigNumber,
+  number,
   BigNumber,
   BigNumber,
   BigNumber,
@@ -53,22 +55,23 @@ export type WorldConstantsStructOutput = [
   BigNumber
 ] & {
   admin: string;
-  tileWidth: BigNumber;
-  worldWidth: BigNumber;
-  worldHeight: BigNumber;
-  numInitTerrainTypes: BigNumber;
-  initBatchSize: BigNumber;
-  maxCityCountPerPlayer: BigNumber;
-  maxArmyCountPerPlayer: BigNumber;
-  maxPlayerCount: BigNumber;
-  maxCityCenterLevel: BigNumber;
   cityCenterLevelToEntityLevelRatio: BigNumber;
+  gameMode: number;
+  initBatchSize: BigNumber;
+  maxArmyCountPerPlayer: BigNumber;
+  maxCityCenterLevel: BigNumber;
+  maxCityCountPerPlayer: BigNumber;
+  maxPlayerCount: BigNumber;
+  numInitTerrainTypes: BigNumber;
   secondsToTrainAThousandTroops: BigNumber;
+  tileWidth: BigNumber;
+  worldHeight: BigNumber;
+  worldWidth: BigNumber;
 };
 
 export interface DiamondInitInterface extends utils.Interface {
   functions: {
-    "init((address,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256))": FunctionFragment;
+    "init((address,uint256,uint8,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256))": FunctionFragment;
   };
 
   getFunction(nameOrSignatureOrTopic: "init"): FunctionFragment;
