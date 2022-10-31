@@ -25,6 +25,7 @@ export interface GameConfig {
 export type TileMap = TILE_TYPE[][];
 
 export const emptyGameConfig = {
+  name: '',
   address: '',
   network: 'none',
   deploymentId: '',

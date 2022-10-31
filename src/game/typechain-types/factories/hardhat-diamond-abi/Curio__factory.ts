@@ -1561,6 +1561,11 @@ const _abi = [
             type: "uint256",
           },
           {
+            internalType: "bool",
+            name: "isBattleRoyale",
+            type: "bool",
+          },
+          {
             internalType: "uint256",
             name: "tileWidth",
             type: "uint256",
