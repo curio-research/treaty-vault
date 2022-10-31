@@ -147,6 +147,9 @@ export interface componentInputTypeMap {
   CanBattle: boolean;
   StartPosition: position;
   AttackRange: number;
+  LastUpgraded: number;
+  LastMoved: number;
+  LastRecovered: number;
 }
 
 export enum Tags {
