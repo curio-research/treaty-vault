@@ -8,7 +8,7 @@ export enum TILE_TYPE {
 }
 
 export enum GameMode {
-  NORMAL = 0,
+  REGULAR = 0,
   BATTLE_ROYALE = 1,
 }
 
