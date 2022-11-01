@@ -396,6 +396,13 @@ const _abi = [
     type: "function",
   },
   {
+    inputs: [],
+    name: "stopGame",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
     inputs: [
       {
         internalType: "uint256[][]",
@@ -404,6 +411,13 @@ const _abi = [
       },
     ],
     name: "storeEncodedColumnBatches",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "updateGameInitTimestamp",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
