@@ -11,11 +11,12 @@ export const decodeWorldConstants = (constants: WorldConstantsStructOutput): Wor
     worldWidth: constants.worldWidth.toNumber(),
     worldHeight: constants.worldHeight.toNumber(),
     numInitTerrainTypes: constants.numInitTerrainTypes.toNumber(),
-    initBatchSize: constants.initBatchSize.toNumber(),
     maxCityCountPerPlayer: constants.maxCityCountPerPlayer.toNumber(),
     maxArmyCountPerPlayer: constants.maxArmyCountPerPlayer.toNumber(),
     maxPlayerCount: constants.maxPlayerCount.toNumber(),
     tileWidth: constants.tileWidth.toNumber(),
+    gameMode: constants.gameMode,
+    gameLengthInSeconds: constants.gameLengthInSeconds.toNumber(),
     cityCenterLevelToEntityLevelRatio: constants.cityCenterLevelToEntityLevelRatio.toNumber(),
     secondsToTrainAThousandTroops: constants.secondsToTrainAThousandTroops.toNumber(),
   };
