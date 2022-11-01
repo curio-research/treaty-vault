@@ -18,5 +18,6 @@ export const decodeWorldConstants = (constants: WorldConstantsStructOutput): Wor
     tileWidth: constants.tileWidth.toNumber(),
     cityCenterLevelToEntityLevelRatio: constants.cityCenterLevelToEntityLevelRatio.toNumber(),
     secondsToTrainAThousandTroops: constants.secondsToTrainAThousandTroops.toNumber(),
+    gameMode: constants.gameMode,
   };
 };
