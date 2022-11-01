@@ -8,7 +8,7 @@ export enum TILE_TYPE {
 }
 
 export enum GameMode {
-  NORMAL = 0,
+  REGULAR = 0,
   BATTLE_ROYALE = 1,
 }
 
@@ -25,6 +25,7 @@ export interface GameConfig {
 export type TileMap = TILE_TYPE[][];
 
 export const emptyGameConfig = {
+  name: '',
   address: '',
   network: 'none',
   deploymentId: '',

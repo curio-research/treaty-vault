@@ -64,9 +64,6 @@ export class GameStateCore {
   };
 
   public handleComponentValueSet = ({ componentName, entity, value }: handleComponentValueSet) => {
-    // if (componentName === 'Owner') {
-    //   console.log(componentName, entity, componentNameToDecoder[componentName](value));
-    // }
     this.setComponentValue(componentName, entity, componentNameToDecoder[componentName](value));
   };
 
