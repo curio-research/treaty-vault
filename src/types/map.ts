@@ -14,6 +14,7 @@ export interface WorldConstants {
   gameLengthInSeconds: number;
   cityCenterLevelToEntityLevelRatio: number;
   secondsToTrainAThousandTroops: number;
+  gameMode: number;
 }
 
 export const emptyWorldConstants: WorldConstants = {
@@ -29,6 +30,7 @@ export const emptyWorldConstants: WorldConstants = {
   gameLengthInSeconds: 0,
   cityCenterLevelToEntityLevelRatio: 0,
   secondsToTrainAThousandTroops: 0,
+  gameMode: 0,
 };
 
 export interface Tile {
