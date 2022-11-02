@@ -416,13 +416,6 @@ const _abi = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "updateGameInitTimestamp",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
     anonymous: false,
     inputs: [
       {

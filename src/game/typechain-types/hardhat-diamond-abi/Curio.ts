@@ -151,7 +151,6 @@ export interface CurioInterface extends utils.Interface {
     "spawnResource((uint256,uint256),string)": FunctionFragment;
     "stopGame()": FunctionFragment;
     "storeEncodedColumnBatches(uint256[][])": FunctionFragment;
-    "updateGameInitTimestamp()": FunctionFragment;
     "diamondCut((address,uint8,bytes4[])[],address,bytes)": FunctionFragment;
     "facetAddress(bytes4)": FunctionFragment;
     "facetAddresses()": FunctionFragment;
@@ -249,7 +248,6 @@ export interface CurioInterface extends utils.Interface {
       | "spawnResource"
       | "stopGame"
       | "storeEncodedColumnBatches"
-      | "updateGameInitTimestamp"
       | "diamondCut"
       | "facetAddress"
       | "facetAddresses"
@@ -409,10 +407,6 @@ export interface CurioInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "storeEncodedColumnBatches",
     values: [PromiseOrValue<BigNumberish>[][]]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "updateGameInitTimestamp",
-    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "diamondCut",
@@ -787,10 +781,6 @@ export interface CurioInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: "stopGame", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "storeEncodedColumnBatches",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "updateGameInitTimestamp",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "diamondCut", data: BytesLike): Result;
@@ -1263,10 +1253,6 @@ export interface Curio extends BaseContract {
 
     storeEncodedColumnBatches(
       _colBatches: PromiseOrValue<BigNumberish>[][],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
-    updateGameInitTimestamp(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -1766,10 +1752,6 @@ export interface Curio extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  updateGameInitTimestamp(
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
   diamondCut(
     _diamondCut: IDiamondCut.FacetCutStruct[],
     _init: PromiseOrValue<string>,
@@ -2253,8 +2235,6 @@ export interface Curio extends BaseContract {
       _colBatches: PromiseOrValue<BigNumberish>[][],
       overrides?: CallOverrides
     ): Promise<void>;
-
-    updateGameInitTimestamp(overrides?: CallOverrides): Promise<void>;
 
     diamondCut(
       _diamondCut: IDiamondCut.FacetCutStruct[],
@@ -2801,10 +2781,6 @@ export interface Curio extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    updateGameInitTimestamp(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
     diamondCut(
       _diamondCut: IDiamondCut.FacetCutStruct[],
       _init: PromiseOrValue<string>,
@@ -3289,10 +3265,6 @@ export interface Curio extends BaseContract {
 
     storeEncodedColumnBatches(
       _colBatches: PromiseOrValue<BigNumberish>[][],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    updateGameInitTimestamp(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 

@@ -63,7 +63,6 @@ export interface AdminFacetInterface extends utils.Interface {
     "spawnResource((uint256,uint256),string)": FunctionFragment;
     "stopGame()": FunctionFragment;
     "storeEncodedColumnBatches(uint256[][])": FunctionFragment;
-    "updateGameInitTimestamp()": FunctionFragment;
   };
 
   getFunction(
@@ -86,7 +85,6 @@ export interface AdminFacetInterface extends utils.Interface {
       | "spawnResource"
       | "stopGame"
       | "storeEncodedColumnBatches"
-      | "updateGameInitTimestamp"
   ): FunctionFragment;
 
   encodeFunctionData(functionFragment: "addEntity", values?: undefined): string;
@@ -172,10 +170,6 @@ export interface AdminFacetInterface extends utils.Interface {
     functionFragment: "storeEncodedColumnBatches",
     values: [PromiseOrValue<BigNumberish>[][]]
   ): string;
-  encodeFunctionData(
-    functionFragment: "updateGameInitTimestamp",
-    values?: undefined
-  ): string;
 
   decodeFunctionResult(functionFragment: "addEntity", data: BytesLike): Result;
   decodeFunctionResult(
@@ -238,10 +232,6 @@ export interface AdminFacetInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: "stopGame", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "storeEncodedColumnBatches",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "updateGameInitTimestamp",
     data: BytesLike
   ): Result;
 
@@ -380,10 +370,6 @@ export interface AdminFacet extends BaseContract {
       _colBatches: PromiseOrValue<BigNumberish>[][],
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
-
-    updateGameInitTimestamp(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
   };
 
   addEntity(
@@ -492,10 +478,6 @@ export interface AdminFacet extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  updateGameInitTimestamp(
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
   callStatic: {
     addEntity(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -598,8 +580,6 @@ export interface AdminFacet extends BaseContract {
       _colBatches: PromiseOrValue<BigNumberish>[][],
       overrides?: CallOverrides
     ): Promise<void>;
-
-    updateGameInitTimestamp(overrides?: CallOverrides): Promise<void>;
   };
 
   filters: {};
@@ -710,10 +690,6 @@ export interface AdminFacet extends BaseContract {
       _colBatches: PromiseOrValue<BigNumberish>[][],
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
-
-    updateGameInitTimestamp(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
@@ -820,10 +796,6 @@ export interface AdminFacet extends BaseContract {
 
     storeEncodedColumnBatches(
       _colBatches: PromiseOrValue<BigNumberish>[][],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    updateGameInitTimestamp(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
   };
