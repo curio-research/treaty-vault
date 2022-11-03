@@ -25,6 +25,7 @@ export enum ContractMethods {
   unloadResources = 'unloadResources',
   moveCityCenter = 'moveCityCenter',
   disownTile = 'disownTile',
+  recoverTile = 'recoverTile',
 
   setComponentValue = 'setComponentValue',
 }

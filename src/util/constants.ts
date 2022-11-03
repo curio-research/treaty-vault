@@ -35,10 +35,10 @@ export const chainInfo: Record<string, ChainInfoType> = {
     gasLimit: 1_000_000_000,
   },
   exfac: {
-    rpcUrl: 'https://rpc-curio-hello-wa0nsj4gsn.t.exfac.xyz',
-    wsRpcUrl: 'wss://rpc-curio-hello-wa0nsj4gsn.t.exfac.xyz',
+    rpcUrl: 'https://rpc-bruh-9oxovp18ub.t.exfac.xyz',
+    wsRpcUrl: 'wss://rpc-bruh-9oxovp18ub.t.exfac.xyz',
     id: 0,
-    gasLimit: 500_000_000,
+    gasLimit: 1_000_000_000,
   },
   altlayer: {
     rpcUrl: 'https://arches2-alt-producer-archive-rpc.alt.technology',
