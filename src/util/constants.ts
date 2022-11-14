@@ -41,10 +41,10 @@ export const chainInfo: Record<string, ChainInfoType> = {
     gasLimit: 1_000_000_000,
   },
   altlayer: {
-    rpcUrl: 'https://arches2-alt-producer-archive-rpc.alt.technology',
-    wsRpcUrl: 'wss://arches2-alt-producer-archive-api.alt.technology',
-    id: 9991,
-    gasLimit: 500_000_000,
+    rpcUrl: 'https://arches3-alt-producer-archive-rpc.alt.technology',
+    wsRpcUrl: 'wss://arches3-alt-producer-archive-api.alt.technology',
+    id: 0,
+    gasLimit: 1_500_000_000,
   },
   // default case
   none: {
