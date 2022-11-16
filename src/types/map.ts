@@ -1,3 +1,4 @@
+import { setDiff } from 'curio-vault';
 import { makeObservable, observable } from 'mobx';
 import { TILE_TYPE } from './deployment';
 
@@ -65,4 +66,8 @@ export class Component {
       valueToEntity: observable,
     });
   }
+
+  public getNot = (val: any): Set<number> => {
+    return setDiff(this.entities, this.valueToEntity.get(val) || new Set<number>());
+  };
 }

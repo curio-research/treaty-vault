@@ -9,7 +9,7 @@ const emitter = new EventEmitter();
 
 export class GameManagerCore {
   deployment: GameConfig; // deployment information
-  gameState: GameStateCore; // stores game state
+  gameState: GameStateCore | any; // stores game state
   apiManager: ApiManager; // manages game connection
   emitter: EventEmitter; // event emitter for on-chain events
 

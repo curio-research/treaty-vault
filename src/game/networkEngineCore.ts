@@ -211,18 +211,6 @@ export class NetworkEngineCore {
           }
         });
       }
-
-      // fetch transactions
-      // const contractInterface = new ethers.utils.Interface(Curio__factory.abi);
-      // const data = await this.provider.getBlockWithTransactions(startBlock);
-      // data.transactions.forEach((tx) => {
-      //   const decodedContractData = contractInterface.parseTransaction({ data: tx.data });
-      //   console.log({
-      //     function_name: decodedContractData.name,
-      //     from: tx.from,
-      //     args: decodedContractData.args,
-      //   });
-      // });
     } catch (err: any) {
       console.log(err);
     }
@@ -306,7 +294,7 @@ export class NetworkEngineCore {
           return;
         }
 
-        const time = 500 * 1.1 ** tries; // exponential backoff
+        const time = 1000 * 1.1 ** tries; // exponential backoff
         await delay(time);
         tries += 1;
       }
