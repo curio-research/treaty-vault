@@ -34,6 +34,12 @@ export const chainInfo: Record<string, ChainInfoType> = {
     id: 0,
     gasLimit: 1_000_000_000,
   },
+  constellationFast: {
+    rpcUrl: 'https://curio-test.constellationchain.xyz/http',
+    wsRpcUrl: 'wss://curios-test.constellationchain.xyz/ws',
+    id: 0,
+    gasLimit: 1_000_000_000,
+  },
   exfac: {
     rpcUrl: 'https://rpc-bruh-9oxovp18ub.t.exfac.xyz',
     wsRpcUrl: 'wss://rpc-bruh-9oxovp18ub.t.exfac.xyz',
