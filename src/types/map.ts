@@ -1,4 +1,4 @@
-import { setDiff } from 'curio-vault';
+import { setDiff } from '../util/query';
 import { makeObservable, observable } from 'mobx';
 import { TILE_TYPE } from './deployment';
 
