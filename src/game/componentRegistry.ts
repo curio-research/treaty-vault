@@ -42,7 +42,6 @@ export const Speed = 'Speed';
 export const MoveCooldown = 'MoveCooldown';
 export const BattleCooldown = 'BattleCooldown';
 export const Load = 'Load';
-export const City = 'City';
 export const Amount = 'Amount';
 export const InventoryType = 'InventoryType';
 export const Inventory = 'Inventory';
@@ -62,6 +61,7 @@ export const LastUpgraded = 'LastUpgraded';
 export const LastMoved = 'LastMoved';
 export const LastRecovered = 'LastRecovered';
 export const LastSacked = 'LastSacked';
+export const Nation = 'Nation';
 
 export const COMPONENT_SPECS: CompType[] = [
   { name: IsComponent, valueType: ComponentDataTypes.BOOL },
@@ -87,7 +87,6 @@ export const COMPONENT_SPECS: CompType[] = [
   { name: MoveCooldown, valueType: ComponentDataTypes.UINT },
   { name: BattleCooldown, valueType: ComponentDataTypes.UINT },
   { name: Load, valueType: ComponentDataTypes.UINT },
-  { name: City, valueType: ComponentDataTypes.UINT },
   { name: Keeper, valueType: ComponentDataTypes.UINT },
   { name: Amount, valueType: ComponentDataTypes.UINT },
   { name: InventoryType, valueType: ComponentDataTypes.STRING },
@@ -107,6 +106,7 @@ export const COMPONENT_SPECS: CompType[] = [
   { name: LastMoved, valueType: ComponentDataTypes.UINT },
   { name: LastRecovered, valueType: ComponentDataTypes.UINT },
   { name: LastSacked, valueType: ComponentDataTypes.UINT },
+  { name: Nation, valueType: ComponentDataTypes.UINT },
 ];
 
 export interface componentInputTypeMap {
@@ -133,7 +133,6 @@ export interface componentInputTypeMap {
   MoveCooldown: number;
   BattleCooldown: number;
   Load: number;
-  City: number;
   Amount: number;
   InventoryType: string;
   InventoryTypes: string[];
@@ -153,13 +152,13 @@ export interface componentInputTypeMap {
   LastMoved: number;
   LastRecovered: number;
   LastSacked: number;
+  Nation: number;
 }
 
 export enum Tags {
   Army = 'Army',
   Battle = 'Battle',
   Building = 'Building',
-  City = 'City',
   Constituent = 'Constituent',
   Guard = 'Guard',
   Player = 'Player',
@@ -175,6 +174,7 @@ export enum Tags {
   TroopTemplate = 'TroopTemplate',
   Gather = 'Gather',
   Constant = 'Constant',
+  Nation = 'Nation',
 }
 
 export enum BuildingTypeOptions {
