@@ -61,6 +61,8 @@ export const LastUpgraded = 'LastUpgraded';
 export const LastMoved = 'LastMoved';
 export const LastRecovered = 'LastRecovered';
 export const LastSacked = 'LastSacked';
+export const LastAttacked = 'LastAttacked';
+export const LastHarvested = 'LastHarvested';
 export const Nation = 'Nation';
 
 export const COMPONENT_SPECS: CompType[] = [
@@ -106,6 +108,8 @@ export const COMPONENT_SPECS: CompType[] = [
   { name: LastMoved, valueType: ComponentDataTypes.UINT },
   { name: LastRecovered, valueType: ComponentDataTypes.UINT },
   { name: LastSacked, valueType: ComponentDataTypes.UINT },
+  { name: LastAttacked, valueType: ComponentDataTypes.UINT },
+  { name: LastHarvested, valueType: ComponentDataTypes.UINT },
   { name: Nation, valueType: ComponentDataTypes.UINT },
 ];
 
@@ -152,6 +156,8 @@ export interface componentInputTypeMap {
   LastMoved: number;
   LastRecovered: number;
   LastSacked: number;
+  LastAttacked: number;
+  LastHarvested: number;
   Nation: number;
 }
 
@@ -178,7 +184,7 @@ export enum Tags {
 }
 
 export enum BuildingTypeOptions {
-  CityCenter = 'City Center',
+  Capital = 'Capital',
 }
 
 export enum InventoryTypeOptions {
@@ -189,8 +195,6 @@ export enum InventoryTypeOptions {
   Gold = 'Gold',
   Food = 'Food',
 }
-
-// export enum ResourceType {}
 
 // ---------------------------------------------------------------------------
 
