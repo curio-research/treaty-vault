@@ -1,7 +1,7 @@
 import { Contract } from 'ethers';
 
 export enum ContractMethods {
-  initializePlayer = 'initializePlayer',
+  initializeNation = 'initializeNation',
   foundCity = 'foundCity',
   authorizeGame = 'authorizeGame',
   move = 'move',
