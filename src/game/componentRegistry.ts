@@ -27,14 +27,10 @@ export const Position = 'Position';
 export const Owner = 'Owner';
 export const Level = 'Level';
 export const Name = 'Name';
-export const CanSettle = 'CanSettle';
-export const ResourceType = 'ResourceType';
 export const BuildingType = 'BuildingType';
 export const Template = 'Template';
 export const CanProduce = 'CanProduce';
 export const Duration = 'Duration';
-export const BalanceLastUpdated = 'BalanceLastUpdated';
-export const MaxHealth = 'MaxHealth';
 export const Health = 'Health';
 export const Attack = 'Attack';
 export const Defense = 'Defense';
@@ -45,12 +41,8 @@ export const Load = 'Load';
 export const Amount = 'Amount';
 export const InventoryType = 'InventoryType';
 export const Inventory = 'Inventory';
-export const LastTimestamp = 'LastTimestamp';
-export const Source = 'Source';
-export const Target = 'Target';
 export const Keeper = 'Keeper';
 export const Address = 'Address';
-export const Cost = 'Cost';
 export const Treaty = 'Treaty';
 export const Army = 'Army';
 export const StartPosition = 'StartPosition';
@@ -75,14 +67,10 @@ export const COMPONENT_SPECS: CompType[] = [
   { name: Owner, valueType: ComponentDataTypes.UINT },
   { name: Level, valueType: ComponentDataTypes.UINT },
   { name: Name, valueType: ComponentDataTypes.STRING },
-  { name: CanSettle, valueType: ComponentDataTypes.BOOL },
-  { name: ResourceType, valueType: ComponentDataTypes.STRING },
   { name: BuildingType, valueType: ComponentDataTypes.STRING },
   { name: Template, valueType: ComponentDataTypes.UINT },
   { name: CanProduce, valueType: ComponentDataTypes.BOOL },
   { name: Duration, valueType: ComponentDataTypes.UINT },
-  { name: BalanceLastUpdated, valueType: ComponentDataTypes.UINT },
-  { name: MaxHealth, valueType: ComponentDataTypes.UINT },
   { name: Health, valueType: ComponentDataTypes.UINT },
   { name: Attack, valueType: ComponentDataTypes.UINT },
   { name: Defense, valueType: ComponentDataTypes.UINT },
@@ -93,12 +81,8 @@ export const COMPONENT_SPECS: CompType[] = [
   { name: Keeper, valueType: ComponentDataTypes.UINT },
   { name: Amount, valueType: ComponentDataTypes.UINT },
   { name: InventoryType, valueType: ComponentDataTypes.STRING },
-  { name: LastTimestamp, valueType: ComponentDataTypes.UINT },
-  { name: Source, valueType: ComponentDataTypes.UINT },
-  { name: Target, valueType: ComponentDataTypes.UINT },
   { name: Inventory, valueType: ComponentDataTypes.UINT },
   { name: Address, valueType: ComponentDataTypes.ADDRESS },
-  { name: Cost, valueType: ComponentDataTypes.UINT },
   { name: Treaty, valueType: ComponentDataTypes.UINT },
   { name: Army, valueType: ComponentDataTypes.UINT },
   { name: StartPosition, valueType: ComponentDataTypes.POSITION },
@@ -124,14 +108,10 @@ export interface componentInputTypeMap {
   Owner: number;
   Level: number;
   Name: string;
-  CanSettle: boolean;
-  ResourceType: string;
   BuildingType: string;
   Template: number;
   CanProduce: boolean;
   Duration: number;
-  BalanceLastUpdated: number;
-  MaxHealth: number;
   Health: number;
   Attack: number;
   Defense: number;
@@ -141,14 +121,9 @@ export interface componentInputTypeMap {
   Load: number;
   Amount: number;
   InventoryType: string;
-  InventoryTypes: string[];
-  LastTimestamp: number;
-  Source: number;
-  Target: number;
   Keeper: number;
   Inventory: number;
   Address: string;
-  Cost: number;
   Treaty: number;
   Terrain: number;
   CanBattle: boolean;
