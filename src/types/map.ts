@@ -7,13 +7,13 @@ export interface WorldConstants {
   worldWidth: number;
   worldHeight: number;
   numInitTerrainTypes: number;
-  maxCityCountPerPlayer: number;
-  maxArmyCountPerPlayer: number;
-  maxPlayerCount: number;
+  maxCapitalCountPerNation: number;
+  maxArmyCountPerNation: number;
+  maxNationCount: number;
   tileWidth: number;
   gameMode: number;
   gameLengthInSeconds: number;
-  cityCenterLevelToEntityLevelRatio: number;
+  capitalLevelToEntityLevelRatio: number;
   secondsToTrainAThousandTroops: number;
 }
 
@@ -22,13 +22,13 @@ export const emptyWorldConstants: WorldConstants = {
   worldWidth: 0,
   worldHeight: 0,
   numInitTerrainTypes: 0,
-  maxCityCountPerPlayer: 0,
-  maxArmyCountPerPlayer: 0,
-  maxPlayerCount: 0,
+  maxCapitalCountPerNation: 0,
+  maxArmyCountPerNation: 0,
+  maxNationCount: 0,
   tileWidth: 0,
   gameMode: 0,
   gameLengthInSeconds: 0,
-  cityCenterLevelToEntityLevelRatio: 0,
+  capitalLevelToEntityLevelRatio: 0,
   secondsToTrainAThousandTroops: 0,
 };
 

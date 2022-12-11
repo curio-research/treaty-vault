@@ -163,6 +163,7 @@ export enum Tags {
   Gather = 'Gather',
   Constant = 'Constant',
   Nation = 'Nation',
+  Inventory = 'Inventory',
 }
 
 export enum BuildingTypeOptions {

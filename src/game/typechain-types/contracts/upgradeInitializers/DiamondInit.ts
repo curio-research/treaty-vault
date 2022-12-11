@@ -25,13 +25,13 @@ import type {
 
 export type WorldConstantsStruct = {
   admin: PromiseOrValue<string>;
-  cityCenterLevelToEntityLevelRatio: PromiseOrValue<BigNumberish>;
+  capitalLevelToEntityLevelRatio: PromiseOrValue<BigNumberish>;
   gameLengthInSeconds: PromiseOrValue<BigNumberish>;
   gameMode: PromiseOrValue<BigNumberish>;
-  maxArmyCountPerPlayer: PromiseOrValue<BigNumberish>;
-  maxCityCenterLevel: PromiseOrValue<BigNumberish>;
-  maxCityCountPerPlayer: PromiseOrValue<BigNumberish>;
-  maxPlayerCount: PromiseOrValue<BigNumberish>;
+  maxArmyCountPerNation: PromiseOrValue<BigNumberish>;
+  maxCapitalLevel: PromiseOrValue<BigNumberish>;
+  maxCapitalCountPerNation: PromiseOrValue<BigNumberish>;
+  maxNationCount: PromiseOrValue<BigNumberish>;
   numInitTerrainTypes: PromiseOrValue<BigNumberish>;
   secondsToTrainAThousandTroops: PromiseOrValue<BigNumberish>;
   tileWidth: PromiseOrValue<BigNumberish>;
@@ -55,13 +55,13 @@ export type WorldConstantsStructOutput = [
   BigNumber
 ] & {
   admin: string;
-  cityCenterLevelToEntityLevelRatio: BigNumber;
+  capitalLevelToEntityLevelRatio: BigNumber;
   gameLengthInSeconds: BigNumber;
   gameMode: number;
-  maxArmyCountPerPlayer: BigNumber;
-  maxCityCenterLevel: BigNumber;
-  maxCityCountPerPlayer: BigNumber;
-  maxPlayerCount: BigNumber;
+  maxArmyCountPerNation: BigNumber;
+  maxCapitalLevel: BigNumber;
+  maxCapitalCountPerNation: BigNumber;
+  maxNationCount: BigNumber;
   numInitTerrainTypes: BigNumber;
   secondsToTrainAThousandTroops: BigNumber;
   tileWidth: BigNumber;
