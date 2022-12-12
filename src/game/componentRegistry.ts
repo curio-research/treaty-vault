@@ -58,7 +58,6 @@ export const LastHarvested = 'LastHarvested';
 export const Nation = 'Nation';
 export const ABIHash = 'ABIHash';
 export const OpenNations = 'OpenNations';
-export const LastTimestamp = 'LastTimestamp';
 
 export const COMPONENT_SPECS: CompType[] = [
   { name: IsComponent, valueType: ComponentDataTypes.BOOL },
@@ -100,7 +99,6 @@ export const COMPONENT_SPECS: CompType[] = [
   { name: Nation, valueType: ComponentDataTypes.UINT },
   { name: ABIHash, valueType: ComponentDataTypes.STRING },
   { name: OpenNations, valueType: ComponentDataTypes.UINT_ARRAY },
-  { name: LastTimestamp, valueType: ComponentDataTypes.UINT },
 ];
 
 export interface componentInputTypeMap {
@@ -142,7 +140,6 @@ export interface componentInputTypeMap {
   Nation: number;
   ABIHash: string;
   OpenNations: number[];
-  LastTimestamp: number;
 }
 
 export enum Tags {
