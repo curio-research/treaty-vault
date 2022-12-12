@@ -7,6 +7,8 @@ import type {
   BigNumberish,
   BytesLike,
   CallOverrides,
+  ContractTransaction,
+  Overrides,
   PopulatedTransaction,
   Signer,
   utils,
@@ -33,13 +35,13 @@ export type PositionStructOutput = [BigNumber, BigNumber] & {
 
 export type WorldConstantsStruct = {
   admin: PromiseOrValue<string>;
-  cityCenterLevelToEntityLevelRatio: PromiseOrValue<BigNumberish>;
+  capitalLevelToEntityLevelRatio: PromiseOrValue<BigNumberish>;
   gameLengthInSeconds: PromiseOrValue<BigNumberish>;
   gameMode: PromiseOrValue<BigNumberish>;
-  maxArmyCountPerPlayer: PromiseOrValue<BigNumberish>;
-  maxCityCenterLevel: PromiseOrValue<BigNumberish>;
-  maxCityCountPerPlayer: PromiseOrValue<BigNumberish>;
-  maxPlayerCount: PromiseOrValue<BigNumberish>;
+  maxArmyCountPerNation: PromiseOrValue<BigNumberish>;
+  maxCapitalLevel: PromiseOrValue<BigNumberish>;
+  maxCapitalCountPerNation: PromiseOrValue<BigNumberish>;
+  maxNationCount: PromiseOrValue<BigNumberish>;
   numInitTerrainTypes: PromiseOrValue<BigNumberish>;
   secondsToTrainAThousandTroops: PromiseOrValue<BigNumberish>;
   tileWidth: PromiseOrValue<BigNumberish>;
@@ -63,13 +65,13 @@ export type WorldConstantsStructOutput = [
   BigNumber
 ] & {
   admin: string;
-  cityCenterLevelToEntityLevelRatio: BigNumber;
+  capitalLevelToEntityLevelRatio: BigNumber;
   gameLengthInSeconds: BigNumber;
   gameMode: number;
-  maxArmyCountPerPlayer: BigNumber;
-  maxCityCenterLevel: BigNumber;
-  maxCityCountPerPlayer: BigNumber;
-  maxPlayerCount: BigNumber;
+  maxArmyCountPerNation: BigNumber;
+  maxCapitalLevel: BigNumber;
+  maxCapitalCountPerNation: BigNumber;
+  maxNationCount: BigNumber;
   numInitTerrainTypes: BigNumber;
   secondsToTrainAThousandTroops: BigNumber;
   tileWidth: BigNumber;
@@ -77,71 +79,101 @@ export type WorldConstantsStructOutput = [
   worldWidth: BigNumber;
 };
 
+export type QueryConditionStruct = {
+  queryType: PromiseOrValue<BigNumberish>;
+  component: PromiseOrValue<string>;
+  value: PromiseOrValue<BytesLike>;
+};
+
+export type QueryConditionStructOutput = [number, string, string] & {
+  queryType: number;
+  component: string;
+  value: string;
+};
+
 export interface GetterFacetInterface extends utils.Interface {
   functions: {
+    "getABIHash(uint256)": FunctionFragment;
+    "getAddress(uint256)": FunctionFragment;
     "getArmyAt((uint256,uint256))": FunctionFragment;
-    "getArmyIDByAddress(address)": FunctionFragment;
+    "getArmyAtTile((uint256,uint256))": FunctionFragment;
     "getCapital(uint256)": FunctionFragment;
     "getComponent(string)": FunctionFragment;
     "getComponentById(uint256)": FunctionFragment;
     "getConstant(string,string,string,string,uint256)": FunctionFragment;
+    "getDistanceByAddresses(address,address)": FunctionFragment;
     "getEntities()": FunctionFragment;
     "getEntitiesAddr()": FunctionFragment;
     "getEntity()": FunctionFragment;
+    "getEntityByAddress(address)": FunctionFragment;
     "getEntityLevel(uint256)": FunctionFragment;
-    "getEntityNation(uint256)": FunctionFragment;
-    "getEntityWallet(uint256)": FunctionFragment;
     "getInventory(address,string)": FunctionFragment;
     "getInventoryBalance(address,string)": FunctionFragment;
-    "getInventoryIDMaxLoadAndBalance(address,string)": FunctionFragment;
+    "getInventoryIDLoadAndBalance(address,string)": FunctionFragment;
     "getMainBurnerAccount(address)": FunctionFragment;
+    "getNation(uint256)": FunctionFragment;
     "getNationArmies(uint256)": FunctionFragment;
-    "getNationIDByAddress(address)": FunctionFragment;
     "getPlayerCount()": FunctionFragment;
     "getPositionExternal(string,uint256)": FunctionFragment;
     "getResourceAtTile((uint256,uint256))": FunctionFragment;
+    "getSignedTreaties(uint256)": FunctionFragment;
     "getTileAt((uint256,uint256))": FunctionFragment;
     "getTokenContract(string)": FunctionFragment;
+    "getTreatyByName(string)": FunctionFragment;
     "getWorldConstants()": FunctionFragment;
     "isPlayerInitialized(address)": FunctionFragment;
+    "query((uint8,address,bytes)[])": FunctionFragment;
   };
 
   getFunction(
     nameOrSignatureOrTopic:
+      | "getABIHash"
+      | "getAddress"
       | "getArmyAt"
-      | "getArmyIDByAddress"
+      | "getArmyAtTile"
       | "getCapital"
       | "getComponent"
       | "getComponentById"
       | "getConstant"
+      | "getDistanceByAddresses"
       | "getEntities"
       | "getEntitiesAddr"
       | "getEntity"
+      | "getEntityByAddress"
       | "getEntityLevel"
-      | "getEntityNation"
-      | "getEntityWallet"
       | "getInventory"
       | "getInventoryBalance"
-      | "getInventoryIDMaxLoadAndBalance"
+      | "getInventoryIDLoadAndBalance"
       | "getMainBurnerAccount"
+      | "getNation"
       | "getNationArmies"
-      | "getNationIDByAddress"
       | "getPlayerCount"
       | "getPositionExternal"
       | "getResourceAtTile"
+      | "getSignedTreaties"
       | "getTileAt"
       | "getTokenContract"
+      | "getTreatyByName"
       | "getWorldConstants"
       | "isPlayerInitialized"
+      | "query"
   ): FunctionFragment;
 
+  encodeFunctionData(
+    functionFragment: "getABIHash",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getAddress",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
   encodeFunctionData(
     functionFragment: "getArmyAt",
     values: [PositionStruct]
   ): string;
   encodeFunctionData(
-    functionFragment: "getArmyIDByAddress",
-    values: [PromiseOrValue<string>]
+    functionFragment: "getArmyAtTile",
+    values: [PositionStruct]
   ): string;
   encodeFunctionData(
     functionFragment: "getCapital",
@@ -166,6 +198,10 @@ export interface GetterFacetInterface extends utils.Interface {
     ]
   ): string;
   encodeFunctionData(
+    functionFragment: "getDistanceByAddresses",
+    values: [PromiseOrValue<string>, PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
     functionFragment: "getEntities",
     values?: undefined
   ): string;
@@ -175,15 +211,11 @@ export interface GetterFacetInterface extends utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: "getEntity", values?: undefined): string;
   encodeFunctionData(
+    functionFragment: "getEntityByAddress",
+    values: [PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
     functionFragment: "getEntityLevel",
-    values: [PromiseOrValue<BigNumberish>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getEntityNation",
-    values: [PromiseOrValue<BigNumberish>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getEntityWallet",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
@@ -195,7 +227,7 @@ export interface GetterFacetInterface extends utils.Interface {
     values: [PromiseOrValue<string>, PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
-    functionFragment: "getInventoryIDMaxLoadAndBalance",
+    functionFragment: "getInventoryIDLoadAndBalance",
     values: [PromiseOrValue<string>, PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
@@ -203,12 +235,12 @@ export interface GetterFacetInterface extends utils.Interface {
     values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
-    functionFragment: "getNationArmies",
+    functionFragment: "getNation",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
-    functionFragment: "getNationIDByAddress",
-    values: [PromiseOrValue<string>]
+    functionFragment: "getNationArmies",
+    values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "getPlayerCount",
@@ -223,11 +255,19 @@ export interface GetterFacetInterface extends utils.Interface {
     values: [PositionStruct]
   ): string;
   encodeFunctionData(
+    functionFragment: "getSignedTreaties",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
     functionFragment: "getTileAt",
     values: [PositionStruct]
   ): string;
   encodeFunctionData(
     functionFragment: "getTokenContract",
+    values: [PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getTreatyByName",
     values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
@@ -238,10 +278,16 @@ export interface GetterFacetInterface extends utils.Interface {
     functionFragment: "isPlayerInitialized",
     values: [PromiseOrValue<string>]
   ): string;
+  encodeFunctionData(
+    functionFragment: "query",
+    values: [QueryConditionStruct[]]
+  ): string;
 
+  decodeFunctionResult(functionFragment: "getABIHash", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "getAddress", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "getArmyAt", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "getArmyIDByAddress",
+    functionFragment: "getArmyAtTile",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "getCapital", data: BytesLike): Result;
@@ -258,6 +304,10 @@ export interface GetterFacetInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "getDistanceByAddresses",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "getEntities",
     data: BytesLike
   ): Result;
@@ -267,15 +317,11 @@ export interface GetterFacetInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "getEntity", data: BytesLike): Result;
   decodeFunctionResult(
+    functionFragment: "getEntityByAddress",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "getEntityLevel",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getEntityNation",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getEntityWallet",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -287,19 +333,16 @@ export interface GetterFacetInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "getInventoryIDMaxLoadAndBalance",
+    functionFragment: "getInventoryIDLoadAndBalance",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "getMainBurnerAccount",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "getNation", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "getNationArmies",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getNationIDByAddress",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -314,9 +357,17 @@ export interface GetterFacetInterface extends utils.Interface {
     functionFragment: "getResourceAtTile",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "getSignedTreaties",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "getTileAt", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "getTokenContract",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getTreatyByName",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -327,6 +378,7 @@ export interface GetterFacetInterface extends utils.Interface {
     functionFragment: "isPlayerInitialized",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "query", data: BytesLike): Result;
 
   events: {};
 }
@@ -358,18 +410,28 @@ export interface GetterFacet extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
+    getABIHash(
+      _treatyID: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
+
+    getAddress(
+      _entityID: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
+
     getArmyAt(
       _position: PositionStruct,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
-    getArmyIDByAddress(
-      _armyAddress: PromiseOrValue<string>,
+    getArmyAtTile(
+      _startPosition: PositionStruct,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     getCapital(
-      _cityID: PromiseOrValue<BigNumberish>,
+      _nationID: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
@@ -392,26 +454,27 @@ export interface GetterFacet extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
+    getDistanceByAddresses(
+      _addr1: PromiseOrValue<string>,
+      _addr2: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
     getEntities(overrides?: CallOverrides): Promise<[BigNumber[]]>;
 
     getEntitiesAddr(overrides?: CallOverrides): Promise<[string]>;
 
     getEntity(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    getEntityByAddress(
+      _entityAddress: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
     getEntityLevel(
       _entityID: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
-
-    getEntityNation(
-      _entityID: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
-
-    getEntityWallet(
-      _entityID: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<[string]>;
 
     getInventory(
       _inventoryAddress: PromiseOrValue<string>,
@@ -425,26 +488,26 @@ export interface GetterFacet extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
-    getInventoryIDMaxLoadAndBalance(
+    getInventoryIDLoadAndBalance(
       _entityAddress: PromiseOrValue<string>,
       _resourceType: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber, BigNumber, BigNumber]>;
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
 
     getMainBurnerAccount(
       _primaryAddress: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[string]>;
 
+    getNation(
+      _entityID: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
     getNationArmies(
       _nationID: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[BigNumber[]]>;
-
-    getNationIDByAddress(
-      _nationWalletAddress: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
 
     getPlayerCount(overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -459,6 +522,11 @@ export interface GetterFacet extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
+    getSignedTreaties(
+      _nationID: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber[]]>;
+
     getTileAt(
       _position: PositionStruct,
       overrides?: CallOverrides
@@ -469,6 +537,11 @@ export interface GetterFacet extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[string]>;
 
+    getTreatyByName(
+      _treatyName: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
     getWorldConstants(
       overrides?: CallOverrides
     ): Promise<[WorldConstantsStructOutput]>;
@@ -477,20 +550,35 @@ export interface GetterFacet extends BaseContract {
       _player: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[boolean]>;
+
+    query(
+      _queryConditions: QueryConditionStruct[],
+      overrides?: CallOverrides
+    ): Promise<[BigNumber[]]>;
   };
+
+  getABIHash(
+    _treatyID: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<string>;
+
+  getAddress(
+    _entityID: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<string>;
 
   getArmyAt(
     _position: PositionStruct,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
-  getArmyIDByAddress(
-    _armyAddress: PromiseOrValue<string>,
+  getArmyAtTile(
+    _startPosition: PositionStruct,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   getCapital(
-    _cityID: PromiseOrValue<BigNumberish>,
+    _nationID: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
@@ -513,26 +601,27 @@ export interface GetterFacet extends BaseContract {
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
+  getDistanceByAddresses(
+    _addr1: PromiseOrValue<string>,
+    _addr2: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
   getEntities(overrides?: CallOverrides): Promise<BigNumber[]>;
 
   getEntitiesAddr(overrides?: CallOverrides): Promise<string>;
 
   getEntity(overrides?: CallOverrides): Promise<BigNumber>;
 
+  getEntityByAddress(
+    _entityAddress: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
   getEntityLevel(
     _entityID: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
-
-  getEntityNation(
-    _entityID: PromiseOrValue<BigNumberish>,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
-
-  getEntityWallet(
-    _entityID: PromiseOrValue<BigNumberish>,
-    overrides?: CallOverrides
-  ): Promise<string>;
 
   getInventory(
     _inventoryAddress: PromiseOrValue<string>,
@@ -546,26 +635,26 @@ export interface GetterFacet extends BaseContract {
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
-  getInventoryIDMaxLoadAndBalance(
+  getInventoryIDLoadAndBalance(
     _entityAddress: PromiseOrValue<string>,
     _resourceType: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<[BigNumber, BigNumber, BigNumber]>;
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
 
   getMainBurnerAccount(
     _primaryAddress: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<string>;
 
+  getNation(
+    _entityID: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
   getNationArmies(
     _nationID: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<BigNumber[]>;
-
-  getNationIDByAddress(
-    _nationWalletAddress: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
 
   getPlayerCount(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -580,6 +669,11 @@ export interface GetterFacet extends BaseContract {
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
+  getSignedTreaties(
+    _nationID: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber[]>;
+
   getTileAt(
     _position: PositionStruct,
     overrides?: CallOverrides
@@ -590,6 +684,11 @@ export interface GetterFacet extends BaseContract {
     overrides?: CallOverrides
   ): Promise<string>;
 
+  getTreatyByName(
+    _treatyName: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
   getWorldConstants(
     overrides?: CallOverrides
   ): Promise<WorldConstantsStructOutput>;
@@ -599,19 +698,34 @@ export interface GetterFacet extends BaseContract {
     overrides?: CallOverrides
   ): Promise<boolean>;
 
+  query(
+    _queryConditions: QueryConditionStruct[],
+    overrides?: CallOverrides
+  ): Promise<BigNumber[]>;
+
   callStatic: {
+    getABIHash(
+      _treatyID: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<string>;
+
+    getAddress(
+      _entityID: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<string>;
+
     getArmyAt(
       _position: PositionStruct,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    getArmyIDByAddress(
-      _armyAddress: PromiseOrValue<string>,
+    getArmyAtTile(
+      _startPosition: PositionStruct,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getCapital(
-      _cityID: PromiseOrValue<BigNumberish>,
+      _nationID: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -634,26 +748,27 @@ export interface GetterFacet extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    getDistanceByAddresses(
+      _addr1: PromiseOrValue<string>,
+      _addr2: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     getEntities(overrides?: CallOverrides): Promise<BigNumber[]>;
 
     getEntitiesAddr(overrides?: CallOverrides): Promise<string>;
 
     getEntity(overrides?: CallOverrides): Promise<BigNumber>;
 
+    getEntityByAddress(
+      _entityAddress: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     getEntityLevel(
       _entityID: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
-
-    getEntityNation(
-      _entityID: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    getEntityWallet(
-      _entityID: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<string>;
 
     getInventory(
       _inventoryAddress: PromiseOrValue<string>,
@@ -667,7 +782,7 @@ export interface GetterFacet extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    getInventoryIDMaxLoadAndBalance(
+    getInventoryIDLoadAndBalance(
       _entityAddress: PromiseOrValue<string>,
       _resourceType: PromiseOrValue<string>,
       overrides?: CallOverrides
@@ -678,15 +793,15 @@ export interface GetterFacet extends BaseContract {
       overrides?: CallOverrides
     ): Promise<string>;
 
+    getNation(
+      _entityID: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     getNationArmies(
       _nationID: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber[]>;
-
-    getNationIDByAddress(
-      _nationWalletAddress: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
 
     getPlayerCount(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -701,6 +816,11 @@ export interface GetterFacet extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    getSignedTreaties(
+      _nationID: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber[]>;
+
     getTileAt(
       _position: PositionStruct,
       overrides?: CallOverrides
@@ -711,6 +831,11 @@ export interface GetterFacet extends BaseContract {
       overrides?: CallOverrides
     ): Promise<string>;
 
+    getTreatyByName(
+      _treatyName: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     getWorldConstants(
       overrides?: CallOverrides
     ): Promise<WorldConstantsStructOutput>;
@@ -719,23 +844,38 @@ export interface GetterFacet extends BaseContract {
       _player: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<boolean>;
+
+    query(
+      _queryConditions: QueryConditionStruct[],
+      overrides?: CallOverrides
+    ): Promise<BigNumber[]>;
   };
 
   filters: {};
 
   estimateGas: {
+    getABIHash(
+      _treatyID: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getAddress(
+      _entityID: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     getArmyAt(
       _position: PositionStruct,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    getArmyIDByAddress(
-      _armyAddress: PromiseOrValue<string>,
+    getArmyAtTile(
+      _startPosition: PositionStruct,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getCapital(
-      _cityID: PromiseOrValue<BigNumberish>,
+      _nationID: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -758,23 +898,24 @@ export interface GetterFacet extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    getDistanceByAddresses(
+      _addr1: PromiseOrValue<string>,
+      _addr2: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     getEntities(overrides?: CallOverrides): Promise<BigNumber>;
 
     getEntitiesAddr(overrides?: CallOverrides): Promise<BigNumber>;
 
     getEntity(overrides?: CallOverrides): Promise<BigNumber>;
 
+    getEntityByAddress(
+      _entityAddress: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     getEntityLevel(
-      _entityID: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    getEntityNation(
-      _entityID: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    getEntityWallet(
       _entityID: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
@@ -791,10 +932,10 @@ export interface GetterFacet extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    getInventoryIDMaxLoadAndBalance(
+    getInventoryIDLoadAndBalance(
       _entityAddress: PromiseOrValue<string>,
       _resourceType: PromiseOrValue<string>,
-      overrides?: CallOverrides
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     getMainBurnerAccount(
@@ -802,13 +943,13 @@ export interface GetterFacet extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    getNationArmies(
-      _nationID: PromiseOrValue<BigNumberish>,
+    getNation(
+      _entityID: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    getNationIDByAddress(
-      _nationWalletAddress: PromiseOrValue<string>,
+    getNationArmies(
+      _nationID: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -825,6 +966,11 @@ export interface GetterFacet extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    getSignedTreaties(
+      _nationID: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     getTileAt(
       _position: PositionStruct,
       overrides?: CallOverrides
@@ -835,27 +981,47 @@ export interface GetterFacet extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    getTreatyByName(
+      _treatyName: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     getWorldConstants(overrides?: CallOverrides): Promise<BigNumber>;
 
     isPlayerInitialized(
       _player: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
+
+    query(
+      _queryConditions: QueryConditionStruct[],
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
+    getABIHash(
+      _treatyID: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getAddress(
+      _entityID: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     getArmyAt(
       _position: PositionStruct,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    getArmyIDByAddress(
-      _armyAddress: PromiseOrValue<string>,
+    getArmyAtTile(
+      _startPosition: PositionStruct,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getCapital(
-      _cityID: PromiseOrValue<BigNumberish>,
+      _nationID: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -878,23 +1044,24 @@ export interface GetterFacet extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    getDistanceByAddresses(
+      _addr1: PromiseOrValue<string>,
+      _addr2: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     getEntities(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getEntitiesAddr(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getEntity(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    getEntityByAddress(
+      _entityAddress: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     getEntityLevel(
-      _entityID: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    getEntityNation(
-      _entityID: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    getEntityWallet(
       _entityID: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
@@ -911,10 +1078,10 @@ export interface GetterFacet extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    getInventoryIDMaxLoadAndBalance(
+    getInventoryIDLoadAndBalance(
       _entityAddress: PromiseOrValue<string>,
       _resourceType: PromiseOrValue<string>,
-      overrides?: CallOverrides
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     getMainBurnerAccount(
@@ -922,13 +1089,13 @@ export interface GetterFacet extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    getNationArmies(
-      _nationID: PromiseOrValue<BigNumberish>,
+    getNation(
+      _entityID: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    getNationIDByAddress(
-      _nationWalletAddress: PromiseOrValue<string>,
+    getNationArmies(
+      _nationID: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -945,6 +1112,11 @@ export interface GetterFacet extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    getSignedTreaties(
+      _nationID: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     getTileAt(
       _position: PositionStruct,
       overrides?: CallOverrides
@@ -955,10 +1127,20 @@ export interface GetterFacet extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    getTreatyByName(
+      _treatyName: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     getWorldConstants(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     isPlayerInitialized(
       _player: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    query(
+      _queryConditions: QueryConditionStruct[],
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
   };

@@ -115,6 +115,35 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: "address",
+        name: "_address",
+        type: "address",
+      },
+      {
+        internalType: "string",
+        name: "_name",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "_abiHash",
+        type: "string",
+      },
+    ],
+    name: "addTreaty",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         internalType: "string",
         name: "_inventoryType",
         type: "string",
@@ -184,6 +213,19 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: "address",
+        name: "_burnerAddress",
+        type: "address",
+      },
+    ],
+    name: "authorizeGame",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         internalType: "string[]",
         name: "_identifiers",
         type: "string[]",
@@ -244,6 +286,19 @@ const _abi = [
     ],
     name: "dripToken",
     outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "generateNewAddress",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
     stateMutability: "nonpayable",
     type: "function",
   },
@@ -334,7 +389,7 @@ const _abi = [
         type: "address",
       },
     ],
-    name: "reactivatePlayer",
+    name: "reactivateNation",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -675,24 +730,6 @@ const _abi = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "UpgradeUnfinished",
-    type: "error",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_burnerAddress",
-        type: "address",
-      },
-    ],
-    name: "authorizeGame",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
     inputs: [
       {
         internalType: "uint256",
@@ -771,7 +808,7 @@ const _abi = [
     inputs: [
       {
         internalType: "uint256",
-        name: "_buildingID",
+        name: "_capitalID",
         type: "uint256",
       },
       {
@@ -815,24 +852,11 @@ const _abi = [
     inputs: [
       {
         internalType: "uint256",
-        name: "_buildingID",
+        name: "_capitalID",
         type: "uint256",
       },
     ],
     name: "harvestResourcesFromCapital",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_armyWalletAddress",
-        type: "address",
-      },
-    ],
-    name: "initializeArmy",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -856,6 +880,38 @@ const _abi = [
       },
     ],
     name: "initializeNation",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "nationID",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_treatyID",
+        type: "uint256",
+      },
+    ],
+    name: "joinTreaty",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_treatyID",
+        type: "uint256",
+      },
+    ],
+    name: "leaveTreaty",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -887,7 +943,7 @@ const _abi = [
     inputs: [
       {
         internalType: "uint256",
-        name: "_buildingID",
+        name: "_capitalID",
         type: "uint256",
       },
       {
@@ -921,11 +977,6 @@ const _abi = [
         type: "uint256",
       },
       {
-        internalType: "uint256",
-        name: "_armyID",
-        type: "uint256",
-      },
-      {
         internalType: "uint256[]",
         name: "_templateIDs",
         type: "uint256[]",
@@ -937,7 +988,13 @@ const _abi = [
       },
     ],
     name: "organizeArmy",
-    outputs: [],
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "armyID",
+        type: "uint256",
+      },
+    ],
     stateMutability: "nonpayable",
     type: "function",
   },
@@ -976,7 +1033,7 @@ const _abi = [
     inputs: [
       {
         internalType: "uint256",
-        name: "_buildingID",
+        name: "_capitalID",
         type: "uint256",
       },
       {
@@ -1015,13 +1072,7 @@ const _abi = [
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_nationID",
-        type: "uint256",
-      },
-    ],
+    inputs: [],
     name: "upgradeNation",
     outputs: [],
     stateMutability: "nonpayable",
@@ -1051,6 +1102,44 @@ const _abi = [
     name: "upgradeTile",
     outputs: [],
     stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_treatyID",
+        type: "uint256",
+      },
+    ],
+    name: "getABIHash",
+    outputs: [
+      {
+        internalType: "string",
+        name: "",
+        type: "string",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_entityID",
+        type: "uint256",
+      },
+    ],
+    name: "getAddress",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
     type: "function",
   },
   {
@@ -1087,12 +1176,24 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "address",
-        name: "_armyAddress",
-        type: "address",
+        components: [
+          {
+            internalType: "uint256",
+            name: "x",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "y",
+            type: "uint256",
+          },
+        ],
+        internalType: "struct Position",
+        name: "_startPosition",
+        type: "tuple",
       },
     ],
-    name: "getArmyIDByAddress",
+    name: "getArmyAtTile",
     outputs: [
       {
         internalType: "uint256",
@@ -1107,7 +1208,7 @@ const _abi = [
     inputs: [
       {
         internalType: "uint256",
-        name: "_cityID",
+        name: "_nationID",
         type: "uint256",
       },
     ],
@@ -1200,6 +1301,30 @@ const _abi = [
     type: "function",
   },
   {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_addr1",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "_addr2",
+        type: "address",
+      },
+    ],
+    name: "getDistanceByAddresses",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [],
     name: "getEntities",
     outputs: [
@@ -1241,6 +1366,25 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: "address",
+        name: "_entityAddress",
+        type: "address",
+      },
+    ],
+    name: "getEntityByAddress",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         internalType: "uint256",
         name: "_entityID",
         type: "uint256",
@@ -1252,44 +1396,6 @@ const _abi = [
         internalType: "uint256",
         name: "",
         type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_entityID",
-        type: "uint256",
-      },
-    ],
-    name: "getEntityNation",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_entityID",
-        type: "uint256",
-      },
-    ],
-    name: "getEntityWallet",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
       },
     ],
     stateMutability: "view",
@@ -1356,7 +1462,7 @@ const _abi = [
         type: "string",
       },
     ],
-    name: "getInventoryIDMaxLoadAndBalance",
+    name: "getInventoryIDLoadAndBalance",
     outputs: [
       {
         internalType: "uint256",
@@ -1374,7 +1480,7 @@ const _abi = [
         type: "uint256",
       },
     ],
-    stateMutability: "view",
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -1400,6 +1506,25 @@ const _abi = [
     inputs: [
       {
         internalType: "uint256",
+        name: "_entityID",
+        type: "uint256",
+      },
+    ],
+    name: "getNation",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
         name: "_nationID",
         type: "uint256",
       },
@@ -1410,25 +1535,6 @@ const _abi = [
         internalType: "uint256[]",
         name: "",
         type: "uint256[]",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_nationWalletAddress",
-        type: "address",
-      },
-    ],
-    name: "getNationIDByAddress",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
       },
     ],
     stateMutability: "view",
@@ -1517,6 +1623,25 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: "uint256",
+        name: "_nationID",
+        type: "uint256",
+      },
+    ],
+    name: "getSignedTreaties",
+    outputs: [
+      {
+        internalType: "uint256[]",
+        name: "",
+        type: "uint256[]",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         components: [
           {
             internalType: "uint256",
@@ -1556,9 +1681,28 @@ const _abi = [
     name: "getTokenContract",
     outputs: [
       {
-        internalType: "address",
+        internalType: "contract CurioERC20",
         name: "",
         type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "_treatyName",
+        type: "string",
+      },
+    ],
+    name: "getTreatyByName",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
       },
     ],
     stateMutability: "view",
@@ -1577,7 +1721,7 @@ const _abi = [
           },
           {
             internalType: "uint256",
-            name: "cityCenterLevelToEntityLevelRatio",
+            name: "capitalLevelToEntityLevelRatio",
             type: "uint256",
           },
           {
@@ -1592,22 +1736,22 @@ const _abi = [
           },
           {
             internalType: "uint256",
-            name: "maxArmyCountPerPlayer",
+            name: "maxArmyCountPerNation",
             type: "uint256",
           },
           {
             internalType: "uint256",
-            name: "maxCityCenterLevel",
+            name: "maxCapitalLevel",
             type: "uint256",
           },
           {
             internalType: "uint256",
-            name: "maxCityCountPerPlayer",
+            name: "maxCapitalCountPerNation",
             type: "uint256",
           },
           {
             internalType: "uint256",
-            name: "maxPlayerCount",
+            name: "maxNationCount",
             type: "uint256",
           },
           {
@@ -1658,6 +1802,42 @@ const _abi = [
         internalType: "bool",
         name: "",
         type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        components: [
+          {
+            internalType: "enum QueryType",
+            name: "queryType",
+            type: "uint8",
+          },
+          {
+            internalType: "contract Component",
+            name: "component",
+            type: "address",
+          },
+          {
+            internalType: "bytes",
+            name: "value",
+            type: "bytes",
+          },
+        ],
+        internalType: "struct QueryCondition[]",
+        name: "_queryConditions",
+        type: "tuple[]",
+      },
+    ],
+    name: "query",
+    outputs: [
+      {
+        internalType: "uint256[]",
+        name: "",
+        type: "uint256[]",
       },
     ],
     stateMutability: "view",

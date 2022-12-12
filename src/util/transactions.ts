@@ -1,14 +1,14 @@
 import { Contract } from 'ethers';
 
 export enum ContractMethods {
-  initializePlayer = 'initializePlayer',
+  initializeNation = 'initializeNation',
   foundCity = 'foundCity',
   authorizeGame = 'authorizeGame',
   move = 'move',
-  upgradeCityCenter = 'upgradeCityCenter',
+  upgradeNation = 'upgradeNation',
   startTroopProduction = 'startTroopProduction',
   endTroopProduction = 'endTroopProduction',
-  harvestResourcesFromCity = 'harvestResourcesFromCity',
+  harvestResourcesFromCapital = 'harvestResourcesFromCapital',
   harvestResource = 'harvestResource',
   harvestResources = 'harvestResources',
   organizeArmy = 'organizeArmy',

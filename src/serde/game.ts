@@ -11,13 +11,13 @@ export const decodeWorldConstants = (constants: WorldConstantsStructOutput): Wor
     worldWidth: constants.worldWidth.toNumber(),
     worldHeight: constants.worldHeight.toNumber(),
     numInitTerrainTypes: constants.numInitTerrainTypes.toNumber(),
-    maxCityCountPerPlayer: constants.maxCityCountPerPlayer.toNumber(),
-    maxArmyCountPerPlayer: constants.maxArmyCountPerPlayer.toNumber(),
-    maxPlayerCount: constants.maxPlayerCount.toNumber(),
+    maxCapitalCountPerNation: constants.maxCapitalCountPerNation.toNumber(),
+    maxArmyCountPerNation: constants.maxArmyCountPerNation.toNumber(),
+    maxNationCount: constants.maxNationCount.toNumber(),
     tileWidth: constants.tileWidth.toNumber(),
     gameMode: constants.gameMode,
     gameLengthInSeconds: constants.gameLengthInSeconds.toNumber(),
-    cityCenterLevelToEntityLevelRatio: constants.cityCenterLevelToEntityLevelRatio.toNumber(),
+    capitalLevelToEntityLevelRatio: constants.capitalLevelToEntityLevelRatio.toNumber(),
     secondsToTrainAThousandTroops: constants.secondsToTrainAThousandTroops.toNumber(),
   };
 };
