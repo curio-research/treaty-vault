@@ -163,6 +163,7 @@ export enum Tags {
   Settler = 'Settler',
   Signature = 'Signature',
   Tile = 'Tile',
+  Treaty = 'Treaty',
   TroopInventory = 'TroopInventory',
   TroopProduction = 'TroopProduction',
   TroopTemplate = 'TroopTemplate',
