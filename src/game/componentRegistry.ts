@@ -57,7 +57,6 @@ export const LastAttacked = 'LastAttacked';
 export const LastHarvested = 'LastHarvested';
 export const Nation = 'Nation';
 export const ABIHash = 'ABIHash';
-export const OpenNations = 'OpenNations';
 export const FunctionName = 'FunctionName';
 export const Caller = 'Caller';
 
@@ -100,7 +99,6 @@ export const COMPONENT_SPECS: CompType[] = [
   { name: LastHarvested, valueType: ComponentDataTypes.UINT },
   { name: Nation, valueType: ComponentDataTypes.UINT },
   { name: ABIHash, valueType: ComponentDataTypes.STRING },
-  { name: OpenNations, valueType: ComponentDataTypes.UINT_ARRAY },
   { name: FunctionName, valueType: ComponentDataTypes.STRING },
   { name: Caller, valueType: ComponentDataTypes.UINT },
 ];
@@ -143,7 +141,6 @@ export interface componentInputTypeMap {
   LastHarvested: number;
   Nation: number;
   ABIHash: string;
-  OpenNations: number[];
   FunctionName: string;
   Caller: number;
 }
