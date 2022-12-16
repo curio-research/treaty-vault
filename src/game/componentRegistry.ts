@@ -59,6 +59,7 @@ export const Nation = 'Nation';
 export const ABIHash = 'ABIHash';
 export const FunctionName = 'FunctionName';
 export const Caller = 'Caller';
+export const Description = 'Description';
 
 export const COMPONENT_SPECS: CompType[] = [
   { name: Address, valueType: ComponentDataTypes.ADDRESS }, // MUST BE THE FIRST COMPONENT
@@ -101,6 +102,7 @@ export const COMPONENT_SPECS: CompType[] = [
   { name: ABIHash, valueType: ComponentDataTypes.STRING },
   { name: FunctionName, valueType: ComponentDataTypes.STRING },
   { name: Caller, valueType: ComponentDataTypes.UINT },
+  { name: Description, valueType: ComponentDataTypes.STRING },
 ];
 
 export interface componentInputTypeMap {
@@ -143,6 +145,7 @@ export interface componentInputTypeMap {
   ABIHash: string;
   FunctionName: string;
   Caller: number;
+  Description: string;
 }
 
 export enum Tags {
