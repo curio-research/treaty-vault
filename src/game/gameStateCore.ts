@@ -8,8 +8,8 @@ import {
   handleComponentValueRemoved,
   handleEntityRemoved,
 } from '../util/events';
-import { union, intersection, difference } from '../util/set';
-import { Components, Component } from '../types/map';
+import { intersection, difference } from '../util/set';
+import { Component } from '../types/map';
 import { Query, QueryActionType } from '../types/query';
 
 // ------------------------------------------------------------
@@ -18,15 +18,17 @@ import { Query, QueryActionType } from '../types/query';
 // ------------------------------------------------------------
 
 export class GameStateCore {
-  public emitter: EventEmitter;
-  public gameManager: GameManagerCore; // reference to game master
+  private emitter: EventEmitter;
+  private gameManager: GameManagerCore; // reference to game master
 
-  public components: Components;
+  private entitiesToComponents: Map<number, Set<string>>;
+  private components: Map<string, Component>;
 
   constructor(emitter: EventEmitter, gameManager: GameManagerCore) {
     this.emitter = emitter;
     this.gameManager = gameManager;
 
+    this.entitiesToComponents = new Map();
     this.components = new Map();
   }
 
@@ -47,12 +49,18 @@ export class GameStateCore {
 
   public handleComponentValueRemoved = ({ componentName, entity }: handleComponentValueRemoved) => {
     this.removeComponentEntity(this.components.get(componentName), entity);
+
+    this.entitiesToComponents.get(entity)?.delete(componentName);
+    if (this.entitiesToComponents.get(entity)?.size == 0) {
+      this.entitiesToComponents.delete(entity);
+    }
   };
 
   public handleEntityRemoved = ({ entity }: handleEntityRemoved) => {
-    for (const [componentName, component] of this.components) {
-      this.removeComponentEntity(component, entity);
-    }
+    this.entitiesToComponents
+      .get(entity)
+      ?.forEach((componentName) => this.removeComponentEntity(this.components.get(componentName), entity));
+    this.entitiesToComponents.delete(entity);
   };
 
   // ECS ----------------------------------------------------------------
@@ -88,12 +96,8 @@ export class GameStateCore {
   // ex: "i want all entities with position and isMovable"
   // TODO: test for performance
   public queryEntities = (query: Query): number[] => {
-    let allWorldEntitySet = new Set<number>();
-    for (const [componentName, component] of this.components) {
-      allWorldEntitySet = union(allWorldEntitySet, component.entities);
-    }
-
-    let entities = new Set<number>();
+    const allEntities = new Set(this.entitiesToComponents.keys());
+    let queriedEntities = new Set<number>();
     query.forEach((queryCondition) => {
       const component = this.components.get(queryCondition.component);
 
@@ -102,7 +106,7 @@ export class GameStateCore {
         if (queryCondition.action === QueryActionType.HAS) {
           delta = component.entities;
         } else if (queryCondition.action === QueryActionType.NOT) {
-          delta = difference(allWorldEntitySet, component.entities);
+          delta = difference(allEntities, component.entities);
         } else if (
           queryCondition.action === QueryActionType.HAS_EXACT ||
           queryCondition.action === QueryActionType.HAS_EXACT_NOT
@@ -114,14 +118,14 @@ export class GameStateCore {
           if (queryCondition.action === QueryActionType.HAS_EXACT) {
             delta = entitiesWithValue;
           } else {
-            delta = difference(allWorldEntitySet, entitiesWithValue);
+            delta = difference(allEntities, entitiesWithValue);
           }
         }
-        entities = intersection(entities, delta);
+        queriedEntities = intersection(queriedEntities, delta);
       }
     });
 
-    return [...entities];
+    return [...queriedEntities];
   };
 
   // PRIVATE FUNCTIONS ----------------------------------------------------------------
@@ -134,6 +138,11 @@ export class GameStateCore {
 
   // caches the current value as "previous value". updates the current value
   private setComponentValue = (componentName: string, entity: number, encodedValue: string): void => {
+    if (!this.entitiesToComponents.has(entity)) {
+      this.entitiesToComponents.set(entity, new Set());
+    }
+    this.entitiesToComponents.get(entity)?.add(componentName);
+
     let component = this.components.get(componentName);
     if (!component) {
       component = this.initializeComponent(componentName);

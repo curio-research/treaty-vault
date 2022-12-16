@@ -1,4 +1,4 @@
-import { setDiff } from '../util/query';
+import { difference } from '../util/set';
 import { makeObservable, observable } from 'mobx';
 import { TILE_TYPE } from './deployment';
 
@@ -38,8 +38,6 @@ export interface Tile {
 
 export type Tiles = Map<string, Tile>;
 
-export type Components = Map<string, Component>;
-
 export class Component {
   componentId: number;
 
@@ -69,6 +67,6 @@ export class Component {
   }
 
   public getNot = (val: any): Set<number> => {
-    return setDiff(this.entities, this.valueToEntity.get(val) || new Set<number>());
+    return difference(this.entities, this.valueToEntity.get(val) || new Set<number>());
   };
 }
