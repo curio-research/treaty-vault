@@ -338,6 +338,19 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: "uint256[]",
+        name: "_tileIDs",
+        type: "uint256[]",
+      },
+    ],
+    name: "lockTiles",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         components: [
           {
             internalType: "uint256",
@@ -577,6 +590,19 @@ const _abi = [
       },
     ],
     name: "storeEncodedColumnBatches",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256[]",
+        name: "_tileIDs",
+        type: "uint256[]",
+      },
+    ],
+    name: "unlockTiles",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",

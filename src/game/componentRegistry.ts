@@ -59,6 +59,8 @@ export const FunctionName = 'FunctionName';
 export const Caller = 'Caller';
 export const Description = 'Description';
 export const CanHoldTokens = 'CanHoldTokens';
+export const IsLocked = 'IsLocked';
+export const CanHostCapital = 'CanHostCapital';
 
 export const COMPONENT_SPECS: CompType[] = [
   { name: Address, valueType: ComponentDataTypes.ADDRESS }, // MUST BE THE FIRST COMPONENT
@@ -101,6 +103,8 @@ export const COMPONENT_SPECS: CompType[] = [
   { name: Caller, valueType: ComponentDataTypes.UINT },
   { name: Description, valueType: ComponentDataTypes.STRING },
   { name: CanHoldTokens, valueType: ComponentDataTypes.BOOL },
+  { name: IsLocked, valueType: ComponentDataTypes.BOOL },
+  { name: CanHostCapital, valueType: ComponentDataTypes.BOOL },
 ];
 
 export interface componentInputTypeMap {
@@ -143,6 +147,8 @@ export interface componentInputTypeMap {
   Caller: number;
   Description: string;
   CanHoldTokens: boolean;
+  IsLocked: boolean;
+  CanHostCapital: boolean;
 }
 
 export enum Tags {
