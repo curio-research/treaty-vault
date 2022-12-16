@@ -60,6 +60,7 @@ export const ABIHash = 'ABIHash';
 export const FunctionName = 'FunctionName';
 export const Caller = 'Caller';
 export const Description = 'Description';
+export const CanHoldTokens = 'CanHoldTokens';
 
 export const COMPONENT_SPECS: CompType[] = [
   { name: Address, valueType: ComponentDataTypes.ADDRESS }, // MUST BE THE FIRST COMPONENT
@@ -103,6 +104,7 @@ export const COMPONENT_SPECS: CompType[] = [
   { name: FunctionName, valueType: ComponentDataTypes.STRING },
   { name: Caller, valueType: ComponentDataTypes.UINT },
   { name: Description, valueType: ComponentDataTypes.STRING },
+  { name: CanHoldTokens, valueType: ComponentDataTypes.BOOL },
 ];
 
 export interface componentInputTypeMap {
@@ -146,6 +148,7 @@ export interface componentInputTypeMap {
   FunctionName: string;
   Caller: number;
   Description: string;
+  CanHoldTokens: boolean;
 }
 
 export enum Tags {
