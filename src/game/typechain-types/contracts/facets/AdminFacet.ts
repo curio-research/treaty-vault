@@ -50,10 +50,9 @@ export interface AdminFacetInterface extends utils.Interface {
     "addGame()": FunctionFragment;
     "addGameParameter(string,uint256)": FunctionFragment;
     "addInventory(uint256,string)": FunctionFragment;
-    "addResourceTemplate(string,address)": FunctionFragment;
+    "addResourceTemplate(address)": FunctionFragment;
     "addSigner(uint256)": FunctionFragment;
-    "addTreaty(address,string,string)": FunctionFragment;
-    "addTroopTemplate(string,uint256,uint256,uint256,uint256,address)": FunctionFragment;
+    "addTroopTemplate(uint256,uint256,uint256,uint256,address)": FunctionFragment;
     "adminInitializeTile((uint256,uint256))": FunctionFragment;
     "authorizeGame(address)": FunctionFragment;
     "bulkAddGameParameters(string[],uint256[])": FunctionFragment;
@@ -68,6 +67,7 @@ export interface AdminFacetInterface extends utils.Interface {
     "registerComponents(address,(string,uint8)[])": FunctionFragment;
     "registerFunctionNames(string[])": FunctionFragment;
     "registerTemplateShortcuts(string[],uint256[])": FunctionFragment;
+    "registerTreaty(address,string)": FunctionFragment;
     "removeEntity(uint256)": FunctionFragment;
     "removeSigner(uint256)": FunctionFragment;
     "setComponentValue(string,uint256,bytes)": FunctionFragment;
@@ -86,7 +86,6 @@ export interface AdminFacetInterface extends utils.Interface {
       | "addInventory"
       | "addResourceTemplate"
       | "addSigner"
-      | "addTreaty"
       | "addTroopTemplate"
       | "adminInitializeTile"
       | "authorizeGame"
@@ -102,6 +101,7 @@ export interface AdminFacetInterface extends utils.Interface {
       | "registerComponents"
       | "registerFunctionNames"
       | "registerTemplateShortcuts"
+      | "registerTreaty"
       | "removeEntity"
       | "removeSigner"
       | "setComponentValue"
@@ -127,24 +127,15 @@ export interface AdminFacetInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "addResourceTemplate",
-    values: [PromiseOrValue<string>, PromiseOrValue<string>]
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "addSigner",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
-    functionFragment: "addTreaty",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<string>,
-      PromiseOrValue<string>
-    ]
-  ): string;
-  encodeFunctionData(
     functionFragment: "addTroopTemplate",
     values: [
-      PromiseOrValue<string>,
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BigNumberish>,
@@ -217,6 +208,10 @@ export interface AdminFacetInterface extends utils.Interface {
     values: [PromiseOrValue<string>[], PromiseOrValue<BigNumberish>[]]
   ): string;
   encodeFunctionData(
+    functionFragment: "registerTreaty",
+    values: [PromiseOrValue<string>, PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
     functionFragment: "removeEntity",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
@@ -265,7 +260,6 @@ export interface AdminFacetInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "addSigner", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "addTreaty", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "addTroopTemplate",
     data: BytesLike
@@ -315,6 +309,10 @@ export interface AdminFacetInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "registerTemplateShortcuts",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "registerTreaty",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -394,12 +392,11 @@ export interface AdminFacet extends BaseContract {
 
     addInventory(
       _keeperID: PromiseOrValue<BigNumberish>,
-      _inventoryType: PromiseOrValue<string>,
+      _templateName: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     addResourceTemplate(
-      _inventoryType: PromiseOrValue<string>,
       _tokenContract: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
@@ -409,15 +406,7 @@ export interface AdminFacet extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    addTreaty(
-      _address: PromiseOrValue<string>,
-      _name: PromiseOrValue<string>,
-      _abiHash: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
     addTroopTemplate(
-      _inventoryType: PromiseOrValue<string>,
       _health: PromiseOrValue<BigNumberish>,
       _attack: PromiseOrValue<BigNumberish>,
       _defense: PromiseOrValue<BigNumberish>,
@@ -504,6 +493,12 @@ export interface AdminFacet extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
+    registerTreaty(
+      _address: PromiseOrValue<string>,
+      _abiHash: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
     removeEntity(
       _entity: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -523,7 +518,7 @@ export interface AdminFacet extends BaseContract {
 
     spawnResource(
       _startPosition: PositionStruct,
-      _inventoryType: PromiseOrValue<string>,
+      _templateName: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -564,12 +559,11 @@ export interface AdminFacet extends BaseContract {
 
   addInventory(
     _keeperID: PromiseOrValue<BigNumberish>,
-    _inventoryType: PromiseOrValue<string>,
+    _templateName: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   addResourceTemplate(
-    _inventoryType: PromiseOrValue<string>,
     _tokenContract: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
@@ -579,15 +573,7 @@ export interface AdminFacet extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  addTreaty(
-    _address: PromiseOrValue<string>,
-    _name: PromiseOrValue<string>,
-    _abiHash: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
   addTroopTemplate(
-    _inventoryType: PromiseOrValue<string>,
     _health: PromiseOrValue<BigNumberish>,
     _attack: PromiseOrValue<BigNumberish>,
     _defense: PromiseOrValue<BigNumberish>,
@@ -674,6 +660,12 @@ export interface AdminFacet extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
+  registerTreaty(
+    _address: PromiseOrValue<string>,
+    _abiHash: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
   removeEntity(
     _entity: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -693,7 +685,7 @@ export interface AdminFacet extends BaseContract {
 
   spawnResource(
     _startPosition: PositionStruct,
-    _inventoryType: PromiseOrValue<string>,
+    _templateName: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -730,12 +722,11 @@ export interface AdminFacet extends BaseContract {
 
     addInventory(
       _keeperID: PromiseOrValue<BigNumberish>,
-      _inventoryType: PromiseOrValue<string>,
+      _templateName: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     addResourceTemplate(
-      _inventoryType: PromiseOrValue<string>,
       _tokenContract: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
@@ -745,15 +736,7 @@ export interface AdminFacet extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    addTreaty(
-      _address: PromiseOrValue<string>,
-      _name: PromiseOrValue<string>,
-      _abiHash: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
     addTroopTemplate(
-      _inventoryType: PromiseOrValue<string>,
       _health: PromiseOrValue<BigNumberish>,
       _attack: PromiseOrValue<BigNumberish>,
       _defense: PromiseOrValue<BigNumberish>,
@@ -838,6 +821,12 @@ export interface AdminFacet extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    registerTreaty(
+      _address: PromiseOrValue<string>,
+      _abiHash: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     removeEntity(
       _entity: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -857,7 +846,7 @@ export interface AdminFacet extends BaseContract {
 
     spawnResource(
       _startPosition: PositionStruct,
-      _inventoryType: PromiseOrValue<string>,
+      _templateName: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -899,12 +888,11 @@ export interface AdminFacet extends BaseContract {
 
     addInventory(
       _keeperID: PromiseOrValue<BigNumberish>,
-      _inventoryType: PromiseOrValue<string>,
+      _templateName: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     addResourceTemplate(
-      _inventoryType: PromiseOrValue<string>,
       _tokenContract: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
@@ -914,15 +902,7 @@ export interface AdminFacet extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    addTreaty(
-      _address: PromiseOrValue<string>,
-      _name: PromiseOrValue<string>,
-      _abiHash: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
     addTroopTemplate(
-      _inventoryType: PromiseOrValue<string>,
       _health: PromiseOrValue<BigNumberish>,
       _attack: PromiseOrValue<BigNumberish>,
       _defense: PromiseOrValue<BigNumberish>,
@@ -1009,6 +989,12 @@ export interface AdminFacet extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
+    registerTreaty(
+      _address: PromiseOrValue<string>,
+      _abiHash: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
     removeEntity(
       _entity: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -1028,7 +1014,7 @@ export interface AdminFacet extends BaseContract {
 
     spawnResource(
       _startPosition: PositionStruct,
-      _inventoryType: PromiseOrValue<string>,
+      _templateName: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -1070,12 +1056,11 @@ export interface AdminFacet extends BaseContract {
 
     addInventory(
       _keeperID: PromiseOrValue<BigNumberish>,
-      _inventoryType: PromiseOrValue<string>,
+      _templateName: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     addResourceTemplate(
-      _inventoryType: PromiseOrValue<string>,
       _tokenContract: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
@@ -1085,15 +1070,7 @@ export interface AdminFacet extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    addTreaty(
-      _address: PromiseOrValue<string>,
-      _name: PromiseOrValue<string>,
-      _abiHash: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
     addTroopTemplate(
-      _inventoryType: PromiseOrValue<string>,
       _health: PromiseOrValue<BigNumberish>,
       _attack: PromiseOrValue<BigNumberish>,
       _defense: PromiseOrValue<BigNumberish>,
@@ -1180,6 +1157,12 @@ export interface AdminFacet extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
+    registerTreaty(
+      _address: PromiseOrValue<string>,
+      _abiHash: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
     removeEntity(
       _entity: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -1199,7 +1182,7 @@ export interface AdminFacet extends BaseContract {
 
     spawnResource(
       _startPosition: PositionStruct,
-      _inventoryType: PromiseOrValue<string>,
+      _templateName: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 

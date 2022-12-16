@@ -73,7 +73,7 @@ const _abi = [
       },
       {
         internalType: "string",
-        name: "_inventoryType",
+        name: "_templateName",
         type: "string",
       },
     ],
@@ -90,11 +90,6 @@ const _abi = [
   },
   {
     inputs: [
-      {
-        internalType: "string",
-        name: "_inventoryType",
-        type: "string",
-      },
       {
         internalType: "address",
         name: "_tokenContract",
@@ -133,40 +128,6 @@ const _abi = [
   },
   {
     inputs: [
-      {
-        internalType: "address",
-        name: "_address",
-        type: "address",
-      },
-      {
-        internalType: "string",
-        name: "_name",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "_abiHash",
-        type: "string",
-      },
-    ],
-    name: "addTreaty",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "treatyID",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "string",
-        name: "_inventoryType",
-        type: "string",
-      },
       {
         internalType: "uint256",
         name: "_health",
@@ -500,6 +461,30 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: "address",
+        name: "_address",
+        type: "address",
+      },
+      {
+        internalType: "string",
+        name: "_abiHash",
+        type: "string",
+      },
+    ],
+    name: "registerTreaty",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "treatyID",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         internalType: "uint256",
         name: "_entity",
         type: "uint256",
@@ -567,7 +552,7 @@ const _abi = [
       },
       {
         internalType: "string",
-        name: "_inventoryType",
+        name: "_templateName",
         type: "string",
       },
     ],
@@ -1489,7 +1474,7 @@ const _abi = [
       },
       {
         internalType: "string",
-        name: "_inventoryType",
+        name: "_templateName",
         type: "string",
       },
     ],
