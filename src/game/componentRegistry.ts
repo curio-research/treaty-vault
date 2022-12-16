@@ -61,7 +61,8 @@ export const FunctionName = 'FunctionName';
 export const Caller = 'Caller';
 
 export const COMPONENT_SPECS: CompType[] = [
-  { name: IsComponent, valueType: ComponentDataTypes.BOOL },
+  { name: Address, valueType: ComponentDataTypes.ADDRESS }, // MUST BE THE FIRST COMPONENT
+  { name: IsComponent, valueType: ComponentDataTypes.BOOL }, // MUST BE THE SECOND COMPONENT
   { name: Tag, valueType: ComponentDataTypes.STRING },
   { name: IsActive, valueType: ComponentDataTypes.BOOL },
   { name: InitTimestamp, valueType: ComponentDataTypes.UINT },
@@ -84,7 +85,6 @@ export const COMPONENT_SPECS: CompType[] = [
   { name: Amount, valueType: ComponentDataTypes.UINT },
   { name: InventoryType, valueType: ComponentDataTypes.STRING },
   { name: Inventory, valueType: ComponentDataTypes.UINT },
-  { name: Address, valueType: ComponentDataTypes.ADDRESS },
   { name: Treaty, valueType: ComponentDataTypes.UINT },
   { name: Army, valueType: ComponentDataTypes.UINT },
   { name: StartPosition, valueType: ComponentDataTypes.POSITION },
