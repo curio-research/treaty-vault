@@ -259,12 +259,42 @@ const _abi = [
         type: "string",
       },
       {
+        internalType: "uint256",
+        name: "_subjectID",
+        type: "uint256",
+      },
+      {
         internalType: "bool",
         name: "_canCall",
         type: "bool",
       },
     ],
     name: "delegateGameFunction",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        components: [
+          {
+            internalType: "uint256",
+            name: "x",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "y",
+            type: "uint256",
+          },
+        ],
+        internalType: "struct Position[]",
+        name: "_tilePositions",
+        type: "tuple[]",
+      },
+    ],
+    name: "disallowHostCapital",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -338,9 +368,21 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "uint256[]",
-        name: "_tileIDs",
-        type: "uint256[]",
+        components: [
+          {
+            internalType: "uint256",
+            name: "x",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "y",
+            type: "uint256",
+          },
+        ],
+        internalType: "struct Position[]",
+        name: "_tilePositions",
+        type: "tuple[]",
       },
     ],
     name: "lockTiles",
@@ -597,9 +639,21 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "uint256[]",
-        name: "_tileIDs",
-        type: "uint256[]",
+        components: [
+          {
+            internalType: "uint256",
+            name: "x",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "y",
+            type: "uint256",
+          },
+        ],
+        internalType: "struct Position[]",
+        name: "_tilePositions",
+        type: "tuple[]",
       },
     ],
     name: "unlockTiles",
@@ -853,6 +907,11 @@ const _abi = [
       {
         internalType: "uint256",
         name: "_delegateID",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_subjectID",
         type: "uint256",
       },
       {
@@ -1385,6 +1444,35 @@ const _abi = [
         internalType: "uint256",
         name: "",
         type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "_functionName",
+        type: "string",
+      },
+      {
+        internalType: "uint256",
+        name: "_ownerID",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_callerID",
+        type: "uint256",
+      },
+    ],
+    name: "getDelegations",
+    outputs: [
+      {
+        internalType: "uint256[]",
+        name: "",
+        type: "uint256[]",
       },
     ],
     stateMutability: "view",
