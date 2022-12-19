@@ -26,6 +26,7 @@ export enum ContractMethods {
   moveCityCenter = 'moveCityCenter',
   disownTile = 'disownTile',
   recoverTile = 'recoverTile',
+  delegateGameFunction = 'delegateGameFunction',
 
   setComponentValue = 'setComponentValue',
 }
