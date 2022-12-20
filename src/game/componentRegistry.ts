@@ -176,6 +176,7 @@ export enum Tags {
   Gather = 'Gather',
   Constant = 'Constant',
   Nation = 'Nation',
+  Delegation = 'Delegation',
 }
 
 export enum BuildingTypeOptions {
