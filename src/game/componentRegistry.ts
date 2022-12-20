@@ -39,8 +39,6 @@ export const MoveCooldown = 'MoveCooldown';
 export const BattleCooldown = 'BattleCooldown';
 export const Load = 'Load';
 export const Amount = 'Amount';
-export const InventoryType = 'InventoryType';
-export const Inventory = 'Inventory';
 export const Keeper = 'Keeper';
 export const Address = 'Address';
 export const Treaty = 'Treaty';
@@ -60,6 +58,10 @@ export const ABIHash = 'ABIHash';
 export const FunctionName = 'FunctionName';
 export const Caller = 'Caller';
 export const Description = 'Description';
+export const CanHoldTokens = 'CanHoldTokens';
+export const IsLocked = 'IsLocked';
+export const CanHostCapital = 'CanHostCapital';
+export const Subject = 'Subject';
 
 export const COMPONENT_SPECS: CompType[] = [
   { name: Address, valueType: ComponentDataTypes.ADDRESS }, // MUST BE THE FIRST COMPONENT
@@ -84,8 +86,6 @@ export const COMPONENT_SPECS: CompType[] = [
   { name: Load, valueType: ComponentDataTypes.UINT },
   { name: Keeper, valueType: ComponentDataTypes.UINT },
   { name: Amount, valueType: ComponentDataTypes.UINT },
-  { name: InventoryType, valueType: ComponentDataTypes.STRING },
-  { name: Inventory, valueType: ComponentDataTypes.UINT },
   { name: Treaty, valueType: ComponentDataTypes.UINT },
   { name: Army, valueType: ComponentDataTypes.UINT },
   { name: StartPosition, valueType: ComponentDataTypes.POSITION },
@@ -103,6 +103,10 @@ export const COMPONENT_SPECS: CompType[] = [
   { name: FunctionName, valueType: ComponentDataTypes.STRING },
   { name: Caller, valueType: ComponentDataTypes.UINT },
   { name: Description, valueType: ComponentDataTypes.STRING },
+  { name: CanHoldTokens, valueType: ComponentDataTypes.BOOL },
+  { name: IsLocked, valueType: ComponentDataTypes.BOOL },
+  { name: CanHostCapital, valueType: ComponentDataTypes.BOOL },
+  { name: Subject, valueType: ComponentDataTypes.UINT },
 ];
 
 export interface componentInputTypeMap {
@@ -126,9 +130,7 @@ export interface componentInputTypeMap {
   BattleCooldown: number;
   Load: number;
   Amount: number;
-  InventoryType: string;
   Keeper: number;
-  Inventory: number;
   Address: string;
   Treaty: number;
   Terrain: number;
@@ -146,6 +148,10 @@ export interface componentInputTypeMap {
   FunctionName: string;
   Caller: number;
   Description: string;
+  CanHoldTokens: boolean;
+  IsLocked: boolean;
+  CanHostCapital: boolean;
+  Subject: number;
 }
 
 export enum Tags {
@@ -170,6 +176,7 @@ export enum Tags {
   Gather = 'Gather',
   Constant = 'Constant',
   Nation = 'Nation',
+  Delegation = 'Delegation',
 }
 
 export enum BuildingTypeOptions {
