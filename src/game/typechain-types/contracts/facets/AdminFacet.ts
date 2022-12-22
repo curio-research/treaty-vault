@@ -55,7 +55,6 @@ export interface AdminFacetInterface extends utils.Interface {
     "addTroopTemplate(uint256,uint256,uint256,uint256,address)": FunctionFragment;
     "adminDelegateGameFunction(uint256,string,uint256,bool)": FunctionFragment;
     "adminInitializeTile((uint256,uint256))": FunctionFragment;
-    "authorizeGame(address)": FunctionFragment;
     "bulkAddGameParameters(string[],uint256[])": FunctionFragment;
     "bulkInitializeTiles((uint256,uint256)[])": FunctionFragment;
     "disallowHostCapital((uint256,uint256)[])": FunctionFragment;
@@ -69,13 +68,14 @@ export interface AdminFacetInterface extends utils.Interface {
     "registerComponents(address,(string,uint8)[])": FunctionFragment;
     "registerFunctionNames(string[])": FunctionFragment;
     "registerTemplateShortcuts(string[],uint256[])": FunctionFragment;
-    "registerTreaty(address,string)": FunctionFragment;
+    "registerTreatyTemplate(address,string)": FunctionFragment;
     "removeEntity(uint256)": FunctionFragment;
     "removeSigner(uint256)": FunctionFragment;
     "setComponentValue(string,uint256,bytes)": FunctionFragment;
     "spawnResource((uint256,uint256),string)": FunctionFragment;
     "stopGame()": FunctionFragment;
     "storeEncodedColumnBatches(uint256[][])": FunctionFragment;
+    "unlockAllTiles()": FunctionFragment;
     "unlockTiles((uint256,uint256)[])": FunctionFragment;
     "updateInventoryAmount(uint256,uint256)": FunctionFragment;
   };
@@ -92,7 +92,6 @@ export interface AdminFacetInterface extends utils.Interface {
       | "addTroopTemplate"
       | "adminDelegateGameFunction"
       | "adminInitializeTile"
-      | "authorizeGame"
       | "bulkAddGameParameters"
       | "bulkInitializeTiles"
       | "disallowHostCapital"
@@ -106,13 +105,14 @@ export interface AdminFacetInterface extends utils.Interface {
       | "registerComponents"
       | "registerFunctionNames"
       | "registerTemplateShortcuts"
-      | "registerTreaty"
+      | "registerTreatyTemplate"
       | "removeEntity"
       | "removeSigner"
       | "setComponentValue"
       | "spawnResource"
       | "stopGame"
       | "storeEncodedColumnBatches"
+      | "unlockAllTiles"
       | "unlockTiles"
       | "updateInventoryAmount"
   ): FunctionFragment;
@@ -161,10 +161,6 @@ export interface AdminFacetInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "adminInitializeTile",
     values: [PositionStruct]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "authorizeGame",
-    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "bulkAddGameParameters",
@@ -223,7 +219,7 @@ export interface AdminFacetInterface extends utils.Interface {
     values: [PromiseOrValue<string>[], PromiseOrValue<BigNumberish>[]]
   ): string;
   encodeFunctionData(
-    functionFragment: "registerTreaty",
+    functionFragment: "registerTreatyTemplate",
     values: [PromiseOrValue<string>, PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
@@ -250,6 +246,10 @@ export interface AdminFacetInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "storeEncodedColumnBatches",
     values: [PromiseOrValue<BigNumberish>[][]]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "unlockAllTiles",
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "unlockTiles",
@@ -289,10 +289,6 @@ export interface AdminFacetInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "adminInitializeTile",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "authorizeGame",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -336,7 +332,7 @@ export interface AdminFacetInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "registerTreaty",
+    functionFragment: "registerTreatyTemplate",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -358,6 +354,10 @@ export interface AdminFacetInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: "stopGame", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "storeEncodedColumnBatches",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "unlockAllTiles",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -456,11 +456,6 @@ export interface AdminFacet extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    authorizeGame(
-      _burnerAddress: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
     bulkAddGameParameters(
       _identifiers: PromiseOrValue<string>[],
       _values: PromiseOrValue<BigNumberish>[],
@@ -532,7 +527,7 @@ export interface AdminFacet extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    registerTreaty(
+    registerTreatyTemplate(
       _address: PromiseOrValue<string>,
       _abiHash: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -567,6 +562,10 @@ export interface AdminFacet extends BaseContract {
 
     storeEncodedColumnBatches(
       _colBatches: PromiseOrValue<BigNumberish>[][],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    unlockAllTiles(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -636,11 +635,6 @@ export interface AdminFacet extends BaseContract {
 
   adminInitializeTile(
     _startPosition: PositionStruct,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
-  authorizeGame(
-    _burnerAddress: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -715,7 +709,7 @@ export interface AdminFacet extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  registerTreaty(
+  registerTreatyTemplate(
     _address: PromiseOrValue<string>,
     _abiHash: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -750,6 +744,10 @@ export interface AdminFacet extends BaseContract {
 
   storeEncodedColumnBatches(
     _colBatches: PromiseOrValue<BigNumberish>[][],
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  unlockAllTiles(
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -815,11 +813,6 @@ export interface AdminFacet extends BaseContract {
 
     adminInitializeTile(
       _startPosition: PositionStruct,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    authorizeGame(
-      _burnerAddress: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -892,7 +885,7 @@ export interface AdminFacet extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    registerTreaty(
+    registerTreatyTemplate(
       _address: PromiseOrValue<string>,
       _abiHash: PromiseOrValue<string>,
       overrides?: CallOverrides
@@ -927,6 +920,8 @@ export interface AdminFacet extends BaseContract {
       _colBatches: PromiseOrValue<BigNumberish>[][],
       overrides?: CallOverrides
     ): Promise<void>;
+
+    unlockAllTiles(overrides?: CallOverrides): Promise<void>;
 
     unlockTiles(
       _tilePositions: PositionStruct[],
@@ -1000,11 +995,6 @@ export interface AdminFacet extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    authorizeGame(
-      _burnerAddress: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
     bulkAddGameParameters(
       _identifiers: PromiseOrValue<string>[],
       _values: PromiseOrValue<BigNumberish>[],
@@ -1076,7 +1066,7 @@ export interface AdminFacet extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    registerTreaty(
+    registerTreatyTemplate(
       _address: PromiseOrValue<string>,
       _abiHash: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -1111,6 +1101,10 @@ export interface AdminFacet extends BaseContract {
 
     storeEncodedColumnBatches(
       _colBatches: PromiseOrValue<BigNumberish>[][],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    unlockAllTiles(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -1184,11 +1178,6 @@ export interface AdminFacet extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    authorizeGame(
-      _burnerAddress: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
     bulkAddGameParameters(
       _identifiers: PromiseOrValue<string>[],
       _values: PromiseOrValue<BigNumberish>[],
@@ -1260,7 +1249,7 @@ export interface AdminFacet extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    registerTreaty(
+    registerTreatyTemplate(
       _address: PromiseOrValue<string>,
       _abiHash: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -1295,6 +1284,10 @@ export interface AdminFacet extends BaseContract {
 
     storeEncodedColumnBatches(
       _colBatches: PromiseOrValue<BigNumberish>[][],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    unlockAllTiles(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 

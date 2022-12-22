@@ -221,19 +221,6 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "address",
-        name: "_burnerAddress",
-        type: "address",
-      },
-    ],
-    name: "authorizeGame",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
         internalType: "string[]",
         name: "_identifiers",
         type: "string[]",
@@ -526,11 +513,11 @@ const _abi = [
         type: "string",
       },
     ],
-    name: "registerTreaty",
+    name: "registerTreatyTemplate",
     outputs: [
       {
         internalType: "uint256",
-        name: "treatyID",
+        name: "treatyTemplateID",
         type: "uint256",
       },
     ],
@@ -632,6 +619,13 @@ const _abi = [
       },
     ],
     name: "storeEncodedColumnBatches",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "unlockAllTiles",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -859,6 +853,19 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: "address",
+        name: "_burnerAddress",
+        type: "address",
+      },
+    ],
+    name: "authorizeGame",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         internalType: "uint256",
         name: "_armyID",
         type: "uint256",
@@ -922,6 +929,30 @@ const _abi = [
     ],
     name: "delegateGameFunction",
     outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_nationID",
+        type: "uint256",
+      },
+      {
+        internalType: "string",
+        name: "_treatyName",
+        type: "string",
+      },
+    ],
+    name: "deployTreaty",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
     stateMutability: "nonpayable",
     type: "function",
   },
@@ -1938,6 +1969,25 @@ const _abi = [
     inputs: [
       {
         internalType: "string",
+        name: "_resourceType",
+        type: "string",
+      },
+    ],
+    name: "getTotalSupply",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
         name: "_treatyName",
         type: "string",
       },
@@ -2006,11 +2056,6 @@ const _abi = [
           {
             internalType: "uint256",
             name: "maxCapitalLevel",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "maxCapitalCountPerNation",
             type: "uint256",
           },
           {
