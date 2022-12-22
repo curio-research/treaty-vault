@@ -173,6 +173,7 @@ export enum Tags {
   Signature = 'Signature',
   Tile = 'Tile',
   Treaty = 'Treaty',
+  TreatyTemplate = 'TreatyTemplate',
   TroopInventory = 'TroopInventory',
   TroopProduction = 'TroopProduction',
   TroopTemplate = 'TroopTemplate',
