@@ -541,6 +541,19 @@ const _abi = [
     inputs: [
       {
         internalType: "uint256",
+        name: "_maxIdleDuration",
+        type: "uint256",
+      },
+    ],
+    name: "removeIdleNations",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
         name: "_nationID",
         type: "uint256",
       },
@@ -948,9 +961,9 @@ const _abi = [
     name: "deployTreaty",
     outputs: [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
+        internalType: "address",
+        name: "treatyAddress",
+        type: "address",
       },
     ],
     stateMutability: "nonpayable",

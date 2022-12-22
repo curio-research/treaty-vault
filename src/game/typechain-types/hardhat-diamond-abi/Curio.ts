@@ -155,6 +155,7 @@ export interface CurioInterface extends utils.Interface {
     "registerTemplateShortcuts(string[],uint256[])": FunctionFragment;
     "registerTreatyTemplate(address,string)": FunctionFragment;
     "removeEntity(uint256)": FunctionFragment;
+    "removeIdleNations(uint256)": FunctionFragment;
     "removeSigner(uint256)": FunctionFragment;
     "setComponentValue(string,uint256,bytes)": FunctionFragment;
     "spawnResource((uint256,uint256),string)": FunctionFragment;
@@ -278,6 +279,7 @@ export interface CurioInterface extends utils.Interface {
       | "registerTemplateShortcuts"
       | "registerTreatyTemplate"
       | "removeEntity"
+      | "removeIdleNations"
       | "removeSigner"
       | "setComponentValue"
       | "spawnResource"
@@ -481,6 +483,10 @@ export interface CurioInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "removeEntity",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "removeIdleNations",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
@@ -961,6 +967,10 @@ export interface CurioInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "removeEntity",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "removeIdleNations",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -1539,6 +1549,11 @@ export interface Curio extends BaseContract {
 
     removeEntity(
       _entity: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    removeIdleNations(
+      _maxIdleDuration: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -2180,6 +2195,11 @@ export interface Curio extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
+  removeIdleNations(
+    _maxIdleDuration: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
   removeSigner(
     _nationID: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -2804,6 +2824,11 @@ export interface Curio extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    removeIdleNations(
+      _maxIdleDuration: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     removeSigner(
       _nationID: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -2900,7 +2925,7 @@ export interface Curio extends BaseContract {
       _nationID: PromiseOrValue<BigNumberish>,
       _treatyName: PromiseOrValue<string>,
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    ): Promise<string>;
 
     disbandArmy(
       _armyID: PromiseOrValue<BigNumberish>,
@@ -3484,6 +3509,11 @@ export interface Curio extends BaseContract {
 
     removeEntity(
       _entity: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    removeIdleNations(
+      _maxIdleDuration: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -4113,6 +4143,11 @@ export interface Curio extends BaseContract {
 
     removeEntity(
       _entity: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    removeIdleNations(
+      _maxIdleDuration: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
