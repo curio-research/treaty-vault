@@ -45,6 +45,7 @@ export type ComponentSpecStructOutput = [string, number] & {
 
 export interface AdminFacetInterface extends utils.Interface {
   functions: {
+    "addAllowance(string,uint256,uint256)": FunctionFragment;
     "addAuthorized(address)": FunctionFragment;
     "addEntity()": FunctionFragment;
     "addGame()": FunctionFragment;
@@ -68,7 +69,7 @@ export interface AdminFacetInterface extends utils.Interface {
     "registerComponents(address,(string,uint8)[])": FunctionFragment;
     "registerFunctionNames(string[])": FunctionFragment;
     "registerTemplateShortcuts(string[],uint256[])": FunctionFragment;
-    "registerTreatyTemplate(address,string)": FunctionFragment;
+    "registerTreatyTemplate(address,string,string)": FunctionFragment;
     "removeEntity(uint256)": FunctionFragment;
     "removeIdleNations(uint256)": FunctionFragment;
     "removeSigner(uint256)": FunctionFragment;
@@ -83,6 +84,7 @@ export interface AdminFacetInterface extends utils.Interface {
 
   getFunction(
     nameOrSignatureOrTopic:
+      | "addAllowance"
       | "addAuthorized"
       | "addEntity"
       | "addGame"
@@ -119,6 +121,14 @@ export interface AdminFacetInterface extends utils.Interface {
       | "updateInventoryAmount"
   ): FunctionFragment;
 
+  encodeFunctionData(
+    functionFragment: "addAllowance",
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>
+    ]
+  ): string;
   encodeFunctionData(
     functionFragment: "addAuthorized",
     values: [PromiseOrValue<string>]
@@ -222,7 +232,11 @@ export interface AdminFacetInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "registerTreatyTemplate",
-    values: [PromiseOrValue<string>, PromiseOrValue<string>]
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<string>,
+      PromiseOrValue<string>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "removeEntity",
@@ -266,6 +280,10 @@ export interface AdminFacetInterface extends utils.Interface {
     values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
   ): string;
 
+  decodeFunctionResult(
+    functionFragment: "addAllowance",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "addAuthorized",
     data: BytesLike
@@ -409,6 +427,13 @@ export interface AdminFacet extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
+    addAllowance(
+      _templateName: PromiseOrValue<string>,
+      _ownerID: PromiseOrValue<BigNumberish>,
+      _spenderID: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
     addAuthorized(
       _tokenAddress: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -540,6 +565,7 @@ export interface AdminFacet extends BaseContract {
     registerTreatyTemplate(
       _address: PromiseOrValue<string>,
       _abiHash: PromiseOrValue<string>,
+      metadataLink: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -595,6 +621,13 @@ export interface AdminFacet extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
   };
+
+  addAllowance(
+    _templateName: PromiseOrValue<string>,
+    _ownerID: PromiseOrValue<BigNumberish>,
+    _spenderID: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
 
   addAuthorized(
     _tokenAddress: PromiseOrValue<string>,
@@ -727,6 +760,7 @@ export interface AdminFacet extends BaseContract {
   registerTreatyTemplate(
     _address: PromiseOrValue<string>,
     _abiHash: PromiseOrValue<string>,
+    metadataLink: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -783,6 +817,13 @@ export interface AdminFacet extends BaseContract {
   ): Promise<ContractTransaction>;
 
   callStatic: {
+    addAllowance(
+      _templateName: PromiseOrValue<string>,
+      _ownerID: PromiseOrValue<BigNumberish>,
+      _spenderID: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     addAuthorized(
       _tokenAddress: PromiseOrValue<string>,
       overrides?: CallOverrides
@@ -908,6 +949,7 @@ export interface AdminFacet extends BaseContract {
     registerTreatyTemplate(
       _address: PromiseOrValue<string>,
       _abiHash: PromiseOrValue<string>,
+      metadataLink: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -963,6 +1005,13 @@ export interface AdminFacet extends BaseContract {
   filters: {};
 
   estimateGas: {
+    addAllowance(
+      _templateName: PromiseOrValue<string>,
+      _ownerID: PromiseOrValue<BigNumberish>,
+      _spenderID: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
     addAuthorized(
       _tokenAddress: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -1094,6 +1143,7 @@ export interface AdminFacet extends BaseContract {
     registerTreatyTemplate(
       _address: PromiseOrValue<string>,
       _abiHash: PromiseOrValue<string>,
+      metadataLink: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -1151,6 +1201,13 @@ export interface AdminFacet extends BaseContract {
   };
 
   populateTransaction: {
+    addAllowance(
+      _templateName: PromiseOrValue<string>,
+      _ownerID: PromiseOrValue<BigNumberish>,
+      _spenderID: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
     addAuthorized(
       _tokenAddress: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -1282,6 +1339,7 @@ export interface AdminFacet extends BaseContract {
     registerTreatyTemplate(
       _address: PromiseOrValue<string>,
       _abiHash: PromiseOrValue<string>,
+      metadataLink: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 

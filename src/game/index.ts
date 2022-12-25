@@ -7,5 +7,6 @@ export * from './gameStateCore';
 export * from './gameManagerCore';
 
 export * from './typechain-types/hardhat-diamond-abi/Curio';
-export * from './typechain-types/factories/contracts';
+export * from './typechain-types/factories/contracts/index';
+// export * from './typechain-types/factories/contracts/standards/index';
 export * from './typechain-types/factories/hardhat-diamond-abi';
