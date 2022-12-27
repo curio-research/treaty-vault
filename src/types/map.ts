@@ -1,4 +1,4 @@
-import { setDiff } from '../util/query';
+import { setDifference } from '../util/set';
 import { makeObservable, observable } from 'mobx';
 import { TILE_TYPE } from './deployment';
 
@@ -66,6 +66,6 @@ export class Component {
   }
 
   public getNot = (val: any): Set<number> => {
-    return setDiff(this.entities, this.valueToEntity.get(val) || new Set<number>());
+    return setDifference(this.entities, this.valueToEntity.get(val) || new Set<number>());
   };
 }
