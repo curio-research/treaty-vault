@@ -11,7 +11,7 @@ import { makeObservable, observable, configure } from 'mobx';
 import { WorldConstants, Tiles, emptyWorldConstants, Components, Component } from '../types/map';
 import { NetworkEvents, handleComponentValueSet, handleComponentValueRemoved, handleEntityRemoved } from '../util';
 import { Query, QueryActionType } from '../types/query';
-import { setDiff, setIntersection } from '../util/query';
+import { setDifference, setIntersection } from '../util/set';
 import GameManagerCore from './gameManagerCore';
 
 // ------------------------------------------------------------
@@ -168,7 +168,7 @@ export class GameStateCore {
         if (queryCondition.action === QueryActionType.HAS) {
           entities = setIntersection(entities, component.entities);
         } else if (queryCondition.action === QueryActionType.NOT) {
-          entities = setIntersection(entities, setDiff(allWorldEntitySet, component.entities));
+          entities = setIntersection(entities, setDifference(allWorldEntitySet, component.entities));
         } else if (queryCondition.action === QueryActionType.HAS_EXACT) {
           entities = setIntersection(
             entities,
