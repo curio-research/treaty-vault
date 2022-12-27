@@ -43,11 +43,12 @@ export class Component {
 
   entities: Set<number>;
 
-  entityToPrevValue: Map<number, any>; // entity -> prevValue
+  // The type of "value" is string because we use the encoded version of value
+  entityToPrevValue: Map<number, string>; // entity -> prevValue
 
-  entityToValue: Map<number, any>; // entity -> value
+  entityToValue: Map<number, string>; // entity -> value
 
-  valueToEntity: Map<any, Set<number>>; // value -> set(entity)'
+  valueToEntity: Map<string, Set<number>>; // value -> set(entity)'
 
   constructor(componentId: number) {
     this.componentId = componentId;
