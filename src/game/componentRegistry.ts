@@ -264,7 +264,7 @@ export const componentTypeToDecoder: Record<ComponentDataTypes, any> = {
   // [ComponentDataTypes.POSITION_ARRAY]: decodePositionArrComp,
 };
 
-export const componentTypeToEncoder: Record<ComponentDataTypes, (arg: any) => string> = {
+export const componentTypeToEncoder: Record<ComponentDataTypes, any> = {
   [ComponentDataTypes.UINT]: encodeUint256Comp,
   [ComponentDataTypes.STRING]: encodeStringComp,
   [ComponentDataTypes.BOOL]: encodeBoolComp,
