@@ -47,7 +47,7 @@ export class Component {
 
   entityToValue: Map<number, any>; // entity -> decodedValue
 
-  valueToEntity: Map<string, Set<number>>; // encodedValue -> set(entity)'
+  valueToEntity: Map<any, Set<number>>; // encodedValue -> set(entity)'
 
   constructor(componentId: number) {
     this.componentId = componentId;
