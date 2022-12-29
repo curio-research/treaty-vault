@@ -75,7 +75,7 @@ export const decodeStringArrComp = (bytes: string): string[] => {
 };
 
 // address
-export const encodeAddressComp = (address: string) => {
+export const encodeAddressComp = (address: string): string => {
   return address;
 };
 
