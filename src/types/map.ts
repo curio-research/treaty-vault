@@ -1,4 +1,4 @@
-import { setDifference } from '../util/set';
+import { setDiff } from '../util/query';
 import { makeObservable, observable } from 'mobx';
 import { TILE_TYPE } from './deployment';
 
@@ -43,11 +43,11 @@ export class Component {
 
   entities: Set<number>;
 
-  entityToPrevValue: Map<number, any>; // entity -> decodedPrevValue
+  entityToPrevValue: Map<number, any>; // entity -> prevValue
 
-  entityToValue: Map<number, any>; // entity -> decodedValue
+  entityToValue: Map<number, any>; // entity -> value
 
-  valueToEntity: Map<any, Set<number>>; // encodedValue -> set(entity)'
+  valueToEntity: Map<any, Set<number>>; // value -> set(entity)'
 
   constructor(componentId: number) {
     this.componentId = componentId;
@@ -66,6 +66,6 @@ export class Component {
   }
 
   public getNot = (val: any): Set<number> => {
-    return setDifference(this.entities, this.valueToEntity.get(val) || new Set<number>());
+    return setDiff(this.entities, this.valueToEntity.get(val) || new Set<number>());
   };
 }

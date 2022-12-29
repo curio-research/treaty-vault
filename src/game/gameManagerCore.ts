@@ -1,6 +1,7 @@
 import { emptyGameConfig } from './../types/deployment';
 import { EventEmitter } from 'events';
 import { GameConfig } from '../types';
+import GameStateCore from './gameStateCore';
 import NetworkEngine from './networkEngineCore';
 import ApiManager from './apiManagerCore';
 
@@ -8,6 +9,7 @@ const emitter = new EventEmitter();
 
 export class GameManagerCore {
   deployment: GameConfig; // deployment information
+  gameState: GameStateCore | any; // stores game state
   apiManager: ApiManager; // manages game connection
   emitter: EventEmitter; // event emitter for on-chain events
 
@@ -26,9 +28,17 @@ export class GameManagerCore {
     this.apiManager = new ApiManager(networkEngine);
     this.apiManager.initializeApiManager(networkEngine);
 
+    this.gameState = new GameStateCore(this.emitter, this);
+
     // sync initialize game state?
     // this.gameState.initializeAll();
   }
+
+  // main sync game function with the chain state
+  public sync = async () => {
+    await this.gameState.fetchSetECSValues();
+    console.log(`Finished syncing deployment ${this.deployment.deploymentId}`);
+  };
 
   public getAddress = (): string => {
     const address = this.apiManager.networkEngine?.getPubAddr();

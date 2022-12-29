@@ -3,6 +3,7 @@ export * from './componentSerde';
 export * from './types/component';
 export * from './networkEngineCore';
 export * from './apiManagerCore';
+export * from './gameStateCore';
 export * from './gameManagerCore';
 
 export * from './typechain-types/hardhat-diamond-abi/Curio';
