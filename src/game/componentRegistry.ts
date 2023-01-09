@@ -63,6 +63,7 @@ export const IsLocked = 'IsLocked';
 export const CanHostCapital = 'CanHostCapital';
 export const Subject = 'Subject';
 export const LastActed = 'LastActed';
+export const Metadata = 'Metadata';
 
 export const COMPONENT_SPECS: CompType[] = [
   { name: Address, valueType: ComponentDataTypes.ADDRESS }, // MUST BE THE FIRST COMPONENT
@@ -109,6 +110,7 @@ export const COMPONENT_SPECS: CompType[] = [
   { name: CanHostCapital, valueType: ComponentDataTypes.BOOL },
   { name: Subject, valueType: ComponentDataTypes.UINT },
   { name: LastActed, valueType: ComponentDataTypes.UINT },
+  { name: Metadata, valueType: ComponentDataTypes.STRING },
 ];
 
 export interface componentInputTypeMap {
@@ -155,6 +157,7 @@ export interface componentInputTypeMap {
   CanHostCapital: boolean;
   Subject: number;
   LastActed: number;
+  Metadata: string;
 }
 
 export enum Tags {
