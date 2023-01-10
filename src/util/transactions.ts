@@ -10,7 +10,7 @@ export enum ContractMethods {
   endTroopProduction = 'endTroopProduction',
   harvestResourcesFromCapital = 'harvestResourcesFromCapital',
   harvestResource = 'harvestResource',
-  harvestResources = 'harvestResources',
+  harvestAllResources = 'harvestAllResources',
   organizeArmy = 'organizeArmy',
   march = 'march',
   battle = 'battle',
