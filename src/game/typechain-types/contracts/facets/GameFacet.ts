@@ -38,16 +38,17 @@ export interface GameFacetInterface extends utils.Interface {
     "authorizeGame(address)": FunctionFragment;
     "battle(uint256,uint256)": FunctionFragment;
     "claimTile(uint256,uint256)": FunctionFragment;
+    "delegateAllGameFunctions(uint256,uint256,bool)": FunctionFragment;
     "delegateGameFunction(uint256,string,uint256,uint256,bool)": FunctionFragment;
-    "deployTreaty(uint256,string)": FunctionFragment;
+    "deployTreaty(uint256,string,bytes)": FunctionFragment;
     "disbandArmy(uint256)": FunctionFragment;
     "disownTile(uint256)": FunctionFragment;
     "endGather(uint256)": FunctionFragment;
     "endTroopProduction(uint256)": FunctionFragment;
+    "harvestAllResources(uint256[])": FunctionFragment;
     "harvestResource(uint256)": FunctionFragment;
-    "harvestResources(uint256[])": FunctionFragment;
     "harvestResourcesFromCapital(uint256)": FunctionFragment;
-    "initializeNation((uint256,uint256),string)": FunctionFragment;
+    "joinGame((uint256,uint256),string)": FunctionFragment;
     "move(uint256,(uint256,uint256))": FunctionFragment;
     "moveCapital(uint256,(uint256,uint256))": FunctionFragment;
     "organizeArmy(uint256,uint256[],uint256[])": FunctionFragment;
@@ -65,16 +66,17 @@ export interface GameFacetInterface extends utils.Interface {
       | "authorizeGame"
       | "battle"
       | "claimTile"
+      | "delegateAllGameFunctions"
       | "delegateGameFunction"
       | "deployTreaty"
       | "disbandArmy"
       | "disownTile"
       | "endGather"
       | "endTroopProduction"
+      | "harvestAllResources"
       | "harvestResource"
-      | "harvestResources"
       | "harvestResourcesFromCapital"
-      | "initializeNation"
+      | "joinGame"
       | "move"
       | "moveCapital"
       | "organizeArmy"
@@ -100,6 +102,14 @@ export interface GameFacetInterface extends utils.Interface {
     values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
+    functionFragment: "delegateAllGameFunctions",
+    values: [
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<boolean>
+    ]
+  ): string;
+  encodeFunctionData(
     functionFragment: "delegateGameFunction",
     values: [
       PromiseOrValue<BigNumberish>,
@@ -111,7 +121,11 @@ export interface GameFacetInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "deployTreaty",
-    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
+    values: [
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>,
+      PromiseOrValue<BytesLike>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "disbandArmy",
@@ -130,19 +144,19 @@ export interface GameFacetInterface extends utils.Interface {
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
-    functionFragment: "harvestResource",
-    values: [PromiseOrValue<BigNumberish>]
+    functionFragment: "harvestAllResources",
+    values: [PromiseOrValue<BigNumberish>[]]
   ): string;
   encodeFunctionData(
-    functionFragment: "harvestResources",
-    values: [PromiseOrValue<BigNumberish>[]]
+    functionFragment: "harvestResource",
+    values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "harvestResourcesFromCapital",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
-    functionFragment: "initializeNation",
+    functionFragment: "joinGame",
     values: [PositionStruct, PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
@@ -201,6 +215,10 @@ export interface GameFacetInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: "battle", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "claimTile", data: BytesLike): Result;
   decodeFunctionResult(
+    functionFragment: "delegateAllGameFunctions",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "delegateGameFunction",
     data: BytesLike
   ): Result;
@@ -219,21 +237,18 @@ export interface GameFacetInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "harvestResource",
+    functionFragment: "harvestAllResources",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "harvestResources",
+    functionFragment: "harvestResource",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "harvestResourcesFromCapital",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(
-    functionFragment: "initializeNation",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "joinGame", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "move", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "moveCapital",
@@ -319,6 +334,13 @@ export interface GameFacet extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
+    delegateAllGameFunctions(
+      _nationID: PromiseOrValue<BigNumberish>,
+      _delegateID: PromiseOrValue<BigNumberish>,
+      _canCall: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
     delegateGameFunction(
       _nationID: PromiseOrValue<BigNumberish>,
       _functionName: PromiseOrValue<string>,
@@ -331,6 +353,7 @@ export interface GameFacet extends BaseContract {
     deployTreaty(
       _nationID: PromiseOrValue<BigNumberish>,
       _treatyName: PromiseOrValue<string>,
+      _treatyParams: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -354,13 +377,13 @@ export interface GameFacet extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    harvestResource(
-      _resourceID: PromiseOrValue<BigNumberish>,
+    harvestAllResources(
+      resourceIDs: PromiseOrValue<BigNumberish>[],
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    harvestResources(
-      resourceIDs: PromiseOrValue<BigNumberish>[],
+    harvestResource(
+      _resourceID: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -369,7 +392,7 @@ export interface GameFacet extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    initializeNation(
+    joinGame(
       _position: PositionStruct,
       _name: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -450,6 +473,13 @@ export interface GameFacet extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
+  delegateAllGameFunctions(
+    _nationID: PromiseOrValue<BigNumberish>,
+    _delegateID: PromiseOrValue<BigNumberish>,
+    _canCall: PromiseOrValue<boolean>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
   delegateGameFunction(
     _nationID: PromiseOrValue<BigNumberish>,
     _functionName: PromiseOrValue<string>,
@@ -462,6 +492,7 @@ export interface GameFacet extends BaseContract {
   deployTreaty(
     _nationID: PromiseOrValue<BigNumberish>,
     _treatyName: PromiseOrValue<string>,
+    _treatyParams: PromiseOrValue<BytesLike>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -485,13 +516,13 @@ export interface GameFacet extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  harvestResource(
-    _resourceID: PromiseOrValue<BigNumberish>,
+  harvestAllResources(
+    resourceIDs: PromiseOrValue<BigNumberish>[],
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  harvestResources(
-    resourceIDs: PromiseOrValue<BigNumberish>[],
+  harvestResource(
+    _resourceID: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -500,7 +531,7 @@ export interface GameFacet extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  initializeNation(
+  joinGame(
     _position: PositionStruct,
     _name: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -581,6 +612,13 @@ export interface GameFacet extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    delegateAllGameFunctions(
+      _nationID: PromiseOrValue<BigNumberish>,
+      _delegateID: PromiseOrValue<BigNumberish>,
+      _canCall: PromiseOrValue<boolean>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     delegateGameFunction(
       _nationID: PromiseOrValue<BigNumberish>,
       _functionName: PromiseOrValue<string>,
@@ -593,6 +631,7 @@ export interface GameFacet extends BaseContract {
     deployTreaty(
       _nationID: PromiseOrValue<BigNumberish>,
       _treatyName: PromiseOrValue<string>,
+      _treatyParams: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<string>;
 
@@ -616,13 +655,13 @@ export interface GameFacet extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    harvestResource(
-      _resourceID: PromiseOrValue<BigNumberish>,
+    harvestAllResources(
+      resourceIDs: PromiseOrValue<BigNumberish>[],
       overrides?: CallOverrides
     ): Promise<void>;
 
-    harvestResources(
-      resourceIDs: PromiseOrValue<BigNumberish>[],
+    harvestResource(
+      _resourceID: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -631,7 +670,7 @@ export interface GameFacet extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    initializeNation(
+    joinGame(
       _position: PositionStruct,
       _name: PromiseOrValue<string>,
       overrides?: CallOverrides
@@ -715,6 +754,13 @@ export interface GameFacet extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
+    delegateAllGameFunctions(
+      _nationID: PromiseOrValue<BigNumberish>,
+      _delegateID: PromiseOrValue<BigNumberish>,
+      _canCall: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
     delegateGameFunction(
       _nationID: PromiseOrValue<BigNumberish>,
       _functionName: PromiseOrValue<string>,
@@ -727,6 +773,7 @@ export interface GameFacet extends BaseContract {
     deployTreaty(
       _nationID: PromiseOrValue<BigNumberish>,
       _treatyName: PromiseOrValue<string>,
+      _treatyParams: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -750,13 +797,13 @@ export interface GameFacet extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    harvestResource(
-      _resourceID: PromiseOrValue<BigNumberish>,
+    harvestAllResources(
+      resourceIDs: PromiseOrValue<BigNumberish>[],
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    harvestResources(
-      resourceIDs: PromiseOrValue<BigNumberish>[],
+    harvestResource(
+      _resourceID: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -765,7 +812,7 @@ export interface GameFacet extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    initializeNation(
+    joinGame(
       _position: PositionStruct,
       _name: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -847,6 +894,13 @@ export interface GameFacet extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
+    delegateAllGameFunctions(
+      _nationID: PromiseOrValue<BigNumberish>,
+      _delegateID: PromiseOrValue<BigNumberish>,
+      _canCall: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
     delegateGameFunction(
       _nationID: PromiseOrValue<BigNumberish>,
       _functionName: PromiseOrValue<string>,
@@ -859,6 +913,7 @@ export interface GameFacet extends BaseContract {
     deployTreaty(
       _nationID: PromiseOrValue<BigNumberish>,
       _treatyName: PromiseOrValue<string>,
+      _treatyParams: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -882,13 +937,13 @@ export interface GameFacet extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    harvestResource(
-      _resourceID: PromiseOrValue<BigNumberish>,
+    harvestAllResources(
+      resourceIDs: PromiseOrValue<BigNumberish>[],
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    harvestResources(
-      resourceIDs: PromiseOrValue<BigNumberish>[],
+    harvestResource(
+      _resourceID: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -897,7 +952,7 @@ export interface GameFacet extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    initializeNation(
+    joinGame(
       _position: PositionStruct,
       _name: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
