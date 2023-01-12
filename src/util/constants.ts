@@ -29,8 +29,8 @@ export const chainInfo: Record<string, ChainInfoType> = {
     gasLimit: 10_000_000,
   },
   constellation: {
-    rpcUrl: 'https://curiov2.constellationchain.xyz/http',
-    wsRpcUrl: 'wss://curiov2.constellationchain.xyz/ws',
+    rpcUrl: 'https://curiov3.constellationchain.xyz/http',
+    wsRpcUrl: 'wss://curiov3.constellationchain.xyz/ws',
     id: 0,
     gasLimit: 1_000_000_000,
   },
