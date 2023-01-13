@@ -118,6 +118,7 @@ export interface GetterFacetInterface extends utils.Interface {
     "getPositionExternal(string,uint256)": FunctionFragment;
     "getResourceAtTile((uint256,uint256))": FunctionFragment;
     "getSignedTreaties(uint256)": FunctionFragment;
+    "getTag(uint256)": FunctionFragment;
     "getTileAt((uint256,uint256))": FunctionFragment;
     "getTileRegionTilePositions((uint256,uint256))": FunctionFragment;
     "getTokenContract(string)": FunctionFragment;
@@ -126,7 +127,10 @@ export interface GetterFacetInterface extends utils.Interface {
     "getTreatySigners(uint256)": FunctionFragment;
     "getWorldConstants()": FunctionFragment;
     "isPlayerInitialized(address)": FunctionFragment;
+    "isPlayerWhitelistedByGame(address)": FunctionFragment;
+    "isWhitelistedByTreaty(uint256,uint256)": FunctionFragment;
     "query((uint8,address,bytes)[])": FunctionFragment;
+    "treatyApprovalCheck(string,uint256,bytes)": FunctionFragment;
   };
 
   getFunction(
@@ -159,6 +163,7 @@ export interface GetterFacetInterface extends utils.Interface {
       | "getPositionExternal"
       | "getResourceAtTile"
       | "getSignedTreaties"
+      | "getTag"
       | "getTileAt"
       | "getTileRegionTilePositions"
       | "getTokenContract"
@@ -167,7 +172,10 @@ export interface GetterFacetInterface extends utils.Interface {
       | "getTreatySigners"
       | "getWorldConstants"
       | "isPlayerInitialized"
+      | "isPlayerWhitelistedByGame"
+      | "isWhitelistedByTreaty"
       | "query"
+      | "treatyApprovalCheck"
   ): FunctionFragment;
 
   encodeFunctionData(
@@ -294,6 +302,10 @@ export interface GetterFacetInterface extends utils.Interface {
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
+    functionFragment: "getTag",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
     functionFragment: "getTileAt",
     values: [PositionStruct]
   ): string;
@@ -326,8 +338,24 @@ export interface GetterFacetInterface extends utils.Interface {
     values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
+    functionFragment: "isPlayerWhitelistedByGame",
+    values: [PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "isWhitelistedByTreaty",
+    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
     functionFragment: "query",
     values: [QueryConditionStruct[]]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "treatyApprovalCheck",
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BytesLike>
+    ]
   ): string;
 
   decodeFunctionResult(functionFragment: "getABIHash", data: BytesLike): Result;
@@ -421,6 +449,7 @@ export interface GetterFacetInterface extends utils.Interface {
     functionFragment: "getSignedTreaties",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "getTag", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "getTileAt", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "getTileRegionTilePositions",
@@ -450,7 +479,19 @@ export interface GetterFacetInterface extends utils.Interface {
     functionFragment: "isPlayerInitialized",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "isPlayerWhitelistedByGame",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "isWhitelistedByTreaty",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "query", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "treatyApprovalCheck",
+    data: BytesLike
+  ): Result;
 
   events: {};
 }
@@ -624,6 +665,11 @@ export interface GetterFacet extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber[]]>;
 
+    getTag(
+      _entityID: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
+
     getTileAt(
       _position: PositionStruct,
       overrides?: CallOverrides
@@ -663,10 +709,28 @@ export interface GetterFacet extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
+    isPlayerWhitelistedByGame(
+      _player: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
+
+    isWhitelistedByTreaty(
+      _nationID: PromiseOrValue<BigNumberish>,
+      _treatyID: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
+
     query(
       _queryConditions: QueryConditionStruct[],
       overrides?: CallOverrides
     ): Promise<[BigNumber[]]>;
+
+    treatyApprovalCheck(
+      _functionName: PromiseOrValue<string>,
+      _nationID: PromiseOrValue<BigNumberish>,
+      _encodedParams: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
   };
 
   getABIHash(
@@ -811,6 +875,11 @@ export interface GetterFacet extends BaseContract {
     overrides?: CallOverrides
   ): Promise<BigNumber[]>;
 
+  getTag(
+    _entityID: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<string>;
+
   getTileAt(
     _position: PositionStruct,
     overrides?: CallOverrides
@@ -850,10 +919,28 @@ export interface GetterFacet extends BaseContract {
     overrides?: CallOverrides
   ): Promise<boolean>;
 
+  isPlayerWhitelistedByGame(
+    _player: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
+
+  isWhitelistedByTreaty(
+    _nationID: PromiseOrValue<BigNumberish>,
+    _treatyID: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
+
   query(
     _queryConditions: QueryConditionStruct[],
     overrides?: CallOverrides
   ): Promise<BigNumber[]>;
+
+  treatyApprovalCheck(
+    _functionName: PromiseOrValue<string>,
+    _nationID: PromiseOrValue<BigNumberish>,
+    _encodedParams: PromiseOrValue<BytesLike>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
 
   callStatic: {
     getABIHash(
@@ -998,6 +1085,11 @@ export interface GetterFacet extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber[]>;
 
+    getTag(
+      _entityID: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<string>;
+
     getTileAt(
       _position: PositionStruct,
       overrides?: CallOverrides
@@ -1037,10 +1129,28 @@ export interface GetterFacet extends BaseContract {
       overrides?: CallOverrides
     ): Promise<boolean>;
 
+    isPlayerWhitelistedByGame(
+      _player: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
+
+    isWhitelistedByTreaty(
+      _nationID: PromiseOrValue<BigNumberish>,
+      _treatyID: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
+
     query(
       _queryConditions: QueryConditionStruct[],
       overrides?: CallOverrides
     ): Promise<BigNumber[]>;
+
+    treatyApprovalCheck(
+      _functionName: PromiseOrValue<string>,
+      _nationID: PromiseOrValue<BigNumberish>,
+      _encodedParams: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<void>;
   };
 
   filters: {};
@@ -1188,6 +1298,11 @@ export interface GetterFacet extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    getTag(
+      _entityID: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     getTileAt(
       _position: PositionStruct,
       overrides?: CallOverrides
@@ -1225,9 +1340,27 @@ export interface GetterFacet extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    isPlayerWhitelistedByGame(
+      _player: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    isWhitelistedByTreaty(
+      _nationID: PromiseOrValue<BigNumberish>,
+      _treatyID: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     query(
       _queryConditions: QueryConditionStruct[],
       overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    treatyApprovalCheck(
+      _functionName: PromiseOrValue<string>,
+      _nationID: PromiseOrValue<BigNumberish>,
+      _encodedParams: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
   };
 
@@ -1374,6 +1507,11 @@ export interface GetterFacet extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    getTag(
+      _entityID: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     getTileAt(
       _position: PositionStruct,
       overrides?: CallOverrides
@@ -1411,9 +1549,27 @@ export interface GetterFacet extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    isPlayerWhitelistedByGame(
+      _player: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    isWhitelistedByTreaty(
+      _nationID: PromiseOrValue<BigNumberish>,
+      _treatyID: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     query(
       _queryConditions: QueryConditionStruct[],
       overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    treatyApprovalCheck(
+      _functionName: PromiseOrValue<string>,
+      _nationID: PromiseOrValue<BigNumberish>,
+      _encodedParams: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
   };
 }
