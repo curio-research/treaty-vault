@@ -23,18 +23,9 @@ import type {
   PromiseOrValue,
 } from "../../common";
 
-export type PositionStruct = {
-  x: PromiseOrValue<BigNumberish>;
-  y: PromiseOrValue<BigNumberish>;
-};
-
-export type PositionStructOutput = [BigNumber, BigNumber] & {
-  x: BigNumber;
-  y: BigNumber;
-};
-
-export interface HandshakeDealInterface extends utils.Interface {
+export interface MercenaryLeagueInterface extends utils.Interface {
   functions: {
+    "addToWarCouncil(uint256)": FunctionFragment;
     "admin()": FunctionFragment;
     "approveBattle(uint256,bytes)": FunctionFragment;
     "approveClaimTile(uint256,bytes)": FunctionFragment;
@@ -59,27 +50,30 @@ export interface HandshakeDealInterface extends utils.Interface {
     "approveUpgradeCapital(uint256,bytes)": FunctionFragment;
     "approveUpgradeResource(uint256,bytes)": FunctionFragment;
     "approveUpgradeTile(uint256,bytes)": FunctionFragment;
-    "dealCount()": FunctionFragment;
+    "conscriptArmies(uint256)": FunctionFragment;
+    "conscriptionDuration()": FunctionFragment;
     "description()": FunctionFragment;
     "diamond()": FunctionFragment;
     "game()": FunctionFragment;
-    "getNationDeals(uint256)": FunctionFragment;
     "getter()": FunctionFragment;
-    "idToDeal(uint256)": FunctionFragment;
+    "goldToken()": FunctionFragment;
+    "memberConscriptionStartTime(uint256)": FunctionFragment;
+    "memberToConscriptionFee(uint256)": FunctionFragment;
     "minimumStayCheck(uint256,uint256)": FunctionFragment;
     "name()": FunctionFragment;
-    "nationIDToDealIDs(uint256,uint256)": FunctionFragment;
-    "proposeDeal1(uint8,uint256,uint256)": FunctionFragment;
-    "proposeDeal2(uint8,uint256,uint256,uint256)": FunctionFragment;
-    "proposeDeal3(uint8,uint256,(uint256,uint256),uint256)": FunctionFragment;
-    "signDeal(uint256)": FunctionFragment;
+    "removeFromWarCouncil(uint256)": FunctionFragment;
+    "revokeArmies()": FunctionFragment;
+    "setConscriptionDuration(uint256)": FunctionFragment;
+    "setConscriptionFee(uint256)": FunctionFragment;
     "treatyDelegateGameFunction(string,uint256,bool)": FunctionFragment;
     "treatyJoin()": FunctionFragment;
     "treatyLeave()": FunctionFragment;
+    "warCouncil()": FunctionFragment;
   };
 
   getFunction(
     nameOrSignatureOrTopic:
+      | "addToWarCouncil"
       | "admin"
       | "approveBattle"
       | "approveClaimTile"
@@ -104,25 +98,31 @@ export interface HandshakeDealInterface extends utils.Interface {
       | "approveUpgradeCapital"
       | "approveUpgradeResource"
       | "approveUpgradeTile"
-      | "dealCount"
+      | "conscriptArmies"
+      | "conscriptionDuration"
       | "description"
       | "diamond"
       | "game"
-      | "getNationDeals"
       | "getter"
-      | "idToDeal"
+      | "goldToken"
+      | "memberConscriptionStartTime"
+      | "memberToConscriptionFee"
       | "minimumStayCheck"
       | "name"
-      | "nationIDToDealIDs"
-      | "proposeDeal1"
-      | "proposeDeal2"
-      | "proposeDeal3"
-      | "signDeal"
+      | "removeFromWarCouncil"
+      | "revokeArmies"
+      | "setConscriptionDuration"
+      | "setConscriptionFee"
       | "treatyDelegateGameFunction"
       | "treatyJoin"
       | "treatyLeave"
+      | "warCouncil"
   ): FunctionFragment;
 
+  encodeFunctionData(
+    functionFragment: "addToWarCouncil",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
   encodeFunctionData(functionFragment: "admin", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "approveBattle",
@@ -216,20 +216,28 @@ export interface HandshakeDealInterface extends utils.Interface {
     functionFragment: "approveUpgradeTile",
     values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BytesLike>]
   ): string;
-  encodeFunctionData(functionFragment: "dealCount", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "conscriptArmies",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "conscriptionDuration",
+    values?: undefined
+  ): string;
   encodeFunctionData(
     functionFragment: "description",
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "diamond", values?: undefined): string;
   encodeFunctionData(functionFragment: "game", values?: undefined): string;
+  encodeFunctionData(functionFragment: "getter", values?: undefined): string;
+  encodeFunctionData(functionFragment: "goldToken", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "getNationDeals",
+    functionFragment: "memberConscriptionStartTime",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
-  encodeFunctionData(functionFragment: "getter", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "idToDeal",
+    functionFragment: "memberToConscriptionFee",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
@@ -238,37 +246,19 @@ export interface HandshakeDealInterface extends utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: "name", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "nationIDToDealIDs",
-    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
+    functionFragment: "removeFromWarCouncil",
+    values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
-    functionFragment: "proposeDeal1",
-    values: [
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>
-    ]
+    functionFragment: "revokeArmies",
+    values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "proposeDeal2",
-    values: [
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>
-    ]
+    functionFragment: "setConscriptionDuration",
+    values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
-    functionFragment: "proposeDeal3",
-    values: [
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>,
-      PositionStruct,
-      PromiseOrValue<BigNumberish>
-    ]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "signDeal",
+    functionFragment: "setConscriptionFee",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
@@ -287,7 +277,15 @@ export interface HandshakeDealInterface extends utils.Interface {
     functionFragment: "treatyLeave",
     values?: undefined
   ): string;
+  encodeFunctionData(
+    functionFragment: "warCouncil",
+    values?: undefined
+  ): string;
 
+  decodeFunctionResult(
+    functionFragment: "addToWarCouncil",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "admin", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "approveBattle",
@@ -381,41 +379,51 @@ export interface HandshakeDealInterface extends utils.Interface {
     functionFragment: "approveUpgradeTile",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "dealCount", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "conscriptArmies",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "conscriptionDuration",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "description",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "diamond", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "game", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "getter", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "goldToken", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "getNationDeals",
+    functionFragment: "memberConscriptionStartTime",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "getter", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "idToDeal", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "memberToConscriptionFee",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "minimumStayCheck",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "nationIDToDealIDs",
+    functionFragment: "removeFromWarCouncil",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "proposeDeal1",
+    functionFragment: "revokeArmies",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "proposeDeal2",
+    functionFragment: "setConscriptionDuration",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "proposeDeal3",
+    functionFragment: "setConscriptionFee",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "signDeal", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "treatyDelegateGameFunction",
     data: BytesLike
@@ -425,16 +433,17 @@ export interface HandshakeDealInterface extends utils.Interface {
     functionFragment: "treatyLeave",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "warCouncil", data: BytesLike): Result;
 
   events: {};
 }
 
-export interface HandshakeDeal extends BaseContract {
+export interface MercenaryLeague extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
 
-  interface: HandshakeDealInterface;
+  interface: MercenaryLeagueInterface;
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
@@ -456,6 +465,11 @@ export interface HandshakeDeal extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
+    addToWarCouncil(
+      _nationID: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
     admin(overrides?: CallOverrides): Promise<[string]>;
 
     approveBattle(
@@ -596,7 +610,12 @@ export interface HandshakeDeal extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
-    dealCount(overrides?: CallOverrides): Promise<[BigNumber]>;
+    conscriptArmies(
+      _nationID: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    conscriptionDuration(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     description(overrides?: CallOverrides): Promise<[string]>;
 
@@ -604,26 +623,19 @@ export interface HandshakeDeal extends BaseContract {
 
     game(overrides?: CallOverrides): Promise<[string]>;
 
-    getNationDeals(
-      _nationID: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber[]]>;
-
     getter(overrides?: CallOverrides): Promise<[string]>;
 
-    idToDeal(
+    goldToken(overrides?: CallOverrides): Promise<[string]>;
+
+    memberConscriptionStartTime(
       arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber, number, string, BigNumber, BigNumber] & {
-        dealID: BigNumber;
-        proposerID: BigNumber;
-        functionOfAgreement: number;
-        encodedParams: string;
-        signedAt: BigNumber;
-        effectiveDuration: BigNumber;
-      }
-    >;
+    ): Promise<[BigNumber]>;
+
+    memberToConscriptionFee(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
 
     minimumStayCheck(
       _nationID: PromiseOrValue<BigNumberish>,
@@ -633,37 +645,22 @@ export interface HandshakeDeal extends BaseContract {
 
     name(overrides?: CallOverrides): Promise<[string]>;
 
-    nationIDToDealIDs(
-      arg0: PromiseOrValue<BigNumberish>,
-      arg1: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
-
-    proposeDeal1(
-      _functionType: PromiseOrValue<BigNumberish>,
-      _uint256Param: PromiseOrValue<BigNumberish>,
-      _effectiveDuration: PromiseOrValue<BigNumberish>,
+    removeFromWarCouncil(
+      _nationID: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    proposeDeal2(
-      _functionType: PromiseOrValue<BigNumberish>,
-      _uint256Param1: PromiseOrValue<BigNumberish>,
-      _uint256Param2: PromiseOrValue<BigNumberish>,
-      _effectiveDuration: PromiseOrValue<BigNumberish>,
+    revokeArmies(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    proposeDeal3(
-      _functionType: PromiseOrValue<BigNumberish>,
-      _uint256Param: PromiseOrValue<BigNumberish>,
-      _positionParam: PositionStruct,
-      _effectiveDuration: PromiseOrValue<BigNumberish>,
+    setConscriptionDuration(
+      _duration: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    signDeal(
-      _dealID: PromiseOrValue<BigNumberish>,
+    setConscriptionFee(
+      _fee: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -681,7 +678,14 @@ export interface HandshakeDeal extends BaseContract {
     treatyLeave(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
+
+    warCouncil(overrides?: CallOverrides): Promise<[string]>;
   };
+
+  addToWarCouncil(
+    _nationID: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
 
   admin(overrides?: CallOverrides): Promise<string>;
 
@@ -823,7 +827,12 @@ export interface HandshakeDeal extends BaseContract {
     overrides?: CallOverrides
   ): Promise<boolean>;
 
-  dealCount(overrides?: CallOverrides): Promise<BigNumber>;
+  conscriptArmies(
+    _nationID: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  conscriptionDuration(overrides?: CallOverrides): Promise<BigNumber>;
 
   description(overrides?: CallOverrides): Promise<string>;
 
@@ -831,26 +840,19 @@ export interface HandshakeDeal extends BaseContract {
 
   game(overrides?: CallOverrides): Promise<string>;
 
-  getNationDeals(
-    _nationID: PromiseOrValue<BigNumberish>,
-    overrides?: CallOverrides
-  ): Promise<BigNumber[]>;
-
   getter(overrides?: CallOverrides): Promise<string>;
 
-  idToDeal(
+  goldToken(overrides?: CallOverrides): Promise<string>;
+
+  memberConscriptionStartTime(
     arg0: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
-  ): Promise<
-    [BigNumber, BigNumber, number, string, BigNumber, BigNumber] & {
-      dealID: BigNumber;
-      proposerID: BigNumber;
-      functionOfAgreement: number;
-      encodedParams: string;
-      signedAt: BigNumber;
-      effectiveDuration: BigNumber;
-    }
-  >;
+  ): Promise<BigNumber>;
+
+  memberToConscriptionFee(
+    arg0: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
 
   minimumStayCheck(
     _nationID: PromiseOrValue<BigNumberish>,
@@ -860,37 +862,22 @@ export interface HandshakeDeal extends BaseContract {
 
   name(overrides?: CallOverrides): Promise<string>;
 
-  nationIDToDealIDs(
-    arg0: PromiseOrValue<BigNumberish>,
-    arg1: PromiseOrValue<BigNumberish>,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
-
-  proposeDeal1(
-    _functionType: PromiseOrValue<BigNumberish>,
-    _uint256Param: PromiseOrValue<BigNumberish>,
-    _effectiveDuration: PromiseOrValue<BigNumberish>,
+  removeFromWarCouncil(
+    _nationID: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  proposeDeal2(
-    _functionType: PromiseOrValue<BigNumberish>,
-    _uint256Param1: PromiseOrValue<BigNumberish>,
-    _uint256Param2: PromiseOrValue<BigNumberish>,
-    _effectiveDuration: PromiseOrValue<BigNumberish>,
+  revokeArmies(
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  proposeDeal3(
-    _functionType: PromiseOrValue<BigNumberish>,
-    _uint256Param: PromiseOrValue<BigNumberish>,
-    _positionParam: PositionStruct,
-    _effectiveDuration: PromiseOrValue<BigNumberish>,
+  setConscriptionDuration(
+    _duration: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  signDeal(
-    _dealID: PromiseOrValue<BigNumberish>,
+  setConscriptionFee(
+    _fee: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -909,7 +896,14 @@ export interface HandshakeDeal extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
+  warCouncil(overrides?: CallOverrides): Promise<string>;
+
   callStatic: {
+    addToWarCouncil(
+      _nationID: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     admin(overrides?: CallOverrides): Promise<string>;
 
     approveBattle(
@@ -1050,7 +1044,12 @@ export interface HandshakeDeal extends BaseContract {
       overrides?: CallOverrides
     ): Promise<boolean>;
 
-    dealCount(overrides?: CallOverrides): Promise<BigNumber>;
+    conscriptArmies(
+      _nationID: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    conscriptionDuration(overrides?: CallOverrides): Promise<BigNumber>;
 
     description(overrides?: CallOverrides): Promise<string>;
 
@@ -1058,26 +1057,19 @@ export interface HandshakeDeal extends BaseContract {
 
     game(overrides?: CallOverrides): Promise<string>;
 
-    getNationDeals(
-      _nationID: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber[]>;
-
     getter(overrides?: CallOverrides): Promise<string>;
 
-    idToDeal(
+    goldToken(overrides?: CallOverrides): Promise<string>;
+
+    memberConscriptionStartTime(
       arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber, number, string, BigNumber, BigNumber] & {
-        dealID: BigNumber;
-        proposerID: BigNumber;
-        functionOfAgreement: number;
-        encodedParams: string;
-        signedAt: BigNumber;
-        effectiveDuration: BigNumber;
-      }
-    >;
+    ): Promise<BigNumber>;
+
+    memberToConscriptionFee(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     minimumStayCheck(
       _nationID: PromiseOrValue<BigNumberish>,
@@ -1087,37 +1079,20 @@ export interface HandshakeDeal extends BaseContract {
 
     name(overrides?: CallOverrides): Promise<string>;
 
-    nationIDToDealIDs(
-      arg0: PromiseOrValue<BigNumberish>,
-      arg1: PromiseOrValue<BigNumberish>,
+    removeFromWarCouncil(
+      _nationID: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    ): Promise<void>;
 
-    proposeDeal1(
-      _functionType: PromiseOrValue<BigNumberish>,
-      _uint256Param: PromiseOrValue<BigNumberish>,
-      _effectiveDuration: PromiseOrValue<BigNumberish>,
+    revokeArmies(overrides?: CallOverrides): Promise<void>;
+
+    setConscriptionDuration(
+      _duration: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    ): Promise<void>;
 
-    proposeDeal2(
-      _functionType: PromiseOrValue<BigNumberish>,
-      _uint256Param1: PromiseOrValue<BigNumberish>,
-      _uint256Param2: PromiseOrValue<BigNumberish>,
-      _effectiveDuration: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    proposeDeal3(
-      _functionType: PromiseOrValue<BigNumberish>,
-      _uint256Param: PromiseOrValue<BigNumberish>,
-      _positionParam: PositionStruct,
-      _effectiveDuration: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    signDeal(
-      _dealID: PromiseOrValue<BigNumberish>,
+    setConscriptionFee(
+      _fee: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1131,11 +1106,18 @@ export interface HandshakeDeal extends BaseContract {
     treatyJoin(overrides?: CallOverrides): Promise<void>;
 
     treatyLeave(overrides?: CallOverrides): Promise<void>;
+
+    warCouncil(overrides?: CallOverrides): Promise<string>;
   };
 
   filters: {};
 
   estimateGas: {
+    addToWarCouncil(
+      _nationID: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
     admin(overrides?: CallOverrides): Promise<BigNumber>;
 
     approveBattle(
@@ -1276,7 +1258,12 @@ export interface HandshakeDeal extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    dealCount(overrides?: CallOverrides): Promise<BigNumber>;
+    conscriptArmies(
+      _nationID: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    conscriptionDuration(overrides?: CallOverrides): Promise<BigNumber>;
 
     description(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1284,14 +1271,16 @@ export interface HandshakeDeal extends BaseContract {
 
     game(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getNationDeals(
-      _nationID: PromiseOrValue<BigNumberish>,
+    getter(overrides?: CallOverrides): Promise<BigNumber>;
+
+    goldToken(overrides?: CallOverrides): Promise<BigNumber>;
+
+    memberConscriptionStartTime(
+      arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    getter(overrides?: CallOverrides): Promise<BigNumber>;
-
-    idToDeal(
+    memberToConscriptionFee(
       arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
@@ -1304,37 +1293,22 @@ export interface HandshakeDeal extends BaseContract {
 
     name(overrides?: CallOverrides): Promise<BigNumber>;
 
-    nationIDToDealIDs(
-      arg0: PromiseOrValue<BigNumberish>,
-      arg1: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    proposeDeal1(
-      _functionType: PromiseOrValue<BigNumberish>,
-      _uint256Param: PromiseOrValue<BigNumberish>,
-      _effectiveDuration: PromiseOrValue<BigNumberish>,
+    removeFromWarCouncil(
+      _nationID: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    proposeDeal2(
-      _functionType: PromiseOrValue<BigNumberish>,
-      _uint256Param1: PromiseOrValue<BigNumberish>,
-      _uint256Param2: PromiseOrValue<BigNumberish>,
-      _effectiveDuration: PromiseOrValue<BigNumberish>,
+    revokeArmies(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    proposeDeal3(
-      _functionType: PromiseOrValue<BigNumberish>,
-      _uint256Param: PromiseOrValue<BigNumberish>,
-      _positionParam: PositionStruct,
-      _effectiveDuration: PromiseOrValue<BigNumberish>,
+    setConscriptionDuration(
+      _duration: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    signDeal(
-      _dealID: PromiseOrValue<BigNumberish>,
+    setConscriptionFee(
+      _fee: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -1352,9 +1326,16 @@ export interface HandshakeDeal extends BaseContract {
     treatyLeave(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
+
+    warCouncil(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
+    addToWarCouncil(
+      _nationID: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
     admin(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     approveBattle(
@@ -1495,7 +1476,14 @@ export interface HandshakeDeal extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    dealCount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    conscriptArmies(
+      _nationID: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    conscriptionDuration(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
     description(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -1503,14 +1491,16 @@ export interface HandshakeDeal extends BaseContract {
 
     game(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    getNationDeals(
-      _nationID: PromiseOrValue<BigNumberish>,
+    getter(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    goldToken(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    memberConscriptionStartTime(
+      arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    getter(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    idToDeal(
+    memberToConscriptionFee(
       arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
@@ -1523,37 +1513,22 @@ export interface HandshakeDeal extends BaseContract {
 
     name(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    nationIDToDealIDs(
-      arg0: PromiseOrValue<BigNumberish>,
-      arg1: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    proposeDeal1(
-      _functionType: PromiseOrValue<BigNumberish>,
-      _uint256Param: PromiseOrValue<BigNumberish>,
-      _effectiveDuration: PromiseOrValue<BigNumberish>,
+    removeFromWarCouncil(
+      _nationID: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    proposeDeal2(
-      _functionType: PromiseOrValue<BigNumberish>,
-      _uint256Param1: PromiseOrValue<BigNumberish>,
-      _uint256Param2: PromiseOrValue<BigNumberish>,
-      _effectiveDuration: PromiseOrValue<BigNumberish>,
+    revokeArmies(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    proposeDeal3(
-      _functionType: PromiseOrValue<BigNumberish>,
-      _uint256Param: PromiseOrValue<BigNumberish>,
-      _positionParam: PositionStruct,
-      _effectiveDuration: PromiseOrValue<BigNumberish>,
+    setConscriptionDuration(
+      _duration: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    signDeal(
-      _dealID: PromiseOrValue<BigNumberish>,
+    setConscriptionFee(
+      _fee: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1571,5 +1546,7 @@ export interface HandshakeDeal extends BaseContract {
     treatyLeave(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
+
+    warCouncil(overrides?: CallOverrides): Promise<PopulatedTransaction>;
   };
 }

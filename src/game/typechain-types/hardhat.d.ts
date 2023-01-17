@@ -81,10 +81,6 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.LibDiamond__factory>;
     getContractFactory(
-      name: "UintBoolMapping",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.UintBoolMapping__factory>;
-    getContractFactory(
       name: "Set",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Set__factory>;
@@ -120,6 +116,10 @@ declare module "hardhat/types/runtime" {
       name: "HandshakeDeal",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.HandshakeDeal__factory>;
+    getContractFactory(
+      name: "MercenaryLeague",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.MercenaryLeague__factory>;
     getContractFactory(
       name: "NonAggressionPact",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -267,11 +267,6 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.LibDiamond>;
     getContractAt(
-      name: "UintBoolMapping",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.UintBoolMapping>;
-    getContractAt(
       name: "Set",
       address: string,
       signer?: ethers.Signer
@@ -316,6 +311,11 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.HandshakeDeal>;
+    getContractAt(
+      name: "MercenaryLeague",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.MercenaryLeague>;
     getContractAt(
       name: "NonAggressionPact",
       address: string,
