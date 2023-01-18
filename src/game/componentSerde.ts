@@ -56,7 +56,7 @@ export const decodePositionArrComp = (bytes: string): position => {
 };
 
 export const encodeStringComp = (string: string): string => {
-  return string;
+  return abi.encode(['string'], [string]);
 };
 
 export const decodeStringComp = (bytes: string): string => {
