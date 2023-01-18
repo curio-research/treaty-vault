@@ -10,23 +10,11 @@ export interface ChainInfoType {
 }
 
 export const chainInfo: Record<string, ChainInfoType> = {
-  tailscale: {
-    rpcUrl: 'http://100.117.164.103:8545',
-    wsRpcUrl: 'ws://100.117.164.103:8545',
-    id: 0,
-    gasLimit: 500_000_000,
-  },
   localhost: {
     rpcUrl: 'http://127.0.0.1:8545/',
     wsRpcUrl: 'ws://localhost:8545',
     id: 31337,
     gasLimit: 3_000_000_000,
-  },
-  constellationOld: {
-    rpcUrl: 'http://curio.constellationchain.xyz:8545',
-    wsRpcUrl: 'ws://curio.constellationchain.xyz:8546',
-    id: 0,
-    gasLimit: 10_000_000,
   },
   constellation: {
     rpcUrl: 'https://curiov3.constellationchain.xyz/http',
