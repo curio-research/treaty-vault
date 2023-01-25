@@ -8,6 +8,7 @@ export enum QueryActionType {
   HAS,
   NOT,
   HAS_EXACT,
+  HAS_EXACT_MULTIPLE,
   HAS_EXACT_NOT,
 }
 

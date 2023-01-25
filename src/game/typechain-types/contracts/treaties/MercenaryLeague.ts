@@ -23,9 +23,9 @@ import type {
   PromiseOrValue,
 } from "../../common";
 
-export interface NonAggressionPactInterface extends utils.Interface {
+export interface MercenaryLeagueInterface extends utils.Interface {
   functions: {
-    "addToWhitelist(uint256)": FunctionFragment;
+    "addToWarCouncil(uint256)": FunctionFragment;
     "approveBattle(uint256,bytes)": FunctionFragment;
     "approveClaimTile(uint256,bytes)": FunctionFragment;
     "approveDelegateGameFunction(uint256,bytes)": FunctionFragment;
@@ -49,19 +49,27 @@ export interface NonAggressionPactInterface extends utils.Interface {
     "approveUpgradeCapital(uint256,bytes)": FunctionFragment;
     "approveUpgradeResource(uint256,bytes)": FunctionFragment;
     "approveUpgradeTile(uint256,bytes)": FunctionFragment;
+    "conscriptArmies(uint256)": FunctionFragment;
+    "conscriptionDuration()": FunctionFragment;
     "description()": FunctionFragment;
     "diamond()": FunctionFragment;
+    "goldToken()": FunctionFragment;
+    "memberConscriptionStartTime(uint256)": FunctionFragment;
+    "memberToConscriptionFee(uint256)": FunctionFragment;
     "name()": FunctionFragment;
-    "removeFromWhitelist(uint256)": FunctionFragment;
-    "removeMember(uint256)": FunctionFragment;
+    "removeFromWarCouncil(uint256)": FunctionFragment;
+    "revokeArmies()": FunctionFragment;
+    "setConscriptionDuration(uint256)": FunctionFragment;
+    "setConscriptionFee(uint256)": FunctionFragment;
     "treatyDelegateGameFunction(string,uint256,bool)": FunctionFragment;
     "treatyJoin()": FunctionFragment;
     "treatyLeave()": FunctionFragment;
+    "warCouncil()": FunctionFragment;
   };
 
   getFunction(
     nameOrSignatureOrTopic:
-      | "addToWhitelist"
+      | "addToWarCouncil"
       | "approveBattle"
       | "approveClaimTile"
       | "approveDelegateGameFunction"
@@ -85,18 +93,26 @@ export interface NonAggressionPactInterface extends utils.Interface {
       | "approveUpgradeCapital"
       | "approveUpgradeResource"
       | "approveUpgradeTile"
+      | "conscriptArmies"
+      | "conscriptionDuration"
       | "description"
       | "diamond"
+      | "goldToken"
+      | "memberConscriptionStartTime"
+      | "memberToConscriptionFee"
       | "name"
-      | "removeFromWhitelist"
-      | "removeMember"
+      | "removeFromWarCouncil"
+      | "revokeArmies"
+      | "setConscriptionDuration"
+      | "setConscriptionFee"
       | "treatyDelegateGameFunction"
       | "treatyJoin"
       | "treatyLeave"
+      | "warCouncil"
   ): FunctionFragment;
 
   encodeFunctionData(
-    functionFragment: "addToWhitelist",
+    functionFragment: "addToWarCouncil",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
@@ -192,17 +208,42 @@ export interface NonAggressionPactInterface extends utils.Interface {
     values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BytesLike>]
   ): string;
   encodeFunctionData(
+    functionFragment: "conscriptArmies",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "conscriptionDuration",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
     functionFragment: "description",
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "diamond", values?: undefined): string;
-  encodeFunctionData(functionFragment: "name", values?: undefined): string;
+  encodeFunctionData(functionFragment: "goldToken", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "removeFromWhitelist",
+    functionFragment: "memberConscriptionStartTime",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
-    functionFragment: "removeMember",
+    functionFragment: "memberToConscriptionFee",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(functionFragment: "name", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "removeFromWarCouncil",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "revokeArmies",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "setConscriptionDuration",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "setConscriptionFee",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
@@ -221,9 +262,13 @@ export interface NonAggressionPactInterface extends utils.Interface {
     functionFragment: "treatyLeave",
     values?: undefined
   ): string;
+  encodeFunctionData(
+    functionFragment: "warCouncil",
+    values?: undefined
+  ): string;
 
   decodeFunctionResult(
-    functionFragment: "addToWhitelist",
+    functionFragment: "addToWarCouncil",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -319,17 +364,42 @@ export interface NonAggressionPactInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "conscriptArmies",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "conscriptionDuration",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "description",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "diamond", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "goldToken", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "removeFromWhitelist",
+    functionFragment: "memberConscriptionStartTime",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "removeMember",
+    functionFragment: "memberToConscriptionFee",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "removeFromWarCouncil",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "revokeArmies",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "setConscriptionDuration",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "setConscriptionFee",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -341,16 +411,17 @@ export interface NonAggressionPactInterface extends utils.Interface {
     functionFragment: "treatyLeave",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "warCouncil", data: BytesLike): Result;
 
   events: {};
 }
 
-export interface NonAggressionPact extends BaseContract {
+export interface MercenaryLeague extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
 
-  interface: NonAggressionPactInterface;
+  interface: MercenaryLeagueInterface;
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
@@ -372,7 +443,7 @@ export interface NonAggressionPact extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
-    addToWhitelist(
+    addToWarCouncil(
       _nationID: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
@@ -515,19 +586,47 @@ export interface NonAggressionPact extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
-    description(overrides?: CallOverrides): Promise<[string]>;
-
-    diamond(overrides?: CallOverrides): Promise<[string]>;
-
-    name(overrides?: CallOverrides): Promise<[string]>;
-
-    removeFromWhitelist(
+    conscriptArmies(
       _nationID: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    removeMember(
+    conscriptionDuration(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    description(overrides?: CallOverrides): Promise<[string]>;
+
+    diamond(overrides?: CallOverrides): Promise<[string]>;
+
+    goldToken(overrides?: CallOverrides): Promise<[string]>;
+
+    memberConscriptionStartTime(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
+    memberToConscriptionFee(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
+    name(overrides?: CallOverrides): Promise<[string]>;
+
+    removeFromWarCouncil(
       _nationID: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    revokeArmies(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    setConscriptionDuration(
+      _duration: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    setConscriptionFee(
+      _fee: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -545,9 +644,11 @@ export interface NonAggressionPact extends BaseContract {
     treatyLeave(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
+
+    warCouncil(overrides?: CallOverrides): Promise<[string]>;
   };
 
-  addToWhitelist(
+  addToWarCouncil(
     _nationID: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
@@ -690,19 +791,47 @@ export interface NonAggressionPact extends BaseContract {
     overrides?: CallOverrides
   ): Promise<boolean>;
 
-  description(overrides?: CallOverrides): Promise<string>;
-
-  diamond(overrides?: CallOverrides): Promise<string>;
-
-  name(overrides?: CallOverrides): Promise<string>;
-
-  removeFromWhitelist(
+  conscriptArmies(
     _nationID: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  removeMember(
+  conscriptionDuration(overrides?: CallOverrides): Promise<BigNumber>;
+
+  description(overrides?: CallOverrides): Promise<string>;
+
+  diamond(overrides?: CallOverrides): Promise<string>;
+
+  goldToken(overrides?: CallOverrides): Promise<string>;
+
+  memberConscriptionStartTime(
+    arg0: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  memberToConscriptionFee(
+    arg0: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  name(overrides?: CallOverrides): Promise<string>;
+
+  removeFromWarCouncil(
     _nationID: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  revokeArmies(
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  setConscriptionDuration(
+    _duration: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  setConscriptionFee(
+    _fee: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -721,8 +850,10 @@ export interface NonAggressionPact extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
+  warCouncil(overrides?: CallOverrides): Promise<string>;
+
   callStatic: {
-    addToWhitelist(
+    addToWarCouncil(
       _nationID: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
@@ -865,19 +996,45 @@ export interface NonAggressionPact extends BaseContract {
       overrides?: CallOverrides
     ): Promise<boolean>;
 
-    description(overrides?: CallOverrides): Promise<string>;
-
-    diamond(overrides?: CallOverrides): Promise<string>;
-
-    name(overrides?: CallOverrides): Promise<string>;
-
-    removeFromWhitelist(
+    conscriptArmies(
       _nationID: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    removeMember(
+    conscriptionDuration(overrides?: CallOverrides): Promise<BigNumber>;
+
+    description(overrides?: CallOverrides): Promise<string>;
+
+    diamond(overrides?: CallOverrides): Promise<string>;
+
+    goldToken(overrides?: CallOverrides): Promise<string>;
+
+    memberConscriptionStartTime(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    memberToConscriptionFee(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    name(overrides?: CallOverrides): Promise<string>;
+
+    removeFromWarCouncil(
       _nationID: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    revokeArmies(overrides?: CallOverrides): Promise<void>;
+
+    setConscriptionDuration(
+      _duration: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    setConscriptionFee(
+      _fee: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -891,12 +1048,14 @@ export interface NonAggressionPact extends BaseContract {
     treatyJoin(overrides?: CallOverrides): Promise<void>;
 
     treatyLeave(overrides?: CallOverrides): Promise<void>;
+
+    warCouncil(overrides?: CallOverrides): Promise<string>;
   };
 
   filters: {};
 
   estimateGas: {
-    addToWhitelist(
+    addToWarCouncil(
       _nationID: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
@@ -1039,19 +1198,47 @@ export interface NonAggressionPact extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    description(overrides?: CallOverrides): Promise<BigNumber>;
-
-    diamond(overrides?: CallOverrides): Promise<BigNumber>;
-
-    name(overrides?: CallOverrides): Promise<BigNumber>;
-
-    removeFromWhitelist(
+    conscriptArmies(
       _nationID: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    removeMember(
+    conscriptionDuration(overrides?: CallOverrides): Promise<BigNumber>;
+
+    description(overrides?: CallOverrides): Promise<BigNumber>;
+
+    diamond(overrides?: CallOverrides): Promise<BigNumber>;
+
+    goldToken(overrides?: CallOverrides): Promise<BigNumber>;
+
+    memberConscriptionStartTime(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    memberToConscriptionFee(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    name(overrides?: CallOverrides): Promise<BigNumber>;
+
+    removeFromWarCouncil(
       _nationID: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    revokeArmies(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    setConscriptionDuration(
+      _duration: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    setConscriptionFee(
+      _fee: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -1069,10 +1256,12 @@ export interface NonAggressionPact extends BaseContract {
     treatyLeave(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
+
+    warCouncil(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    addToWhitelist(
+    addToWarCouncil(
       _nationID: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
@@ -1212,6 +1401,15 @@ export interface NonAggressionPact extends BaseContract {
     approveUpgradeTile(
       _nationID: PromiseOrValue<BigNumberish>,
       _encodedParams: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    conscriptArmies(
+      _nationID: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    conscriptionDuration(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -1219,15 +1417,36 @@ export interface NonAggressionPact extends BaseContract {
 
     diamond(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    goldToken(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    memberConscriptionStartTime(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    memberToConscriptionFee(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     name(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    removeFromWhitelist(
+    removeFromWarCouncil(
       _nationID: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    removeMember(
-      _nationID: PromiseOrValue<BigNumberish>,
+    revokeArmies(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    setConscriptionDuration(
+      _duration: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    setConscriptionFee(
+      _fee: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1245,5 +1464,7 @@ export interface NonAggressionPact extends BaseContract {
     treatyLeave(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
+
+    warCouncil(overrides?: CallOverrides): Promise<PopulatedTransaction>;
   };
 }

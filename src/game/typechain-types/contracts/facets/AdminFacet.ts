@@ -56,7 +56,7 @@ export interface AdminFacetInterface extends utils.Interface {
     "addToGameWhitelist(address)": FunctionFragment;
     "addToTreatyWhitelist(uint256)": FunctionFragment;
     "addTroopTemplate(uint256,uint256,uint256,uint256,address)": FunctionFragment;
-    "adminDelegateGameFunction(uint256,string,uint256,bool)": FunctionFragment;
+    "adminDelegateGameFunction(uint256,string,uint256,uint256,bool)": FunctionFragment;
     "adminInitializeTile((uint256,uint256))": FunctionFragment;
     "bulkAddGameParameters(string[],uint256[])": FunctionFragment;
     "bulkInitializeTiles((uint256,uint256)[])": FunctionFragment;
@@ -77,6 +77,7 @@ export interface AdminFacetInterface extends utils.Interface {
     "removeIdleNations(uint256)": FunctionFragment;
     "removeSigner(uint256)": FunctionFragment;
     "setComponentValue(string,uint256,bytes)": FunctionFragment;
+    "setGameParameter(string,uint256)": FunctionFragment;
     "spawnResource((uint256,uint256),string)": FunctionFragment;
     "stopGame()": FunctionFragment;
     "storeEncodedColumnBatches(uint256[][])": FunctionFragment;
@@ -119,6 +120,7 @@ export interface AdminFacetInterface extends utils.Interface {
       | "removeIdleNations"
       | "removeSigner"
       | "setComponentValue"
+      | "setGameParameter"
       | "spawnResource"
       | "stopGame"
       | "storeEncodedColumnBatches"
@@ -180,6 +182,7 @@ export interface AdminFacetInterface extends utils.Interface {
     values: [
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>,
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<boolean>
     ]
@@ -275,6 +278,10 @@ export interface AdminFacetInterface extends utils.Interface {
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BytesLike>
     ]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "setGameParameter",
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "spawnResource",
@@ -406,6 +413,10 @@ export interface AdminFacetInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "setGameParameter",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "spawnResource",
     data: BytesLike
   ): Result;
@@ -521,6 +532,7 @@ export interface AdminFacet extends BaseContract {
     adminDelegateGameFunction(
       _nationID: PromiseOrValue<BigNumberish>,
       _functionName: PromiseOrValue<string>,
+      _delegateID: PromiseOrValue<BigNumberish>,
       _subjectID: PromiseOrValue<BigNumberish>,
       _canCall: PromiseOrValue<boolean>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -636,6 +648,12 @@ export interface AdminFacet extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
+    setGameParameter(
+      _identifier: PromiseOrValue<string>,
+      _value: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
     spawnResource(
       _startPosition: PositionStruct,
       _templateName: PromiseOrValue<string>,
@@ -731,6 +749,7 @@ export interface AdminFacet extends BaseContract {
   adminDelegateGameFunction(
     _nationID: PromiseOrValue<BigNumberish>,
     _functionName: PromiseOrValue<string>,
+    _delegateID: PromiseOrValue<BigNumberish>,
     _subjectID: PromiseOrValue<BigNumberish>,
     _canCall: PromiseOrValue<boolean>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -846,6 +865,12 @@ export interface AdminFacet extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
+  setGameParameter(
+    _identifier: PromiseOrValue<string>,
+    _value: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
   spawnResource(
     _startPosition: PositionStruct,
     _templateName: PromiseOrValue<string>,
@@ -937,6 +962,7 @@ export interface AdminFacet extends BaseContract {
     adminDelegateGameFunction(
       _nationID: PromiseOrValue<BigNumberish>,
       _functionName: PromiseOrValue<string>,
+      _delegateID: PromiseOrValue<BigNumberish>,
       _subjectID: PromiseOrValue<BigNumberish>,
       _canCall: PromiseOrValue<boolean>,
       overrides?: CallOverrides
@@ -1050,6 +1076,12 @@ export interface AdminFacet extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    setGameParameter(
+      _identifier: PromiseOrValue<string>,
+      _value: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     spawnResource(
       _startPosition: PositionStruct,
       _templateName: PromiseOrValue<string>,
@@ -1144,6 +1176,7 @@ export interface AdminFacet extends BaseContract {
     adminDelegateGameFunction(
       _nationID: PromiseOrValue<BigNumberish>,
       _functionName: PromiseOrValue<string>,
+      _delegateID: PromiseOrValue<BigNumberish>,
       _subjectID: PromiseOrValue<BigNumberish>,
       _canCall: PromiseOrValue<boolean>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -1256,6 +1289,12 @@ export interface AdminFacet extends BaseContract {
       _componentName: PromiseOrValue<string>,
       _entity: PromiseOrValue<BigNumberish>,
       _value: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    setGameParameter(
+      _identifier: PromiseOrValue<string>,
+      _value: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -1355,6 +1394,7 @@ export interface AdminFacet extends BaseContract {
     adminDelegateGameFunction(
       _nationID: PromiseOrValue<BigNumberish>,
       _functionName: PromiseOrValue<string>,
+      _delegateID: PromiseOrValue<BigNumberish>,
       _subjectID: PromiseOrValue<BigNumberish>,
       _canCall: PromiseOrValue<boolean>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -1467,6 +1507,12 @@ export interface AdminFacet extends BaseContract {
       _componentName: PromiseOrValue<string>,
       _entity: PromiseOrValue<BigNumberish>,
       _value: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    setGameParameter(
+      _identifier: PromiseOrValue<string>,
+      _value: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
