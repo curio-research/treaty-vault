@@ -21,7 +21,6 @@ import {
 
 export const IsComponent = 'IsComponent';
 export const Tag = 'Tag';
-export const IsActive = 'IsActive';
 export const InitTimestamp = 'InitTimestamp';
 export const Position = 'Position';
 export const Owner = 'Owner';
@@ -69,7 +68,6 @@ export const COMPONENT_SPECS: CompType[] = [
   { name: Address, valueType: ComponentDataTypes.ADDRESS }, // MUST BE THE FIRST COMPONENT
   { name: IsComponent, valueType: ComponentDataTypes.BOOL }, // MUST BE THE SECOND COMPONENT
   { name: Tag, valueType: ComponentDataTypes.STRING },
-  { name: IsActive, valueType: ComponentDataTypes.BOOL },
   { name: InitTimestamp, valueType: ComponentDataTypes.UINT },
   { name: Position, valueType: ComponentDataTypes.POSITION },
   { name: Owner, valueType: ComponentDataTypes.UINT },

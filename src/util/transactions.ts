@@ -27,6 +27,7 @@ export enum ContractMethods {
   disownTile = 'disownTile',
   recoverTile = 'recoverTile',
   delegateGameFunction = 'delegateGameFunction',
+  stopTroopProduction = 'stopTroopProduction',
 
   setComponentValue = 'setComponentValue',
 }

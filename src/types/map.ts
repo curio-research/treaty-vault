@@ -8,7 +8,6 @@ export interface WorldConstants {
   worldHeight: number;
   maxCapitalLevel: number;
   numInitTerrainTypes: number;
-  maxArmyCountPerNation: number;
   maxNationCount: number;
   tileWidth: number;
   gameMode: number;
@@ -23,7 +22,6 @@ export const emptyWorldConstants: WorldConstants = {
   worldHeight: 0,
   maxCapitalLevel: 0,
   numInitTerrainTypes: 0,
-  maxArmyCountPerNation: 0,
   maxNationCount: 0,
   tileWidth: 0,
   gameMode: 0,

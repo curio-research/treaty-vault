@@ -43,6 +43,7 @@ export interface CurioTreatyInterface extends utils.Interface {
     "approveRecoverTile(uint256,bytes)": FunctionFragment;
     "approveStartGather(uint256,bytes)": FunctionFragment;
     "approveStartTroopProduction(uint256,bytes)": FunctionFragment;
+    "approveStopTroopProduction(uint256,bytes)": FunctionFragment;
     "approveTransfer(uint256,bytes)": FunctionFragment;
     "approveUnloadResources(uint256,bytes)": FunctionFragment;
     "approveUpgradeCapital(uint256,bytes)": FunctionFragment;
@@ -50,6 +51,7 @@ export interface CurioTreatyInterface extends utils.Interface {
     "approveUpgradeTile(uint256,bytes)": FunctionFragment;
     "description()": FunctionFragment;
     "diamond()": FunctionFragment;
+    "init(address)": FunctionFragment;
     "name()": FunctionFragment;
     "treatyDelegateGameFunction(string,uint256,bool)": FunctionFragment;
     "treatyJoin()": FunctionFragment;
@@ -76,6 +78,7 @@ export interface CurioTreatyInterface extends utils.Interface {
       | "approveRecoverTile"
       | "approveStartGather"
       | "approveStartTroopProduction"
+      | "approveStopTroopProduction"
       | "approveTransfer"
       | "approveUnloadResources"
       | "approveUpgradeCapital"
@@ -83,6 +86,7 @@ export interface CurioTreatyInterface extends utils.Interface {
       | "approveUpgradeTile"
       | "description"
       | "diamond"
+      | "init"
       | "name"
       | "treatyDelegateGameFunction"
       | "treatyJoin"
@@ -162,6 +166,10 @@ export interface CurioTreatyInterface extends utils.Interface {
     values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BytesLike>]
   ): string;
   encodeFunctionData(
+    functionFragment: "approveStopTroopProduction",
+    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BytesLike>]
+  ): string;
+  encodeFunctionData(
     functionFragment: "approveTransfer",
     values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BytesLike>]
   ): string;
@@ -186,6 +194,10 @@ export interface CurioTreatyInterface extends utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "diamond", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "init",
+    values: [PromiseOrValue<string>]
+  ): string;
   encodeFunctionData(functionFragment: "name", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "treatyDelegateGameFunction",
@@ -277,6 +289,10 @@ export interface CurioTreatyInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "approveStopTroopProduction",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "approveTransfer",
     data: BytesLike
   ): Result;
@@ -301,6 +317,7 @@ export interface CurioTreatyInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "diamond", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "init", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "treatyDelegateGameFunction",
@@ -450,6 +467,12 @@ export interface CurioTreaty extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
+    approveStopTroopProduction(
+      _nationID: PromiseOrValue<BigNumberish>,
+      _encodedParams: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
+
     approveTransfer(
       _nationID: PromiseOrValue<BigNumberish>,
       _encodedParams: PromiseOrValue<BytesLike>,
@@ -483,6 +506,11 @@ export interface CurioTreaty extends BaseContract {
     description(overrides?: CallOverrides): Promise<[string]>;
 
     diamond(overrides?: CallOverrides): Promise<[string]>;
+
+    init(
+      _diamond: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
 
     name(overrides?: CallOverrides): Promise<[string]>;
 
@@ -610,6 +638,12 @@ export interface CurioTreaty extends BaseContract {
     overrides?: CallOverrides
   ): Promise<boolean>;
 
+  approveStopTroopProduction(
+    _nationID: PromiseOrValue<BigNumberish>,
+    _encodedParams: PromiseOrValue<BytesLike>,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
+
   approveTransfer(
     _nationID: PromiseOrValue<BigNumberish>,
     _encodedParams: PromiseOrValue<BytesLike>,
@@ -643,6 +677,11 @@ export interface CurioTreaty extends BaseContract {
   description(overrides?: CallOverrides): Promise<string>;
 
   diamond(overrides?: CallOverrides): Promise<string>;
+
+  init(
+    _diamond: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
 
   name(overrides?: CallOverrides): Promise<string>;
 
@@ -770,6 +809,12 @@ export interface CurioTreaty extends BaseContract {
       overrides?: CallOverrides
     ): Promise<boolean>;
 
+    approveStopTroopProduction(
+      _nationID: PromiseOrValue<BigNumberish>,
+      _encodedParams: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
+
     approveTransfer(
       _nationID: PromiseOrValue<BigNumberish>,
       _encodedParams: PromiseOrValue<BytesLike>,
@@ -803,6 +848,11 @@ export interface CurioTreaty extends BaseContract {
     description(overrides?: CallOverrides): Promise<string>;
 
     diamond(overrides?: CallOverrides): Promise<string>;
+
+    init(
+      _diamond: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     name(overrides?: CallOverrides): Promise<string>;
 
@@ -929,6 +979,12 @@ export interface CurioTreaty extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    approveStopTroopProduction(
+      _nationID: PromiseOrValue<BigNumberish>,
+      _encodedParams: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     approveTransfer(
       _nationID: PromiseOrValue<BigNumberish>,
       _encodedParams: PromiseOrValue<BytesLike>,
@@ -962,6 +1018,11 @@ export interface CurioTreaty extends BaseContract {
     description(overrides?: CallOverrides): Promise<BigNumber>;
 
     diamond(overrides?: CallOverrides): Promise<BigNumber>;
+
+    init(
+      _diamond: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
 
     name(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1090,6 +1151,12 @@ export interface CurioTreaty extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    approveStopTroopProduction(
+      _nationID: PromiseOrValue<BigNumberish>,
+      _encodedParams: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     approveTransfer(
       _nationID: PromiseOrValue<BigNumberish>,
       _encodedParams: PromiseOrValue<BytesLike>,
@@ -1123,6 +1190,11 @@ export interface CurioTreaty extends BaseContract {
     description(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     diamond(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    init(
+      _diamond: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
 
     name(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
