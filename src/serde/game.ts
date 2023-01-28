@@ -12,7 +12,6 @@ export const decodeWorldConstants = (constants: WorldConstantsStructOutput): Wor
     worldHeight: constants.worldHeight.toNumber(),
     numInitTerrainTypes: constants.numInitTerrainTypes.toNumber(),
     maxCapitalLevel: constants.maxCapitalLevel.toNumber(),
-    maxArmyCountPerNation: constants.maxArmyCountPerNation.toNumber(),
     maxNationCount: constants.maxNationCount.toNumber(),
     tileWidth: constants.tileWidth.toNumber(),
     gameMode: constants.gameMode,

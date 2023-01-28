@@ -455,6 +455,30 @@ const _abi = [
         type: "bytes",
       },
     ],
+    name: "approveStopTroopProduction",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_nationID",
+        type: "uint256",
+      },
+      {
+        internalType: "bytes",
+        name: "_encodedParams",
+        type: "bytes",
+      },
+    ],
     name: "approveTransfer",
     outputs: [
       {
@@ -586,6 +610,19 @@ const _abi = [
       },
     ],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_diamond",
+        type: "address",
+      },
+    ],
+    name: "init",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
