@@ -193,7 +193,7 @@ export enum InventoryTypeOptions {
   Warrior = 'Warrior',
   Slinger = 'Slinger',
   Guard = 'Guard',
-  Gold = 'Gold',
+  Crystal = 'Crystal',
   Food = 'Food',
 }
 

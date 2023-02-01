@@ -7,6 +7,7 @@ export enum ContractMethods {
   move = 'move',
   upgradeCapital = 'upgradeCapital',
   startTroopProduction = 'startTroopProduction',
+  stopTroopProduction = 'stopTroopProduction',
   endTroopProduction = 'endTroopProduction',
   harvestResourcesFromCapital = 'harvestResourcesFromCapital',
   harvestResource = 'harvestResource',
@@ -27,7 +28,6 @@ export enum ContractMethods {
   disownTile = 'disownTile',
   recoverTile = 'recoverTile',
   delegateGameFunction = 'delegateGameFunction',
-  stopTroopProduction = 'stopTroopProduction',
 
   setComponentValue = 'setComponentValue',
 }
