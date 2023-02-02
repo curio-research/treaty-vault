@@ -23,9 +23,8 @@ import type {
   PromiseOrValue,
 } from "../../common";
 
-export interface NonAggressionPactInterface extends utils.Interface {
+export interface LoanAgreementInterface extends utils.Interface {
   functions: {
-    "addToWhitelist(uint256)": FunctionFragment;
     "approveBattle(uint256,bytes)": FunctionFragment;
     "approveClaimTile(uint256,bytes)": FunctionFragment;
     "approveDelegateGameFunction(uint256,bytes)": FunctionFragment;
@@ -50,14 +49,22 @@ export interface NonAggressionPactInterface extends utils.Interface {
     "approveUpgradeCapital(uint256,bytes)": FunctionFragment;
     "approveUpgradeResource(uint256,bytes)": FunctionFragment;
     "approveUpgradeTile(uint256,bytes)": FunctionFragment;
+    "borrowerIDToLoanIDs(uint256)": FunctionFragment;
+    "cancelLoan(uint256)": FunctionFragment;
+    "createLoan(string,uint256,string,uint256,uint256,uint256)": FunctionFragment;
     "description()": FunctionFragment;
     "diamond()": FunctionFragment;
-    "effectiveDuration()": FunctionFragment;
+    "emptyLoan()": FunctionFragment;
+    "getBorrowerLoanIDs(uint256)": FunctionFragment;
+    "getLenderLoanIDs(uint256)": FunctionFragment;
     "init(address)": FunctionFragment;
+    "lenderIDToLoanIDs(uint256)": FunctionFragment;
+    "liquidateCollateral(uint256)": FunctionFragment;
+    "loanIDToLoan(uint256)": FunctionFragment;
+    "loanNonce()": FunctionFragment;
     "name()": FunctionFragment;
-    "removeFromWhitelist(uint256)": FunctionFragment;
-    "removeMember(uint256)": FunctionFragment;
-    "setEffectiveDuration(uint256)": FunctionFragment;
+    "payOffLoan(uint256)": FunctionFragment;
+    "takeLoan(uint256)": FunctionFragment;
     "treatyDelegateGameFunction(string,uint256,bool)": FunctionFragment;
     "treatyJoin()": FunctionFragment;
     "treatyLeave()": FunctionFragment;
@@ -65,7 +72,6 @@ export interface NonAggressionPactInterface extends utils.Interface {
 
   getFunction(
     nameOrSignatureOrTopic:
-      | "addToWhitelist"
       | "approveBattle"
       | "approveClaimTile"
       | "approveDelegateGameFunction"
@@ -90,23 +96,27 @@ export interface NonAggressionPactInterface extends utils.Interface {
       | "approveUpgradeCapital"
       | "approveUpgradeResource"
       | "approveUpgradeTile"
+      | "borrowerIDToLoanIDs"
+      | "cancelLoan"
+      | "createLoan"
       | "description"
       | "diamond"
-      | "effectiveDuration"
+      | "emptyLoan"
+      | "getBorrowerLoanIDs"
+      | "getLenderLoanIDs"
       | "init"
+      | "lenderIDToLoanIDs"
+      | "liquidateCollateral"
+      | "loanIDToLoan"
+      | "loanNonce"
       | "name"
-      | "removeFromWhitelist"
-      | "removeMember"
-      | "setEffectiveDuration"
+      | "payOffLoan"
+      | "takeLoan"
       | "treatyDelegateGameFunction"
       | "treatyJoin"
       | "treatyLeave"
   ): FunctionFragment;
 
-  encodeFunctionData(
-    functionFragment: "addToWhitelist",
-    values: [PromiseOrValue<BigNumberish>]
-  ): string;
   encodeFunctionData(
     functionFragment: "approveBattle",
     values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BytesLike>]
@@ -204,29 +214,62 @@ export interface NonAggressionPactInterface extends utils.Interface {
     values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BytesLike>]
   ): string;
   encodeFunctionData(
+    functionFragment: "borrowerIDToLoanIDs",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "cancelLoan",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "createLoan",
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>
+    ]
+  ): string;
+  encodeFunctionData(
     functionFragment: "description",
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "diamond", values?: undefined): string;
+  encodeFunctionData(functionFragment: "emptyLoan", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "effectiveDuration",
-    values?: undefined
+    functionFragment: "getBorrowerLoanIDs",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getLenderLoanIDs",
+    values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "init",
     values: [PromiseOrValue<string>]
   ): string;
+  encodeFunctionData(
+    functionFragment: "lenderIDToLoanIDs",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "liquidateCollateral",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "loanIDToLoan",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(functionFragment: "loanNonce", values?: undefined): string;
   encodeFunctionData(functionFragment: "name", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "removeFromWhitelist",
+    functionFragment: "payOffLoan",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
-    functionFragment: "removeMember",
-    values: [PromiseOrValue<BigNumberish>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setEffectiveDuration",
+    functionFragment: "takeLoan",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
@@ -247,10 +290,6 @@ export interface NonAggressionPactInterface extends utils.Interface {
   ): string;
 
   decodeFunctionResult(
-    functionFragment: "addToWhitelist",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "approveBattle",
     data: BytesLike
   ): Result;
@@ -347,28 +386,42 @@ export interface NonAggressionPactInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "borrowerIDToLoanIDs",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "cancelLoan", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "createLoan", data: BytesLike): Result;
+  decodeFunctionResult(
     functionFragment: "description",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "diamond", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "emptyLoan", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "effectiveDuration",
+    functionFragment: "getBorrowerLoanIDs",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getLenderLoanIDs",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "init", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "lenderIDToLoanIDs",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "liquidateCollateral",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "loanIDToLoan",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "loanNonce", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "removeFromWhitelist",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "removeMember",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setEffectiveDuration",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "payOffLoan", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "takeLoan", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "treatyDelegateGameFunction",
     data: BytesLike
@@ -382,12 +435,12 @@ export interface NonAggressionPactInterface extends utils.Interface {
   events: {};
 }
 
-export interface NonAggressionPact extends BaseContract {
+export interface LoanAgreement extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
 
-  interface: NonAggressionPactInterface;
+  interface: LoanAgreementInterface;
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
@@ -409,11 +462,6 @@ export interface NonAggressionPact extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
-    addToWhitelist(
-      _nationID: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
     approveBattle(
       _nationID: PromiseOrValue<BigNumberish>,
       _encodedParams: PromiseOrValue<BytesLike>,
@@ -558,31 +606,123 @@ export interface NonAggressionPact extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
+    borrowerIDToLoanIDs(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
+
+    cancelLoan(
+      _loanID: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    createLoan(
+      _collateralTokenName: PromiseOrValue<string>,
+      _collateralAmount: PromiseOrValue<BigNumberish>,
+      _loanTokenName: PromiseOrValue<string>,
+      _loanAmount: PromiseOrValue<BigNumberish>,
+      _totalInterestPercentage: PromiseOrValue<BigNumberish>,
+      _duration: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
     description(overrides?: CallOverrides): Promise<[string]>;
 
     diamond(overrides?: CallOverrides): Promise<[string]>;
 
-    effectiveDuration(overrides?: CallOverrides): Promise<[BigNumber]>;
+    emptyLoan(
+      overrides?: CallOverrides
+    ): Promise<
+      [
+        BigNumber,
+        string,
+        BigNumber,
+        string,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber
+      ] & {
+        loanID: BigNumber;
+        collateralTokenName: string;
+        collateralAmount: BigNumber;
+        loanTokenName: string;
+        loanAmount: BigNumber;
+        totalInterestPercentage: BigNumber;
+        duration: BigNumber;
+        lenderID: BigNumber;
+        borrowerID: BigNumber;
+        effectiveAt: BigNumber;
+      }
+    >;
+
+    getBorrowerLoanIDs(
+      _borrowerID: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber[]]>;
+
+    getLenderLoanIDs(
+      _lenderID: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber[]]>;
 
     init(
       _diamond: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
+    lenderIDToLoanIDs(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
+
+    liquidateCollateral(
+      _loanID: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    loanIDToLoan(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<
+      [
+        BigNumber,
+        string,
+        BigNumber,
+        string,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber
+      ] & {
+        loanID: BigNumber;
+        collateralTokenName: string;
+        collateralAmount: BigNumber;
+        loanTokenName: string;
+        loanAmount: BigNumber;
+        totalInterestPercentage: BigNumber;
+        duration: BigNumber;
+        lenderID: BigNumber;
+        borrowerID: BigNumber;
+        effectiveAt: BigNumber;
+      }
+    >;
+
+    loanNonce(overrides?: CallOverrides): Promise<[BigNumber]>;
+
     name(overrides?: CallOverrides): Promise<[string]>;
 
-    removeFromWhitelist(
-      _nationID: PromiseOrValue<BigNumberish>,
+    payOffLoan(
+      _loanID: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    removeMember(
-      _nationID: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
-    setEffectiveDuration(
-      _duration: PromiseOrValue<BigNumberish>,
+    takeLoan(
+      _loanID: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -601,11 +741,6 @@ export interface NonAggressionPact extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
   };
-
-  addToWhitelist(
-    _nationID: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
 
   approveBattle(
     _nationID: PromiseOrValue<BigNumberish>,
@@ -751,31 +886,123 @@ export interface NonAggressionPact extends BaseContract {
     overrides?: CallOverrides
   ): Promise<boolean>;
 
+  borrowerIDToLoanIDs(
+    arg0: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<string>;
+
+  cancelLoan(
+    _loanID: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  createLoan(
+    _collateralTokenName: PromiseOrValue<string>,
+    _collateralAmount: PromiseOrValue<BigNumberish>,
+    _loanTokenName: PromiseOrValue<string>,
+    _loanAmount: PromiseOrValue<BigNumberish>,
+    _totalInterestPercentage: PromiseOrValue<BigNumberish>,
+    _duration: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
   description(overrides?: CallOverrides): Promise<string>;
 
   diamond(overrides?: CallOverrides): Promise<string>;
 
-  effectiveDuration(overrides?: CallOverrides): Promise<BigNumber>;
+  emptyLoan(
+    overrides?: CallOverrides
+  ): Promise<
+    [
+      BigNumber,
+      string,
+      BigNumber,
+      string,
+      BigNumber,
+      BigNumber,
+      BigNumber,
+      BigNumber,
+      BigNumber,
+      BigNumber
+    ] & {
+      loanID: BigNumber;
+      collateralTokenName: string;
+      collateralAmount: BigNumber;
+      loanTokenName: string;
+      loanAmount: BigNumber;
+      totalInterestPercentage: BigNumber;
+      duration: BigNumber;
+      lenderID: BigNumber;
+      borrowerID: BigNumber;
+      effectiveAt: BigNumber;
+    }
+  >;
+
+  getBorrowerLoanIDs(
+    _borrowerID: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber[]>;
+
+  getLenderLoanIDs(
+    _lenderID: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber[]>;
 
   init(
     _diamond: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
+  lenderIDToLoanIDs(
+    arg0: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<string>;
+
+  liquidateCollateral(
+    _loanID: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  loanIDToLoan(
+    arg0: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<
+    [
+      BigNumber,
+      string,
+      BigNumber,
+      string,
+      BigNumber,
+      BigNumber,
+      BigNumber,
+      BigNumber,
+      BigNumber,
+      BigNumber
+    ] & {
+      loanID: BigNumber;
+      collateralTokenName: string;
+      collateralAmount: BigNumber;
+      loanTokenName: string;
+      loanAmount: BigNumber;
+      totalInterestPercentage: BigNumber;
+      duration: BigNumber;
+      lenderID: BigNumber;
+      borrowerID: BigNumber;
+      effectiveAt: BigNumber;
+    }
+  >;
+
+  loanNonce(overrides?: CallOverrides): Promise<BigNumber>;
+
   name(overrides?: CallOverrides): Promise<string>;
 
-  removeFromWhitelist(
-    _nationID: PromiseOrValue<BigNumberish>,
+  payOffLoan(
+    _loanID: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  removeMember(
-    _nationID: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
-  setEffectiveDuration(
-    _duration: PromiseOrValue<BigNumberish>,
+  takeLoan(
+    _loanID: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -795,11 +1022,6 @@ export interface NonAggressionPact extends BaseContract {
   ): Promise<ContractTransaction>;
 
   callStatic: {
-    addToWhitelist(
-      _nationID: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
     approveBattle(
       _nationID: PromiseOrValue<BigNumberish>,
       _encodedParams: PromiseOrValue<BytesLike>,
@@ -944,31 +1166,123 @@ export interface NonAggressionPact extends BaseContract {
       overrides?: CallOverrides
     ): Promise<boolean>;
 
+    borrowerIDToLoanIDs(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<string>;
+
+    cancelLoan(
+      _loanID: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    createLoan(
+      _collateralTokenName: PromiseOrValue<string>,
+      _collateralAmount: PromiseOrValue<BigNumberish>,
+      _loanTokenName: PromiseOrValue<string>,
+      _loanAmount: PromiseOrValue<BigNumberish>,
+      _totalInterestPercentage: PromiseOrValue<BigNumberish>,
+      _duration: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     description(overrides?: CallOverrides): Promise<string>;
 
     diamond(overrides?: CallOverrides): Promise<string>;
 
-    effectiveDuration(overrides?: CallOverrides): Promise<BigNumber>;
+    emptyLoan(
+      overrides?: CallOverrides
+    ): Promise<
+      [
+        BigNumber,
+        string,
+        BigNumber,
+        string,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber
+      ] & {
+        loanID: BigNumber;
+        collateralTokenName: string;
+        collateralAmount: BigNumber;
+        loanTokenName: string;
+        loanAmount: BigNumber;
+        totalInterestPercentage: BigNumber;
+        duration: BigNumber;
+        lenderID: BigNumber;
+        borrowerID: BigNumber;
+        effectiveAt: BigNumber;
+      }
+    >;
+
+    getBorrowerLoanIDs(
+      _borrowerID: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber[]>;
+
+    getLenderLoanIDs(
+      _lenderID: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber[]>;
 
     init(
       _diamond: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
 
+    lenderIDToLoanIDs(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<string>;
+
+    liquidateCollateral(
+      _loanID: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    loanIDToLoan(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<
+      [
+        BigNumber,
+        string,
+        BigNumber,
+        string,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber
+      ] & {
+        loanID: BigNumber;
+        collateralTokenName: string;
+        collateralAmount: BigNumber;
+        loanTokenName: string;
+        loanAmount: BigNumber;
+        totalInterestPercentage: BigNumber;
+        duration: BigNumber;
+        lenderID: BigNumber;
+        borrowerID: BigNumber;
+        effectiveAt: BigNumber;
+      }
+    >;
+
+    loanNonce(overrides?: CallOverrides): Promise<BigNumber>;
+
     name(overrides?: CallOverrides): Promise<string>;
 
-    removeFromWhitelist(
-      _nationID: PromiseOrValue<BigNumberish>,
+    payOffLoan(
+      _loanID: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    removeMember(
-      _nationID: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    setEffectiveDuration(
-      _duration: PromiseOrValue<BigNumberish>,
+    takeLoan(
+      _loanID: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -987,11 +1301,6 @@ export interface NonAggressionPact extends BaseContract {
   filters: {};
 
   estimateGas: {
-    addToWhitelist(
-      _nationID: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
     approveBattle(
       _nationID: PromiseOrValue<BigNumberish>,
       _encodedParams: PromiseOrValue<BytesLike>,
@@ -1136,31 +1445,73 @@ export interface NonAggressionPact extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    borrowerIDToLoanIDs(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    cancelLoan(
+      _loanID: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    createLoan(
+      _collateralTokenName: PromiseOrValue<string>,
+      _collateralAmount: PromiseOrValue<BigNumberish>,
+      _loanTokenName: PromiseOrValue<string>,
+      _loanAmount: PromiseOrValue<BigNumberish>,
+      _totalInterestPercentage: PromiseOrValue<BigNumberish>,
+      _duration: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
     description(overrides?: CallOverrides): Promise<BigNumber>;
 
     diamond(overrides?: CallOverrides): Promise<BigNumber>;
 
-    effectiveDuration(overrides?: CallOverrides): Promise<BigNumber>;
+    emptyLoan(overrides?: CallOverrides): Promise<BigNumber>;
+
+    getBorrowerLoanIDs(
+      _borrowerID: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getLenderLoanIDs(
+      _lenderID: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     init(
       _diamond: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
+    lenderIDToLoanIDs(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    liquidateCollateral(
+      _loanID: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    loanIDToLoan(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    loanNonce(overrides?: CallOverrides): Promise<BigNumber>;
+
     name(overrides?: CallOverrides): Promise<BigNumber>;
 
-    removeFromWhitelist(
-      _nationID: PromiseOrValue<BigNumberish>,
+    payOffLoan(
+      _loanID: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    removeMember(
-      _nationID: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
-    setEffectiveDuration(
-      _duration: PromiseOrValue<BigNumberish>,
+    takeLoan(
+      _loanID: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -1181,11 +1532,6 @@ export interface NonAggressionPact extends BaseContract {
   };
 
   populateTransaction: {
-    addToWhitelist(
-      _nationID: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
     approveBattle(
       _nationID: PromiseOrValue<BigNumberish>,
       _encodedParams: PromiseOrValue<BytesLike>,
@@ -1330,31 +1676,73 @@ export interface NonAggressionPact extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    borrowerIDToLoanIDs(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    cancelLoan(
+      _loanID: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    createLoan(
+      _collateralTokenName: PromiseOrValue<string>,
+      _collateralAmount: PromiseOrValue<BigNumberish>,
+      _loanTokenName: PromiseOrValue<string>,
+      _loanAmount: PromiseOrValue<BigNumberish>,
+      _totalInterestPercentage: PromiseOrValue<BigNumberish>,
+      _duration: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
     description(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     diamond(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    effectiveDuration(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    emptyLoan(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    getBorrowerLoanIDs(
+      _borrowerID: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getLenderLoanIDs(
+      _lenderID: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
     init(
       _diamond: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
+    lenderIDToLoanIDs(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    liquidateCollateral(
+      _loanID: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    loanIDToLoan(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    loanNonce(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     name(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    removeFromWhitelist(
-      _nationID: PromiseOrValue<BigNumberish>,
+    payOffLoan(
+      _loanID: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    removeMember(
-      _nationID: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    setEffectiveDuration(
-      _duration: PromiseOrValue<BigNumberish>,
+    takeLoan(
+      _loanID: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 

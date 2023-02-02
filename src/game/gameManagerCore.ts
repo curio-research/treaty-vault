@@ -21,13 +21,11 @@ export class GameManagerCore {
     // this should be variable based on network
     networkEngine.setSigner('92db14e403b83dfe3df233f83dfa3a0d7096f21ca9b0d6d6b8d88b2b4ec1564e');
     networkEngine.setDeployment(gameConfig);
-    networkEngine.resetSubscribeContractEvents();
+
+    // networkEngine.resetSubscribeContractEvents();
 
     this.apiManager = new ApiManager(networkEngine);
     this.apiManager.initializeApiManager(networkEngine);
-
-    // sync initialize game state?
-    // this.gameState.initializeAll();
   }
 
   public getAddress = (): string => {

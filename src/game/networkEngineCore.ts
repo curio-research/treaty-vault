@@ -10,6 +10,7 @@ import { makeObservable, observable } from 'mobx';
 import { TransactionReceipt } from '@ethersproject/providers';
 import { delay } from '../util/network';
 import { resolveProperties } from '@ethersproject/properties';
+import { checkIfStateModificationsAreAllowed } from 'mobx/dist/internal';
 
 // ------------------------------------------------------------
 // network engine
@@ -99,6 +100,7 @@ export class NetworkEngineCore {
    * @param eventHandlers event handlers, which take events and emit the proper events (Ex: the UI listens to them and changes state accordingly)
    */
   public subscribeToContractEvents(contracts: Contract[], filters: EventFilter[], eventHandlers: EventHandlers): void {
+    console.log('Subscribing to contract events');
     const debouncedOnNewBlock = debounce(this.processEvents.bind(this), 0, true, true);
 
     this.wsProvider.on('block', async (latestBlockNumber: number) => {
@@ -121,10 +123,6 @@ export class NetworkEngineCore {
     this.removeWebsocketConnection();
     this.addEventListeners();
   };
-
-  public removeEventListeners(): void {
-    this.wsProvider.removeAllListeners();
-  }
 
   // startBlock: inclusive
   // endBlock: inclusive
@@ -151,6 +149,7 @@ export class NetworkEngineCore {
         });
 
         const logs: Array<ethers.providers.Log> = await this.provider.perform('getLogs', params);
+
         logs.forEach((log) => {
           if (log.removed == null) {
             log.removed = false;

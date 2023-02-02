@@ -23,9 +23,8 @@ import type {
   PromiseOrValue,
 } from "../../common";
 
-export interface NonAggressionPactInterface extends utils.Interface {
+export interface BountyInterface extends utils.Interface {
   functions: {
-    "addToWhitelist(uint256)": FunctionFragment;
     "approveBattle(uint256,bytes)": FunctionFragment;
     "approveClaimTile(uint256,bytes)": FunctionFragment;
     "approveDelegateGameFunction(uint256,bytes)": FunctionFragment;
@@ -52,12 +51,8 @@ export interface NonAggressionPactInterface extends utils.Interface {
     "approveUpgradeTile(uint256,bytes)": FunctionFragment;
     "description()": FunctionFragment;
     "diamond()": FunctionFragment;
-    "effectiveDuration()": FunctionFragment;
     "init(address)": FunctionFragment;
     "name()": FunctionFragment;
-    "removeFromWhitelist(uint256)": FunctionFragment;
-    "removeMember(uint256)": FunctionFragment;
-    "setEffectiveDuration(uint256)": FunctionFragment;
     "treatyDelegateGameFunction(string,uint256,bool)": FunctionFragment;
     "treatyJoin()": FunctionFragment;
     "treatyLeave()": FunctionFragment;
@@ -65,7 +60,6 @@ export interface NonAggressionPactInterface extends utils.Interface {
 
   getFunction(
     nameOrSignatureOrTopic:
-      | "addToWhitelist"
       | "approveBattle"
       | "approveClaimTile"
       | "approveDelegateGameFunction"
@@ -92,21 +86,13 @@ export interface NonAggressionPactInterface extends utils.Interface {
       | "approveUpgradeTile"
       | "description"
       | "diamond"
-      | "effectiveDuration"
       | "init"
       | "name"
-      | "removeFromWhitelist"
-      | "removeMember"
-      | "setEffectiveDuration"
       | "treatyDelegateGameFunction"
       | "treatyJoin"
       | "treatyLeave"
   ): FunctionFragment;
 
-  encodeFunctionData(
-    functionFragment: "addToWhitelist",
-    values: [PromiseOrValue<BigNumberish>]
-  ): string;
   encodeFunctionData(
     functionFragment: "approveBattle",
     values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BytesLike>]
@@ -209,26 +195,10 @@ export interface NonAggressionPactInterface extends utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: "diamond", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "effectiveDuration",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
     functionFragment: "init",
     values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(functionFragment: "name", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "removeFromWhitelist",
-    values: [PromiseOrValue<BigNumberish>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "removeMember",
-    values: [PromiseOrValue<BigNumberish>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setEffectiveDuration",
-    values: [PromiseOrValue<BigNumberish>]
-  ): string;
   encodeFunctionData(
     functionFragment: "treatyDelegateGameFunction",
     values: [
@@ -246,10 +216,6 @@ export interface NonAggressionPactInterface extends utils.Interface {
     values?: undefined
   ): string;
 
-  decodeFunctionResult(
-    functionFragment: "addToWhitelist",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(
     functionFragment: "approveBattle",
     data: BytesLike
@@ -351,24 +317,8 @@ export interface NonAggressionPactInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "diamond", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "effectiveDuration",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "init", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "removeFromWhitelist",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "removeMember",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setEffectiveDuration",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(
     functionFragment: "treatyDelegateGameFunction",
     data: BytesLike
@@ -382,12 +332,12 @@ export interface NonAggressionPactInterface extends utils.Interface {
   events: {};
 }
 
-export interface NonAggressionPact extends BaseContract {
+export interface Bounty extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
 
-  interface: NonAggressionPactInterface;
+  interface: BountyInterface;
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
@@ -409,11 +359,6 @@ export interface NonAggressionPact extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
-    addToWhitelist(
-      _nationID: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
     approveBattle(
       _nationID: PromiseOrValue<BigNumberish>,
       _encodedParams: PromiseOrValue<BytesLike>,
@@ -562,29 +507,12 @@ export interface NonAggressionPact extends BaseContract {
 
     diamond(overrides?: CallOverrides): Promise<[string]>;
 
-    effectiveDuration(overrides?: CallOverrides): Promise<[BigNumber]>;
-
     init(
       _diamond: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     name(overrides?: CallOverrides): Promise<[string]>;
-
-    removeFromWhitelist(
-      _nationID: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
-    removeMember(
-      _nationID: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
-    setEffectiveDuration(
-      _duration: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
 
     treatyDelegateGameFunction(
       _functionName: PromiseOrValue<string>,
@@ -601,11 +529,6 @@ export interface NonAggressionPact extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
   };
-
-  addToWhitelist(
-    _nationID: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
 
   approveBattle(
     _nationID: PromiseOrValue<BigNumberish>,
@@ -755,29 +678,12 @@ export interface NonAggressionPact extends BaseContract {
 
   diamond(overrides?: CallOverrides): Promise<string>;
 
-  effectiveDuration(overrides?: CallOverrides): Promise<BigNumber>;
-
   init(
     _diamond: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   name(overrides?: CallOverrides): Promise<string>;
-
-  removeFromWhitelist(
-    _nationID: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
-  removeMember(
-    _nationID: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
-  setEffectiveDuration(
-    _duration: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
 
   treatyDelegateGameFunction(
     _functionName: PromiseOrValue<string>,
@@ -795,11 +701,6 @@ export interface NonAggressionPact extends BaseContract {
   ): Promise<ContractTransaction>;
 
   callStatic: {
-    addToWhitelist(
-      _nationID: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
     approveBattle(
       _nationID: PromiseOrValue<BigNumberish>,
       _encodedParams: PromiseOrValue<BytesLike>,
@@ -948,29 +849,12 @@ export interface NonAggressionPact extends BaseContract {
 
     diamond(overrides?: CallOverrides): Promise<string>;
 
-    effectiveDuration(overrides?: CallOverrides): Promise<BigNumber>;
-
     init(
       _diamond: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
 
     name(overrides?: CallOverrides): Promise<string>;
-
-    removeFromWhitelist(
-      _nationID: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    removeMember(
-      _nationID: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    setEffectiveDuration(
-      _duration: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<void>;
 
     treatyDelegateGameFunction(
       _functionName: PromiseOrValue<string>,
@@ -987,11 +871,6 @@ export interface NonAggressionPact extends BaseContract {
   filters: {};
 
   estimateGas: {
-    addToWhitelist(
-      _nationID: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
     approveBattle(
       _nationID: PromiseOrValue<BigNumberish>,
       _encodedParams: PromiseOrValue<BytesLike>,
@@ -1140,29 +1019,12 @@ export interface NonAggressionPact extends BaseContract {
 
     diamond(overrides?: CallOverrides): Promise<BigNumber>;
 
-    effectiveDuration(overrides?: CallOverrides): Promise<BigNumber>;
-
     init(
       _diamond: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     name(overrides?: CallOverrides): Promise<BigNumber>;
-
-    removeFromWhitelist(
-      _nationID: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
-    removeMember(
-      _nationID: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
-    setEffectiveDuration(
-      _duration: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
 
     treatyDelegateGameFunction(
       _functionName: PromiseOrValue<string>,
@@ -1181,11 +1043,6 @@ export interface NonAggressionPact extends BaseContract {
   };
 
   populateTransaction: {
-    addToWhitelist(
-      _nationID: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
     approveBattle(
       _nationID: PromiseOrValue<BigNumberish>,
       _encodedParams: PromiseOrValue<BytesLike>,
@@ -1334,29 +1191,12 @@ export interface NonAggressionPact extends BaseContract {
 
     diamond(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    effectiveDuration(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
     init(
       _diamond: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     name(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    removeFromWhitelist(
-      _nationID: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    removeMember(
-      _nationID: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    setEffectiveDuration(
-      _duration: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
 
     treatyDelegateGameFunction(
       _functionName: PromiseOrValue<string>,
