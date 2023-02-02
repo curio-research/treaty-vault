@@ -1,6 +1,6 @@
 {
   "name": "curio-vault",
-  "version": "1.3.5",
+  "version": "1.3.6",
   "description": "Shared code for the Curio stack",
   "main": "src/index.ts",
   "types": "src/index.ts",

@@ -114,7 +114,6 @@ export const COMPONENT_SPECS: CompType[] = [
 export interface componentInputTypeMap {
   IsComponent: boolean;
   Tag: string;
-  IsActive: boolean;
   InitTimestamp: number;
   Position: position;
   Owner: number;
