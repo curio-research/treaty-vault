@@ -10,7 +10,6 @@ import { makeObservable, observable } from 'mobx';
 import { TransactionReceipt } from '@ethersproject/providers';
 import { delay } from '../util/network';
 import { resolveProperties } from '@ethersproject/properties';
-import { checkIfStateModificationsAreAllowed } from 'mobx/dist/internal';
 
 // ------------------------------------------------------------
 // network engine
