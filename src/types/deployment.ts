@@ -1,6 +1,6 @@
 export enum TILE_TYPE {
   LAND = 0,
-  GOLDMINE_LV1 = 1,
+  CRYSTAL_MINE_LV1 = 1,
   FARM_LV1 = 2,
   BARBARIAN_LV1 = 3,
   BARBARIAN_LV2 = 4,
